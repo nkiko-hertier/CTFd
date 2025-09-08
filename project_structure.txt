@@ -1,0 +1,1437 @@
+.
+├── CHANGELOG.md
+├── CONTRIBUTING.md
+├── CTFd
+│   ├── __init__.py
+│   ├── __pycache__
+│   │   ├── __init__.cpython-312.pyc
+│   │   ├── auth.cpython-312.pyc
+│   │   ├── challenges.cpython-312.pyc
+│   │   ├── config.cpython-312.pyc
+│   │   ├── errors.cpython-312.pyc
+│   │   ├── scoreboard.cpython-312.pyc
+│   │   ├── share.cpython-312.pyc
+│   │   ├── teams.cpython-312.pyc
+│   │   ├── users.cpython-312.pyc
+│   │   └── views.cpython-312.pyc
+│   ├── admin
+│   │   ├── __init__.py
+│   │   ├── __pycache__
+│   │   │   ├── __init__.cpython-312.pyc
+│   │   │   ├── challenges.cpython-312.pyc
+│   │   │   ├── notifications.cpython-312.pyc
+│   │   │   ├── pages.cpython-312.pyc
+│   │   │   ├── scoreboard.cpython-312.pyc
+│   │   │   ├── statistics.cpython-312.pyc
+│   │   │   ├── submissions.cpython-312.pyc
+│   │   │   ├── teams.cpython-312.pyc
+│   │   │   └── users.cpython-312.pyc
+│   │   ├── challenges.py
+│   │   ├── notifications.py
+│   │   ├── pages.py
+│   │   ├── scoreboard.py
+│   │   ├── statistics.py
+│   │   ├── submissions.py
+│   │   ├── teams.py
+│   │   └── users.py
+│   ├── api
+│   │   ├── __init__.py
+│   │   ├── __pycache__
+│   │   │   └── __init__.cpython-312.pyc
+│   │   └── v1
+│   │       ├── __init__.py
+│   │       ├── __pycache__
+│   │       │   ├── __init__.cpython-312.pyc
+│   │       │   ├── awards.cpython-312.pyc
+│   │       │   ├── brackets.cpython-312.pyc
+│   │       │   ├── challenges.cpython-312.pyc
+│   │       │   ├── comments.cpython-312.pyc
+│   │       │   ├── config.cpython-312.pyc
+│   │       │   ├── exports.cpython-312.pyc
+│   │       │   ├── files.cpython-312.pyc
+│   │       │   ├── flags.cpython-312.pyc
+│   │       │   ├── hints.cpython-312.pyc
+│   │       │   ├── notifications.cpython-312.pyc
+│   │       │   ├── pages.cpython-312.pyc
+│   │       │   ├── scoreboard.cpython-312.pyc
+│   │       │   ├── shares.cpython-312.pyc
+│   │       │   ├── solutions.cpython-312.pyc
+│   │       │   ├── submissions.cpython-312.pyc
+│   │       │   ├── tags.cpython-312.pyc
+│   │       │   ├── teams.cpython-312.pyc
+│   │       │   ├── tokens.cpython-312.pyc
+│   │       │   ├── topics.cpython-312.pyc
+│   │       │   ├── unlocks.cpython-312.pyc
+│   │       │   └── users.cpython-312.pyc
+│   │       ├── awards.py
+│   │       ├── brackets.py
+│   │       ├── challenges.py
+│   │       ├── comments.py
+│   │       ├── config.py
+│   │       ├── exports.py
+│   │       ├── files.py
+│   │       ├── flags.py
+│   │       ├── helpers
+│   │       │   ├── __init__.py
+│   │       │   ├── __pycache__
+│   │       │   │   ├── __init__.cpython-312.pyc
+│   │       │   │   ├── request.cpython-312.pyc
+│   │       │   │   └── schemas.cpython-312.pyc
+│   │       │   ├── models.py
+│   │       │   ├── request.py
+│   │       │   └── schemas.py
+│   │       ├── hints.py
+│   │       ├── notifications.py
+│   │       ├── pages.py
+│   │       ├── schemas
+│   │       │   ├── __init__.py
+│   │       │   └── __pycache__
+│   │       │       └── __init__.cpython-312.pyc
+│   │       ├── scoreboard.py
+│   │       ├── shares.py
+│   │       ├── solutions.py
+│   │       ├── statistics
+│   │       │   ├── __init__.py
+│   │       │   ├── __pycache__
+│   │       │   │   ├── __init__.cpython-312.pyc
+│   │       │   │   ├── challenges.cpython-312.pyc
+│   │       │   │   ├── scores.cpython-312.pyc
+│   │       │   │   ├── submissions.cpython-312.pyc
+│   │       │   │   ├── teams.cpython-312.pyc
+│   │       │   │   └── users.cpython-312.pyc
+│   │       │   ├── challenges.py
+│   │       │   ├── scores.py
+│   │       │   ├── submissions.py
+│   │       │   ├── teams.py
+│   │       │   └── users.py
+│   │       ├── submissions.py
+│   │       ├── tags.py
+│   │       ├── teams.py
+│   │       ├── tokens.py
+│   │       ├── topics.py
+│   │       ├── unlocks.py
+│   │       └── users.py
+│   ├── auth.py
+│   ├── cache
+│   │   ├── __init__.py
+│   │   └── __pycache__
+│   │       └── __init__.cpython-312.pyc
+│   ├── challenges.py
+│   ├── cli
+│   │   ├── __init__.py
+│   │   └── __pycache__
+│   │       └── __init__.cpython-312.pyc
+│   ├── config.ini
+│   ├── config.py
+│   ├── constants
+│   │   ├── __init__.py
+│   │   ├── __pycache__
+│   │   │   ├── __init__.cpython-312.pyc
+│   │   │   ├── assets.cpython-312.pyc
+│   │   │   ├── config.cpython-312.pyc
+│   │   │   ├── email.cpython-312.pyc
+│   │   │   ├── languages.cpython-312.pyc
+│   │   │   ├── options.cpython-312.pyc
+│   │   │   ├── plugins.cpython-312.pyc
+│   │   │   ├── sessions.cpython-312.pyc
+│   │   │   ├── setup.cpython-312.pyc
+│   │   │   ├── static.cpython-312.pyc
+│   │   │   ├── teams.cpython-312.pyc
+│   │   │   ├── themes.cpython-312.pyc
+│   │   │   └── users.cpython-312.pyc
+│   │   ├── assets.py
+│   │   ├── config.py
+│   │   ├── email.py
+│   │   ├── languages.py
+│   │   ├── options.py
+│   │   ├── plugins.py
+│   │   ├── sessions.py
+│   │   ├── setup.py
+│   │   ├── static.py
+│   │   ├── teams.py
+│   │   ├── themes.py
+│   │   └── users.py
+│   ├── ctfd.db
+│   ├── errors.py
+│   ├── events
+│   │   ├── __init__.py
+│   │   └── __pycache__
+│   │       └── __init__.cpython-312.pyc
+│   ├── exceptions
+│   │   ├── __init__.py
+│   │   ├── __pycache__
+│   │   │   ├── __init__.cpython-312.pyc
+│   │   │   ├── challenges.cpython-312.pyc
+│   │   │   └── email.cpython-312.pyc
+│   │   ├── challenges.py
+│   │   └── email.py
+│   ├── fonts
+│   │   ├── OFL.txt
+│   │   └── OpenSans-Bold.ttf
+│   ├── forms
+│   │   ├── __init__.py
+│   │   ├── __pycache__
+│   │   │   ├── __init__.cpython-312.pyc
+│   │   │   ├── auth.cpython-312.pyc
+│   │   │   ├── awards.cpython-312.pyc
+│   │   │   ├── challenges.cpython-312.pyc
+│   │   │   ├── config.cpython-312.pyc
+│   │   │   ├── email.cpython-312.pyc
+│   │   │   ├── fields.cpython-312.pyc
+│   │   │   ├── language.cpython-312.pyc
+│   │   │   ├── notifications.cpython-312.pyc
+│   │   │   ├── pages.cpython-312.pyc
+│   │   │   ├── self.cpython-312.pyc
+│   │   │   ├── setup.cpython-312.pyc
+│   │   │   ├── submissions.cpython-312.pyc
+│   │   │   ├── teams.cpython-312.pyc
+│   │   │   └── users.cpython-312.pyc
+│   │   ├── auth.py
+│   │   ├── awards.py
+│   │   ├── challenges.py
+│   │   ├── config.py
+│   │   ├── email.py
+│   │   ├── fields.py
+│   │   ├── language.py
+│   │   ├── notifications.py
+│   │   ├── pages.py
+│   │   ├── self.py
+│   │   ├── setup.py
+│   │   ├── submissions.py
+│   │   ├── teams.py
+│   │   └── users.py
+│   ├── logs
+│   │   ├── logins.log
+│   │   ├── registrations.log
+│   │   └── submissions.log
+│   ├── models
+│   │   ├── __init__.py
+│   │   └── __pycache__
+│   │       └── __init__.cpython-312.pyc
+│   ├── plugins
+│   │   ├── __init__.py
+│   │   ├── __pycache__
+│   │   │   ├── __init__.cpython-312.pyc
+│   │   │   └── migrations.cpython-312.pyc
+│   │   ├── challenges
+│   │   │   ├── __init__.py
+│   │   │   ├── __pycache__
+│   │   │   │   ├── __init__.cpython-312.pyc
+│   │   │   │   └── logic.cpython-312.pyc
+│   │   │   ├── assets
+│   │   │   │   ├── create.html
+│   │   │   │   ├── create.js
+│   │   │   │   ├── update.html
+│   │   │   │   ├── update.js
+│   │   │   │   ├── view.html
+│   │   │   │   └── view.js
+│   │   │   └── logic.py
+│   │   ├── dynamic_challenges
+│   │   │   ├── README.md
+│   │   │   ├── __init__.py
+│   │   │   ├── __pycache__
+│   │   │   │   ├── __init__.cpython-312.pyc
+│   │   │   │   └── decay.cpython-312.pyc
+│   │   │   ├── assets
+│   │   │   │   ├── create.html
+│   │   │   │   ├── create.js
+│   │   │   │   ├── update.html
+│   │   │   │   ├── update.js
+│   │   │   │   ├── view.html
+│   │   │   │   └── view.js
+│   │   │   ├── decay.py
+│   │   │   ├── function.png
+│   │   │   └── migrations
+│   │   │       ├── b37fb68807ea_add_cascading_delete_to_dynamic_.py
+│   │   │       └── eb68f277ab61_add_func_column_to_dynamic_challenges.py
+│   │   ├── flags
+│   │   │   ├── __init__.py
+│   │   │   ├── __pycache__
+│   │   │   │   └── __init__.cpython-312.pyc
+│   │   │   ├── assets
+│   │   │   │   ├── regex
+│   │   │   │   │   ├── create.html
+│   │   │   │   │   └── edit.html
+│   │   │   │   └── static
+│   │   │   │       ├── create.html
+│   │   │   │       └── edit.html
+│   │   │   └── tests
+│   │   │       ├── __init__.py
+│   │   │       └── test_flags.py
+│   │   └── migrations.py
+│   ├── schemas
+│   │   ├── __init__.py
+│   │   ├── __pycache__
+│   │   │   ├── __init__.cpython-312.pyc
+│   │   │   ├── awards.cpython-312.pyc
+│   │   │   ├── brackets.cpython-312.pyc
+│   │   │   ├── challenges.cpython-312.pyc
+│   │   │   ├── comments.cpython-312.pyc
+│   │   │   ├── config.cpython-312.pyc
+│   │   │   ├── fields.cpython-312.pyc
+│   │   │   ├── files.cpython-312.pyc
+│   │   │   ├── flags.cpython-312.pyc
+│   │   │   ├── hints.cpython-312.pyc
+│   │   │   ├── notifications.cpython-312.pyc
+│   │   │   ├── pages.cpython-312.pyc
+│   │   │   ├── ratings.cpython-312.pyc
+│   │   │   ├── solutions.cpython-312.pyc
+│   │   │   ├── submissions.cpython-312.pyc
+│   │   │   ├── tags.cpython-312.pyc
+│   │   │   ├── teams.cpython-312.pyc
+│   │   │   ├── tokens.cpython-312.pyc
+│   │   │   ├── topics.cpython-312.pyc  
+│   │   │   ├── unlocks.cpython-312.pyc
+│   │   │   └── users.cpython-312.pyc
+│   │   ├── awards.py
+│   │   ├── brackets.py
+│   │   ├── challenges.py
+│   │   ├── comments.py
+│   │   ├── config.py
+│   │   ├── fields.py
+│   │   ├── files.py
+│   │   ├── flags.py
+│   │   ├── hints.py
+│   │   ├── notifications.py
+│   │   ├── pages.py
+│   │   ├── ratings.py
+│   │   ├── solutions.py
+│   │   ├── submissions.py
+│   │   ├── tags.py
+│   │   ├── teams.py
+│   │   ├── tokens.py
+│   │   ├── topics.py
+│   │   ├── unlocks.py
+│   │   └── users.py
+│   ├── scoreboard.py
+│   ├── share.py
+│   ├── teams.py
+│   ├── themes
+│   │   ├── admin
+│   │   │   ├── assets
+│   │   │   │   ├── css
+│   │   │   │   │   ├── admin.scss
+│   │   │   │   │   ├── challenge-board.scss
+│   │   │   │   │   ├── codemirror.scss
+│   │   │   │   │   ├── fonts.scss
+│   │   │   │   │   ├── includes
+│   │   │   │   │   │   ├── award-icons.scss
+│   │   │   │   │   │   ├── easymde.scss
+│   │   │   │   │   │   ├── flag-icons.scss
+│   │   │   │   │   │   ├── jumbotron.css
+│   │   │   │   │   │   ├── min-height.scss
+│   │   │   │   │   │   ├── opacity.scss
+│   │   │   │   │   │   └── sticky-footer.css
+│   │   │   │   │   └── main.scss
+│   │   │   │   └── js
+│   │   │   │       ├── challenges
+│   │   │   │       │   ├── challenge.js
+│   │   │   │       │   ├── new.js
+│   │   │   │       │   └── tags.js
+│   │   │   │       ├── compat
+│   │   │   │       │   ├── CTFd.js
+│   │   │   │       │   ├── api.js
+│   │   │   │       │   ├── config.js
+│   │   │   │       │   ├── events.js
+│   │   │   │       │   ├── ezq.js
+│   │   │   │       │   ├── fetch.js
+│   │   │   │       │   ├── format.js
+│   │   │   │       │   ├── graphs.js
+│   │   │   │       │   ├── helpers.js
+│   │   │   │       │   ├── json.js
+│   │   │   │       │   ├── math.js
+│   │   │   │       │   ├── patch.js
+│   │   │   │       │   ├── styles.js
+│   │   │   │       │   ├── times.js
+│   │   │   │       │   ├── ui.js
+│   │   │   │       │   └── wc.js
+│   │   │   │       ├── components
+│   │   │   │       │   ├── comments
+│   │   │   │       │   │   └── CommentBox.vue
+│   │   │   │       │   ├── configs
+│   │   │   │       │   │   ├── brackets
+│   │   │   │       │   │   │   ├── Bracket.vue
+│   │   │   │       │   │   │   └── BracketList.vue
+│   │   │   │       │   │   └── fields
+│   │   │   │       │   │       ├── Field.vue
+│   │   │   │       │   │       └── FieldList.vue
+│   │   │   │       │   ├── files
+│   │   │   │       │   │   ├── ChallengeFilesList.vue
+│   │   │   │       │   │   └── MediaLibrary.vue
+│   │   │   │       │   ├── flags
+│   │   │   │       │   │   ├── FlagCreationForm.vue
+│   │   │   │       │   │   ├── FlagEditForm.vue
+│   │   │   │       │   │   └── FlagList.vue
+│   │   │   │       │   ├── hints
+│   │   │   │       │   │   ├── HintCreationForm.vue
+│   │   │   │       │   │   ├── HintEditForm.vue
+│   │   │   │       │   │   └── HintsList.vue
+│   │   │   │       │   ├── next
+│   │   │   │       │   │   └── NextChallenge.vue
+│   │   │   │       │   ├── notifications
+│   │   │   │       │   │   └── Notification.vue
+│   │   │   │       │   ├── ratings
+│   │   │   │       │   │   └── RatingsViewer.vue
+│   │   │   │       │   ├── requirements
+│   │   │   │       │   │   └── Requirements.vue
+│   │   │   │       │   ├── solution
+│   │   │   │       │   │   └── SolutionEditor.vue
+│   │   │   │       │   ├── tags
+│   │   │   │       │   │   └── TagsList.vue
+│   │   │   │       │   ├── teams
+│   │   │   │       │   │   └── UserAddForm.vue
+│   │   │   │       │   └── topics
+│   │   │   │       │       └── TopicsList.vue
+│   │   │   │       ├── pages
+│   │   │   │       │   ├── challenge.js
+│   │   │   │       │   ├── challenges.js
+│   │   │   │       │   ├── configs.js
+│   │   │   │       │   ├── editor.js
+│   │   │   │       │   ├── events.js
+│   │   │   │       │   ├── main.js
+│   │   │   │       │   ├── notifications.js
+│   │   │   │       │   ├── pages.js
+│   │   │   │       │   ├── reset.js
+│   │   │   │       │   ├── scoreboard.js
+│   │   │   │       │   ├── statistics.js
+│   │   │   │       │   ├── style.js
+│   │   │   │       │   ├── submissions.js
+│   │   │   │       │   ├── team.js
+│   │   │   │       │   ├── teams.js
+│   │   │   │       │   ├── user.js
+│   │   │   │       │   └── users.js
+│   │   │   │       ├── styles.js
+│   │   │   │       ├── templates
+│   │   │   │       │   └── admin-flags-table.njk
+│   │   │   │       └── timezones.js
+│   │   │   ├── package.json
+│   │   │   ├── static
+│   │   │   │   ├── assets
+│   │   │   │   │   ├── CommentBox-CBClD8yz.js
+│   │   │   │   │   ├── CommentBox-CZ8OEr5k.css
+│   │   │   │   │   ├── admin-css-Bj5aeLSk.css
+│   │   │   │   │   ├── challenge-DY7T5JQl.css
+│   │   │   │   │   ├── challenge-board-css-CpAEjUPb.css
+│   │   │   │   │   ├── codemirror-css-DRHJUI8W.css
+│   │   │   │   │   ├── echarts-l0sNRNKZ.js
+│   │   │   │   │   ├── echarts.common-mykzcWB7.js
+│   │   │   │   │   ├── fonts-css-B0NUqHPX.css
+│   │   │   │   │   ├── graphs-jArcrQQ8.js
+│   │   │   │   │   ├── htmlmixed-vBdNL_dI.js
+│   │   │   │   │   ├── main-css-CoszOyzj.css
+│   │   │   │   │   ├── pages
+│   │   │   │   │   │   ├── challenge-Dli5BpRX.js
+│   │   │   │   │   │   ├── challenges-CBkndpQO.js
+│   │   │   │   │   │   ├── configs-DdgMjjoH.js
+│   │   │   │   │   │   ├── editor-Cjao4UkU.js
+│   │   │   │   │   │   ├── main-CcyKUC_q.js
+│   │   │   │   │   │   ├── notifications-wuA3N3gF.js
+│   │   │   │   │   │   ├── pages-CHd53Cqu.js
+│   │   │   │   │   │   ├── reset-B_I5EjEB.js
+│   │   │   │   │   │   ├── scoreboard-DHe7f0Yh.js
+│   │   │   │   │   │   ├── statistics-axPwqrbc.js
+│   │   │   │   │   │   ├── submissions-DIux1aJH.js
+│   │   │   │   │   │   ├── team-CiYqyHrZ.js
+│   │   │   │   │   │   ├── teams-4c2lZGg6.js
+│   │   │   │   │   │   ├── user-DtkurpXM.js
+│   │   │   │   │   │   └── users-CF1Z-5Al.js
+│   │   │   │   │   └── tab-BrZ-GZoF.js
+│   │   │   │   ├── img
+│   │   │   │   │   ├── README.md
+│   │   │   │   │   ├── favicon.ico
+│   │   │   │   │   └── logo.png
+│   │   │   │   ├── manifest.json
+│   │   │   │   ├── sounds
+│   │   │   │   │   ├── README.md
+│   │   │   │   │   ├── notification.mp3
+│   │   │   │   │   └── notification.webm
+│   │   │   │   └── webfonts
+│   │   │   │       ├── fa-brands-400.ttf
+│   │   │   │       ├── fa-brands-400.woff2
+│   │   │   │       ├── fa-regular-400.ttf
+│   │   │   │       ├── fa-regular-400.woff2
+│   │   │   │       ├── fa-solid-900.ttf
+│   │   │   │       ├── fa-solid-900.woff2
+│   │   │   │       ├── fa-v4compatibility.ttf
+│   │   │   │       ├── fa-v4compatibility.woff2
+│   │   │   │       ├── lato-latin-400-normal.woff
+│   │   │   │       ├── lato-latin-400-normal.woff2
+│   │   │   │       ├── lato-latin-700-normal.woff
+│   │   │   │       ├── lato-latin-700-normal.woff2
+│   │   │   │       ├── lato-latin-ext-400-normal.woff
+│   │   │   │       ├── lato-latin-ext-400-normal.woff2
+│   │   │   │       ├── lato-latin-ext-700-normal.woff
+│   │   │   │       ├── lato-latin-ext-700-normal.woff2
+│   │   │   │       ├── raleway-cyrillic-500-normal.woff
+│   │   │   │       ├── raleway-cyrillic-500-normal.woff2
+│   │   │   │       ├── raleway-cyrillic-ext-500-normal.woff
+│   │   │   │       ├── raleway-cyrillic-ext-500-normal.woff2
+│   │   │   │       ├── raleway-latin-500-normal.woff
+│   │   │   │       ├── raleway-latin-500-normal.woff2
+│   │   │   │       ├── raleway-latin-ext-500-normal.woff
+│   │   │   │       ├── raleway-latin-ext-500-normal.woff2
+│   │   │   │       ├── raleway-vietnamese-500-normal.woff
+│   │   │   │       └── raleway-vietnamese-500-normal.woff2
+│   │   │   ├── templates
+│   │   │   │   ├── base.html
+│   │   │   │   ├── challenges
+│   │   │   │   │   ├── challenge.html
+│   │   │   │   │   ├── challenges.html
+│   │   │   │   │   ├── create.html
+│   │   │   │   │   ├── new.html
+│   │   │   │   │   ├── preview.html
+│   │   │   │   │   └── update.html
+│   │   │   │   ├── config.html
+│   │   │   │   ├── configs
+│   │   │   │   │   ├── accounts.html
+│   │   │   │   │   ├── backup.html
+│   │   │   │   │   ├── brackets.html
+│   │   │   │   │   ├── challenges.html
+│   │   │   │   │   ├── email.html
+│   │   │   │   │   ├── fields.html
+│   │   │   │   │   ├── general.html
+│   │   │   │   │   ├── legal.html
+│   │   │   │   │   ├── localization.html
+│   │   │   │   │   ├── logo.html
+│   │   │   │   │   ├── mlc.html
+│   │   │   │   │   ├── pause.html
+│   │   │   │   │   ├── registration_code.html
+│   │   │   │   │   ├── robots.html
+│   │   │   │   │   ├── sanitize.html
+│   │   │   │   │   ├── social.html
+│   │   │   │   │   ├── theme.html
+│   │   │   │   │   ├── time.html
+│   │   │   │   │   ├── usermode.html
+│   │   │   │   │   └── visibility.html
+│   │   │   │   ├── editor.html
+│   │   │   │   ├── import.html
+│   │   │   │   ├── integrations.html
+│   │   │   │   ├── macros
+│   │   │   │   │   └── forms.html
+│   │   │   │   ├── modals
+│   │   │   │   │   ├── awards
+│   │   │   │   │   │   └── create.html
+│   │   │   │   │   ├── challenges
+│   │   │   │   │   │   ├── challenges.html
+│   │   │   │   │   │   ├── files.html
+│   │   │   │   │   │   ├── flags.html
+│   │   │   │   │   │   ├── hints.html
+│   │   │   │   │   │   ├── next.html
+│   │   │   │   │   │   ├── requirements.html
+│   │   │   │   │   │   ├── solution.html
+│   │   │   │   │   │   ├── solves.html
+│   │   │   │   │   │   ├── tags.html
+│   │   │   │   │   │   └── topics.html
+│   │   │   │   │   ├── mail
+│   │   │   │   │   │   └── send.html
+│   │   │   │   │   ├── teams
+│   │   │   │   │   │   ├── addresses.html
+│   │   │   │   │   │   ├── captain.html
+│   │   │   │   │   │   ├── create.html
+│   │   │   │   │   │   ├── edit.html
+│   │   │   │   │   │   └── statistics.html
+│   │   │   │   │   └── users
+│   │   │   │   │       ├── addresses.html
+│   │   │   │   │       ├── create.html
+│   │   │   │   │       ├── edit.html
+│   │   │   │   │       └── statistics.html
+│   │   │   │   ├── notifications.html
+│   │   │   │   ├── page.html
+│   │   │   │   ├── pages.html
+│   │   │   │   ├── reset.html
+│   │   │   │   ├── scoreboard
+│   │   │   │   │   ├── standings.html
+│   │   │   │   │   └── users.html
+│   │   │   │   ├── scoreboard.html
+│   │   │   │   ├── statistics.html
+│   │   │   │   ├── submissions.html
+│   │   │   │   ├── teams
+│   │   │   │   │   ├── new.html
+│   │   │   │   │   ├── team.html
+│   │   │   │   │   └── teams.html
+│   │   │   │   └── users
+│   │   │   │       ├── new.html
+│   │   │   │       ├── user.html
+│   │   │   │       └── users.html
+│   │   │   ├── vite.config.js
+│   │   │   └── yarn.lock
+│   │   ├── core
+│   │   │   ├── LICENSE
+│   │   │   ├── README.md
+│   │   │   ├── assets
+│   │   │   │   ├── img
+│   │   │   │   │   ├── ctfd.ai
+│   │   │   │   │   ├── ctfd.svg
+│   │   │   │   │   ├── ctfd_transfer.svg
+│   │   │   │   │   ├── favicon.ico
+│   │   │   │   │   ├── logo.png
+│   │   │   │   │   ├── logo_old.png
+│   │   │   │   │   └── scoreboard.png
+│   │   │   │   ├── js
+│   │   │   │   │   ├── challenges.js
+│   │   │   │   │   ├── color_mode_switcher.js
+│   │   │   │   │   ├── components
+│   │   │   │   │   │   └── language.js
+│   │   │   │   │   ├── index.js
+│   │   │   │   │   ├── notifications.js
+│   │   │   │   │   ├── page.js
+│   │   │   │   │   ├── scoreboard.js
+│   │   │   │   │   ├── settings.js
+│   │   │   │   │   ├── setup.js
+│   │   │   │   │   ├── teams
+│   │   │   │   │   │   ├── list.js
+│   │   │   │   │   │   ├── private.js
+│   │   │   │   │   │   └── public.js
+│   │   │   │   │   ├── theme
+│   │   │   │   │   │   ├── highlight.js
+│   │   │   │   │   │   ├── styles.js
+│   │   │   │   │   │   └── times.js
+│   │   │   │   │   ├── users
+│   │   │   │   │   │   ├── list.js
+│   │   │   │   │   │   ├── private.js
+│   │   │   │   │   │   └── public.js
+│   │   │   │   │   └── utils
+│   │   │   │   │       ├── alerts.js
+│   │   │   │   │       ├── clipboard.js
+│   │   │   │   │       ├── collapse.js
+│   │   │   │   │       ├── graphs
+│   │   │   │   │       │   ├── echarts
+│   │   │   │   │       │   │   ├── categories.js
+│   │   │   │   │       │   │   ├── index.js
+│   │   │   │   │       │   │   ├── scoreboard.js
+│   │   │   │   │       │   │   ├── solve-percentage.js
+│   │   │   │   │       │   │   └── userscore.js
+│   │   │   │   │       │   └── vega
+│   │   │   │   │       │       ├── categories.js
+│   │   │   │   │       │       ├── scoreboard.js
+│   │   │   │   │       │       ├── solve-percentage.js
+│   │   │   │   │       │       └── userscore.js
+│   │   │   │   │       ├── math.js
+│   │   │   │   │       ├── notifications
+│   │   │   │   │       │   ├── alerts.js
+│   │   │   │   │       │   ├── read.js
+│   │   │   │   │       │   └── toasts.js
+│   │   │   │   │       ├── objects.js
+│   │   │   │   │       └── tooltips.js
+│   │   │   │   ├── scss
+│   │   │   │   │   ├── includes
+│   │   │   │   │   │   ├── components
+│   │   │   │   │   │   │   ├── _challenge.scss
+│   │   │   │   │   │   │   ├── _graphs.scss
+│   │   │   │   │   │   │   ├── _jumbotron.scss
+│   │   │   │   │   │   │   ├── _sticky-footer.scss
+│   │   │   │   │   │   │   └── _table.scss
+│   │   │   │   │   │   ├── icons
+│   │   │   │   │   │   │   ├── _award-icons.scss
+│   │   │   │   │   │   │   └── _flag-icons.scss
+│   │   │   │   │   │   └── utils
+│   │   │   │   │   │       ├── _cursors.scss
+│   │   │   │   │   │       ├── _fonts.scss
+│   │   │   │   │   │       ├── _lolight.scss
+│   │   │   │   │   │       ├── _min-height.scss
+│   │   │   │   │   │       └── _opacity.scss
+│   │   │   │   │   └── main.scss
+│   │   │   │   └── sounds
+│   │   │   │       ├── README.md
+│   │   │   │       ├── notification.mp3
+│   │   │   │       └── notification.webm
+│   │   │   ├── package.json
+│   │   │   ├── postcss.config.js
+│   │   │   ├── static
+│   │   │   │   ├── assets
+│   │   │   │   │   ├── challenges.f0f38b54.js
+│   │   │   │   │   ├── clipboard.98f9b827.js
+│   │   │   │   │   ├── color_mode_switcher.52334129.js
+│   │   │   │   │   ├── echarts.128204f2.js
+│   │   │   │   │   ├── index.1cf73b05.js
+│   │   │   │   │   ├── index.b6be5691.js
+│   │   │   │   │   ├── main.e9ec7884.css
+│   │   │   │   │   ├── notifications.000e9e48.js
+│   │   │   │   │   ├── page.1b85bc2f.js
+│   │   │   │   │   ├── scoreboard.53fd757c.js
+│   │   │   │   │   ├── settings.03b0e683.js
+│   │   │   │   │   ├── setup.4eefe5bd.js
+│   │   │   │   │   ├── teams_list.c05d3ab2.js
+│   │   │   │   │   ├── teams_private.95e0ff5a.js
+│   │   │   │   │   ├── teams_public.abbb7195.js
+│   │   │   │   │   ├── users_list.2eaa0218.js
+│   │   │   │   │   ├── users_private.96602664.js
+│   │   │   │   │   ├── users_public.4d659b93.js
+│   │   │   │   │   └── userscore.34b29f86.js
+│   │   │   │   ├── img
+│   │   │   │   │   ├── ctfd.ai
+│   │   │   │   │   ├── ctfd.svg
+│   │   │   │   │   ├── ctfd_transfer.svg
+│   │   │   │   │   ├── favicon.ico
+│   │   │   │   │   ├── logo.png
+│   │   │   │   │   ├── logo_old.png
+│   │   │   │   │   └── scoreboard.png
+│   │   │   │   ├── manifest.json
+│   │   │   │   ├── sounds
+│   │   │   │   │   ├── README.md
+│   │   │   │   │   ├── notification.mp3
+│   │   │   │   │   └── notification.webm
+│   │   │   │   └── webfonts
+│   │   │   │       ├── fa-brands-400.ttf
+│   │   │   │       ├── fa-brands-400.woff2
+│   │   │   │       ├── fa-regular-400.ttf
+│   │   │   │       ├── fa-regular-400.woff2
+│   │   │   │       ├── fa-solid-900.ttf
+│   │   │   │       ├── fa-solid-900.woff2
+│   │   │   │       ├── fa-v4compatibility.ttf
+│   │   │   │       ├── fa-v4compatibility.woff2
+│   │   │   │       ├── lato-all-400-normal.woff
+│   │   │   │       ├── lato-all-700-normal.woff
+│   │   │   │       ├── lato-latin-400-normal.woff
+│   │   │   │       ├── lato-latin-400-normal.woff2
+│   │   │   │       ├── lato-latin-700-normal.woff
+│   │   │   │       ├── lato-latin-700-normal.woff2
+│   │   │   │       ├── lato-latin-ext-400-normal.woff
+│   │   │   │       ├── lato-latin-ext-400-normal.woff2
+│   │   │   │       ├── lato-latin-ext-700-normal.woff
+│   │   │   │       ├── lato-latin-ext-700-normal.woff2
+│   │   │   │       ├── raleway-all-400-normal.woff
+│   │   │   │       ├── raleway-cyrillic-400-normal.woff
+│   │   │   │       ├── raleway-cyrillic-400-normal.woff2
+│   │   │   │       ├── raleway-cyrillic-ext-400-normal.woff
+│   │   │   │       ├── raleway-cyrillic-ext-400-normal.woff2
+│   │   │   │       ├── raleway-latin-400-normal.woff
+│   │   │   │       ├── raleway-latin-400-normal.woff2
+│   │   │   │       ├── raleway-latin-ext-400-normal.woff
+│   │   │   │       ├── raleway-latin-ext-400-normal.woff2
+│   │   │   │       ├── raleway-vietnamese-400-normal.woff
+│   │   │   │       └── raleway-vietnamese-400-normal.woff2
+│   │   │   ├── templates
+│   │   │   │   ├── base.html
+│   │   │   │   ├── challenge.html
+│   │   │   │   ├── challenges.html
+│   │   │   │   ├── components
+│   │   │   │   │   ├── errors.html
+│   │   │   │   │   ├── navbar.html
+│   │   │   │   │   ├── notifications.html
+│   │   │   │   │   └── snackbar.html
+│   │   │   │   ├── config.html
+│   │   │   │   ├── confirm.html
+│   │   │   │   ├── errors
+│   │   │   │   │   ├── 403.html
+│   │   │   │   │   ├── 404.html
+│   │   │   │   │   ├── 429.html
+│   │   │   │   │   ├── 500.html
+│   │   │   │   │   └── 502.html
+│   │   │   │   ├── login.html
+│   │   │   │   ├── macros
+│   │   │   │   │   └── forms.html
+│   │   │   │   ├── notifications.html
+│   │   │   │   ├── page.html
+│   │   │   │   ├── register.html
+│   │   │   │   ├── reset_password.html
+│   │   │   │   ├── scoreboard.html
+│   │   │   │   ├── settings.html
+│   │   │   │   ├── setup.html
+│   │   │   │   ├── teams
+│   │   │   │   │   ├── invite.html
+│   │   │   │   │   ├── join_team.html
+│   │   │   │   │   ├── new_team.html
+│   │   │   │   │   ├── private.html
+│   │   │   │   │   ├── public.html
+│   │   │   │   │   ├── team_enrollment.html
+│   │   │   │   │   └── teams.html
+│   │   │   │   └── users
+│   │   │   │       ├── private.html
+│   │   │   │       ├── public.html
+│   │   │   │       └── users.html
+│   │   │   ├── vite.config.js
+│   │   │   └── yarn.lock
+│   │   └── core-deprecated
+│   │       ├── assets
+│   │       │   ├── css
+│   │       │   │   ├── challenge-board.scss
+│   │       │   │   ├── codemirror.scss
+│   │       │   │   ├── core.scss
+│   │       │   │   ├── fonts.scss
+│   │       │   │   ├── includes
+│   │       │   │   │   ├── award-icons.scss
+│   │       │   │   │   ├── flag-icons.scss
+│   │       │   │   │   ├── jumbotron.css
+│   │       │   │   │   ├── sticky-footer.css
+│   │       │   │   │   └── utils
+│   │       │   │   │       ├── min-height.scss
+│   │       │   │   │       └── opacity.scss
+│   │       │   │   └── main.scss
+│   │       │   └── js
+│   │       │       ├── CTFd.js
+│   │       │       ├── api.js
+│   │       │       ├── config.js
+│   │       │       ├── events.js
+│   │       │       ├── ezq.js
+│   │       │       ├── fetch.js
+│   │       │       ├── graphs.js
+│   │       │       ├── helpers.js
+│   │       │       ├── pages
+│   │       │       │   ├── challenges.js
+│   │       │       │   ├── events.js
+│   │       │       │   ├── main.js
+│   │       │       │   ├── notifications.js
+│   │       │       │   ├── scoreboard.js
+│   │       │       │   ├── settings.js
+│   │       │       │   ├── setup.js
+│   │       │       │   ├── stats.js
+│   │       │       │   ├── style.js
+│   │       │       │   └── teams
+│   │       │       │       └── private.js
+│   │       │       ├── patch.js
+│   │       │       ├── styles.js
+│   │       │       ├── times.js
+│   │       │       └── utils.js
+│   │       ├── static
+│   │       │   ├── css
+│   │       │   │   ├── challenge-board.dev.css
+│   │       │   │   ├── challenge-board.min.css
+│   │       │   │   ├── codemirror.dev.css
+│   │       │   │   ├── codemirror.min.css
+│   │       │   │   ├── core.dev.css
+│   │       │   │   ├── core.min.css
+│   │       │   │   ├── fonts.dev.css
+│   │       │   │   ├── fonts.min.css
+│   │       │   │   ├── main.dev.css
+│   │       │   │   └── main.min.css
+│   │       │   ├── fonts
+│   │       │   │   ├── fa-brands-400.eot
+│   │       │   │   ├── fa-brands-400.svg
+│   │       │   │   ├── fa-brands-400.ttf
+│   │       │   │   ├── fa-brands-400.woff
+│   │       │   │   ├── fa-brands-400.woff2
+│   │       │   │   ├── fa-regular-400.eot
+│   │       │   │   ├── fa-regular-400.svg
+│   │       │   │   ├── fa-regular-400.ttf
+│   │       │   │   ├── fa-regular-400.woff
+│   │       │   │   ├── fa-regular-400.woff2
+│   │       │   │   ├── fa-solid-900.eot
+│   │       │   │   ├── fa-solid-900.svg
+│   │       │   │   ├── fa-solid-900.ttf
+│   │       │   │   ├── fa-solid-900.woff
+│   │       │   │   ├── fa-solid-900.woff2
+│   │       │   │   ├── fontawesome-webfont.eot
+│   │       │   │   ├── fontawesome-webfont.svg
+│   │       │   │   ├── fontawesome-webfont.ttf
+│   │       │   │   ├── fontawesome-webfont.woff
+│   │       │   │   ├── fontawesome-webfont.woff2
+│   │       │   │   ├── lato-latin-100.woff
+│   │       │   │   ├── lato-latin-100.woff2
+│   │       │   │   ├── lato-latin-100italic.woff
+│   │       │   │   ├── lato-latin-100italic.woff2
+│   │       │   │   ├── lato-latin-300.woff
+│   │       │   │   ├── lato-latin-300.woff2
+│   │       │   │   ├── lato-latin-300italic.woff
+│   │       │   │   ├── lato-latin-300italic.woff2
+│   │       │   │   ├── lato-latin-400.woff
+│   │       │   │   ├── lato-latin-400.woff2
+│   │       │   │   ├── lato-latin-400italic.woff
+│   │       │   │   ├── lato-latin-400italic.woff2
+│   │       │   │   ├── lato-latin-700.woff
+│   │       │   │   ├── lato-latin-700.woff2
+│   │       │   │   ├── lato-latin-700italic.woff
+│   │       │   │   ├── lato-latin-700italic.woff2
+│   │       │   │   ├── lato-latin-900.woff
+│   │       │   │   ├── lato-latin-900.woff2
+│   │       │   │   ├── lato-latin-900italic.woff
+│   │       │   │   ├── lato-latin-900italic.woff2
+│   │       │   │   ├── raleway-latin-100.woff
+│   │       │   │   ├── raleway-latin-100.woff2
+│   │       │   │   ├── raleway-latin-100italic.woff
+│   │       │   │   ├── raleway-latin-100italic.woff2
+│   │       │   │   ├── raleway-latin-200.woff
+│   │       │   │   ├── raleway-latin-200.woff2
+│   │       │   │   ├── raleway-latin-200italic.woff
+│   │       │   │   ├── raleway-latin-200italic.woff2
+│   │       │   │   ├── raleway-latin-300.woff
+│   │       │   │   ├── raleway-latin-300.woff2
+│   │       │   │   ├── raleway-latin-300italic.woff
+│   │       │   │   ├── raleway-latin-300italic.woff2
+│   │       │   │   ├── raleway-latin-400.woff
+│   │       │   │   ├── raleway-latin-400.woff2
+│   │       │   │   ├── raleway-latin-400italic.woff
+│   │       │   │   ├── raleway-latin-400italic.woff2
+│   │       │   │   ├── raleway-latin-500.woff
+│   │       │   │   ├── raleway-latin-500.woff2
+│   │       │   │   ├── raleway-latin-500italic.woff
+│   │       │   │   ├── raleway-latin-500italic.woff2
+│   │       │   │   ├── raleway-latin-600.woff
+│   │       │   │   ├── raleway-latin-600.woff2
+│   │       │   │   ├── raleway-latin-600italic.woff
+│   │       │   │   ├── raleway-latin-600italic.woff2
+│   │       │   │   ├── raleway-latin-700.woff
+│   │       │   │   ├── raleway-latin-700.woff2
+│   │       │   │   ├── raleway-latin-700italic.woff
+│   │       │   │   ├── raleway-latin-700italic.woff2
+│   │       │   │   ├── raleway-latin-800.woff
+│   │       │   │   ├── raleway-latin-800.woff2
+│   │       │   │   ├── raleway-latin-800italic.woff
+│   │       │   │   ├── raleway-latin-800italic.woff2
+│   │       │   │   ├── raleway-latin-900.woff
+│   │       │   │   ├── raleway-latin-900.woff2
+│   │       │   │   ├── raleway-latin-900italic.woff
+│   │       │   │   └── raleway-latin-900italic.woff2
+│   │       │   ├── img
+│   │       │   │   ├── ctfd.ai
+│   │       │   │   ├── ctfd.svg
+│   │       │   │   ├── ctfd_transfer.svg
+│   │       │   │   ├── favicon.ico
+│   │       │   │   ├── logo.png
+│   │       │   │   ├── logo_old.png
+│   │       │   │   └── scoreboard.png
+│   │       │   ├── js
+│   │       │   │   ├── core.dev.js
+│   │       │   │   ├── core.min.js
+│   │       │   │   ├── echarts.bundle.dev.js
+│   │       │   │   ├── echarts.bundle.min.js
+│   │       │   │   ├── helpers.dev.js
+│   │       │   │   ├── helpers.min.js
+│   │       │   │   ├── pages
+│   │       │   │   │   ├── challenges.dev.js
+│   │       │   │   │   ├── challenges.min.js
+│   │       │   │   │   ├── main.dev.js
+│   │       │   │   │   ├── main.min.js
+│   │       │   │   │   ├── notifications.dev.js
+│   │       │   │   │   ├── notifications.min.js
+│   │       │   │   │   ├── scoreboard.dev.js
+│   │       │   │   │   ├── scoreboard.min.js
+│   │       │   │   │   ├── settings.dev.js
+│   │       │   │   │   ├── settings.min.js
+│   │       │   │   │   ├── setup.dev.js
+│   │       │   │   │   ├── setup.min.js
+│   │       │   │   │   ├── stats.dev.js
+│   │       │   │   │   ├── stats.min.js
+│   │       │   │   │   └── teams
+│   │       │   │   │       ├── private.dev.js
+│   │       │   │   │       └── private.min.js
+│   │       │   │   ├── vendor.bundle.dev.js
+│   │       │   │   └── vendor.bundle.min.js
+│   │       │   └── sounds
+│   │       │       ├── README.md
+│   │       │       ├── notification.mp3
+│   │       │       └── notification.webm
+│   │       └── templates
+│   │           ├── base.html
+│   │           ├── challenge.html
+│   │           ├── challenges.html
+│   │           ├── components
+│   │           │   ├── errors.html
+│   │           │   └── navbar.html
+│   │           ├── config.html
+│   │           ├── confirm.html
+│   │           ├── errors
+│   │           │   ├── 403.html
+│   │           │   ├── 404.html
+│   │           │   ├── 429.html
+│   │           │   ├── 500.html
+│   │           │   └── 502.html
+│   │           ├── login.html
+│   │           ├── macros
+│   │           │   └── forms.html
+│   │           ├── notifications.html
+│   │           ├── page.html
+│   │           ├── register.html
+│   │           ├── reset_password.html
+│   │           ├── scoreboard.html
+│   │           ├── settings.html
+│   │           ├── setup.html
+│   │           ├── teams
+│   │           │   ├── invite.html
+│   │           │   ├── join_team.html
+│   │           │   ├── new_team.html
+│   │           │   ├── private.html
+│   │           │   ├── public.html
+│   │           │   ├── team_enrollment.html
+│   │           │   └── teams.html
+│   │           └── users
+│   │               ├── private.html
+│   │               ├── public.html
+│   │               └── users.html
+│   ├── translations
+│   │   ├── ar
+│   │   │   └── LC_MESSAGES
+│   │   │       ├── messages.mo
+│   │   │       └── messages.po
+│   │   ├── bg
+│   │   │   └── LC_MESSAGES
+│   │   │       └── messages.po
+│   │   ├── ca
+│   │   │   └── LC_MESSAGES
+│   │   │       ├── messages.mo
+│   │   │       └── messages.po
+│   │   ├── cs
+│   │   │   └── LC_MESSAGES
+│   │   │       └── messages.po
+│   │   ├── de
+│   │   │   └── LC_MESSAGES
+│   │   │       ├── messages.mo
+│   │   │       └── messages.po
+│   │   ├── el
+│   │   │   └── LC_MESSAGES
+│   │   │       └── messages.po
+│   │   ├── es
+│   │   │   └── LC_MESSAGES
+│   │   │       ├── messages.mo
+│   │   │       └── messages.po
+│   │   ├── fi
+│   │   │   └── LC_MESSAGES
+│   │   │       └── messages.po
+│   │   ├── fr
+│   │   │   └── LC_MESSAGES
+│   │   │       ├── messages.mo
+│   │   │       └── messages.po
+│   │   ├── it
+│   │   │   └── LC_MESSAGES
+│   │   │       ├── messages.mo
+│   │   │       └── messages.po
+│   │   ├── ja
+│   │   │   └── LC_MESSAGES
+│   │   │       ├── messages.mo
+│   │   │       └── messages.po
+│   │   ├── ko
+│   │   │   └── LC_MESSAGES
+│   │   │       ├── messages.mo
+│   │   │       └── messages.po
+│   │   ├── pl
+│   │   │   └── LC_MESSAGES
+│   │   │       ├── messages.mo
+│   │   │       └── messages.po
+│   │   ├── pt_BR
+│   │   │   └── LC_MESSAGES
+│   │   │       ├── messages.mo
+│   │   │       └── messages.po
+│   │   ├── ro
+│   │   │   └── LC_MESSAGES
+│   │   │       └── messages.po
+│   │   ├── ru
+│   │   │   └── LC_MESSAGES
+│   │   │       ├── messages.mo
+│   │   │       └── messages.po
+│   │   ├── sk
+│   │   │   └── LC_MESSAGES
+│   │   │       ├── messages.mo
+│   │   │       └── messages.po
+│   │   ├── sl
+│   │   │   └── LC_MESSAGES
+│   │   │       └── messages.po
+│   │   ├── sv
+│   │   │   └── LC_MESSAGES
+│   │   │       └── messages.po
+│   │   ├── uz
+│   │   │   └── LC_MESSAGES
+│   │   │       ├── messages.mo
+│   │   │       └── messages.po
+│   │   ├── vi
+│   │   │   └── LC_MESSAGES
+│   │   │       ├── messages.mo
+│   │   │       └── messages.po
+│   │   ├── zh_Hans_CN
+│   │   │   └── LC_MESSAGES
+│   │   │       ├── messages.mo
+│   │   │       └── messages.po
+│   │   └── zh_Hant_TW
+│   │       └── LC_MESSAGES
+│   │           ├── messages.mo
+│   │           └── messages.po
+│   ├── uploads
+│   ├── users.py
+│   ├── utils
+│   │   ├── __init__.py
+│   │   ├── __pycache__
+│   │   │   └── __init__.cpython-312.pyc
+│   │   ├── challenges
+│   │   │   ├── __init__.py
+│   │   │   └── __pycache__
+│   │   │       └── __init__.cpython-312.pyc
+│   │   ├── config
+│   │   │   ├── __init__.py
+│   │   │   ├── __pycache__
+│   │   │   │   ├── __init__.cpython-312.pyc
+│   │   │   │   ├── integrations.cpython-312.pyc
+│   │   │   │   ├── pages.cpython-312.pyc
+│   │   │   │   └── visibility.cpython-312.pyc
+│   │   │   ├── integrations.py
+│   │   │   ├── pages.py
+│   │   │   └── visibility.py
+│   │   ├── countries
+│   │   │   ├── __init__.py
+│   │   │   ├── __pycache__
+│   │   │   │   ├── __init__.cpython-312.pyc
+│   │   │   │   └── geoip.cpython-312.pyc
+│   │   │   └── geoip.py
+│   │   ├── crypto
+│   │   │   ├── __init__.py
+│   │   │   └── __pycache__
+│   │   │       └── __init__.cpython-312.pyc
+│   │   ├── csv
+│   │   │   ├── __init__.py
+│   │   │   └── __pycache__
+│   │   │       └── __init__.cpython-312.pyc
+│   │   ├── dates
+│   │   │   ├── __init__.py
+│   │   │   └── __pycache__
+│   │   │       └── __init__.cpython-312.pyc
+│   │   ├── decorators
+│   │   │   ├── __init__.py
+│   │   │   ├── __pycache__
+│   │   │   │   ├── __init__.cpython-312.pyc
+│   │   │   │   ├── modes.cpython-312.pyc
+│   │   │   │   └── visibility.cpython-312.pyc
+│   │   │   ├── modes.py
+│   │   │   └── visibility.py
+│   │   ├── email
+│   │   │   ├── __init__.py
+│   │   │   ├── __pycache__
+│   │   │   │   └── __init__.cpython-312.pyc
+│   │   │   ├── mailgun.py
+│   │   │   ├── providers
+│   │   │   │   ├── __init__.py
+│   │   │   │   ├── __pycache__
+│   │   │   │   │   ├── __init__.cpython-312.pyc
+│   │   │   │   │   ├── mailgun.cpython-312.pyc
+│   │   │   │   │   └── smtp.cpython-312.pyc
+│   │   │   │   ├── mailgun.py
+│   │   │   │   └── smtp.py
+│   │   │   └── smtp.py
+│   │   ├── encoding
+│   │   │   ├── __init__.py
+│   │   │   └── __pycache__
+│   │   │       └── __init__.cpython-312.pyc
+│   │   ├── events
+│   │   │   ├── __init__.py
+│   │   │   └── __pycache__
+│   │   │       └── __init__.cpython-312.pyc
+│   │   ├── exports
+│   │   │   ├── __init__.py
+│   │   │   ├── __pycache__
+│   │   │   │   ├── __init__.cpython-312.pyc
+│   │   │   │   ├── databases.cpython-312.pyc
+│   │   │   │   ├── freeze.cpython-312.pyc
+│   │   │   │   └── serializers.cpython-312.pyc
+│   │   │   ├── databases.py
+│   │   │   ├── freeze.py
+│   │   │   └── serializers.py
+│   │   ├── formatters
+│   │   │   ├── __init__.py
+│   │   │   └── __pycache__
+│   │   │       └── __init__.cpython-312.pyc
+│   │   ├── health
+│   │   │   ├── __init__.py
+│   │   │   └── __pycache__
+│   │   │       └── __init__.cpython-312.pyc
+│   │   ├── helpers
+│   │   │   ├── __init__.py
+│   │   │   ├── __pycache__
+│   │   │   │   ├── __init__.cpython-312.pyc
+│   │   │   │   └── models.cpython-312.pyc
+│   │   │   └── models.py
+│   │   ├── humanize
+│   │   │   ├── __init__.py
+│   │   │   ├── __pycache__
+│   │   │   │   ├── __init__.cpython-312.pyc
+│   │   │   │   └── words.cpython-312.pyc
+│   │   │   ├── numbers.py
+│   │   │   └── words.py
+│   │   ├── initialization
+│   │   │   ├── __init__.py
+│   │   │   └── __pycache__
+│   │   │       └── __init__.cpython-312.pyc
+│   │   ├── logging
+│   │   │   ├── __init__.py
+│   │   │   └── __pycache__
+│   │   │       └── __init__.cpython-312.pyc
+│   │   ├── migrations
+│   │   │   ├── __init__.py
+│   │   │   └── __pycache__
+│   │   │       └── __init__.cpython-312.pyc
+│   │   ├── modes
+│   │   │   ├── __init__.py
+│   │   │   └── __pycache__
+│   │   │       └── __init__.cpython-312.pyc
+│   │   ├── notifications
+│   │   │   └── __init__.py
+│   │   ├── plugins
+│   │   │   ├── __init__.py
+│   │   │   └── __pycache__
+│   │   │       └── __init__.cpython-312.pyc
+│   │   ├── scoreboard
+│   │   │   ├── __init__.py
+│   │   │   └── __pycache__
+│   │   │       └── __init__.cpython-312.pyc
+│   │   ├── scores
+│   │   │   ├── __init__.py
+│   │   │   └── __pycache__
+│   │   │       └── __init__.cpython-312.pyc
+│   │   ├── security
+│   │   │   ├── __init__.py
+│   │   │   ├── __pycache__
+│   │   │   │   ├── __init__.cpython-312.pyc
+│   │   │   │   ├── auth.cpython-312.pyc
+│   │   │   │   ├── csrf.cpython-312.pyc
+│   │   │   │   ├── email.cpython-312.pyc
+│   │   │   │   ├── sanitize.cpython-312.pyc
+│   │   │   │   └── signing.cpython-312.pyc
+│   │   │   ├── auth.py
+│   │   │   ├── csrf.py
+│   │   │   ├── email.py
+│   │   │   ├── passwords.py
+│   │   │   ├── sanitize.py
+│   │   │   └── signing.py
+│   │   ├── sessions
+│   │   │   ├── __init__.py
+│   │   │   └── __pycache__
+│   │   │       └── __init__.cpython-312.pyc
+│   │   ├── social
+│   │   │   ├── __init__.py
+│   │   │   └── __pycache__
+│   │   │       └── __init__.cpython-312.pyc
+│   │   ├── updates
+│   │   │   ├── __init__.py
+│   │   │   └── __pycache__
+│   │   │       └── __init__.cpython-312.pyc
+│   │   ├── uploads
+│   │   │   ├── __init__.py
+│   │   │   ├── __pycache__
+│   │   │   │   ├── __init__.cpython-312.pyc
+│   │   │   │   └── uploaders.cpython-312.pyc
+│   │   │   └── uploaders.py
+│   │   ├── user
+│   │   │   ├── __init__.py
+│   │   │   └── __pycache__
+│   │   │       └── __init__.cpython-312.pyc
+│   │   └── validators
+│   │       ├── __init__.py
+│   │       └── __pycache__
+│   │           └── __init__.cpython-312.pyc
+│   └── views.py
+├── Dockerfile
+├── LICENSE
+├── Makefile
+├── README.md
+├── SECURITY.md
+├── Vagrantfile
+├── babel.cfg
+├── conf
+│   └── nginx
+│       └── http.conf
+├── crowdin.yml
+├── development.txt
+├── docker-compose.yml
+├── docker-entrypoint.sh
+├── export.py
+├── import.py
+├── linting.txt
+├── manage.py
+├── messages.pot
+├── migrations
+│   ├── 1_2_0_upgrade_2_0_0.py
+│   ├── __pycache__
+│   │   └── env.cpython-312.pyc
+│   ├── alembic.ini
+│   ├── env.py
+│   ├── script.py.mako
+│   └── versions
+│       ├── 0366ba6575ca_add_table_for_comments.py
+│       ├── 07dfbe5e1edc_add_format_to_pages.py
+│       ├── 080d29b15cd3_add_tokens_table.py
+│       ├── 0def790057c1_add_language_column_to_users_table.py
+│       ├── 1093835a1051_add_default_email_templates.py
+│       ├── 24ad6790bc3c_convert_rating_values_to_votes.py
+│       ├── 364b4efa1686_add_ratings_table.py
+│       ├── 46a278193a94_enable_millisecond_precision_in_mysql_.py
+│       ├── 4d3c1b59d011_add_next_id_to_challenges_table.py
+│       ├── 4e4d5a9ea000_add_type_to_awards.py
+│       ├── 4fe3eeed9a9d_add_attribution_to_challenges.py
+│       ├── 55623b100da8_add_target_column_to_tracking.py
+│       ├── 5c4996aeb2cb_add_sha1sum_field_to_files_require_.py
+│       ├── 5c98d9253f56_rename_core_beta_to_core.py
+│       ├── 6012fe8de495_add_connection_info_column_to_challenges.py
+│       ├── 62bf576b2cd3_add_solutions_table.py
+│       ├── 662d728ad7da_add_change_password_to_users.py
+│       ├── 75e8ab9a0014_add_fields_and_fieldentries_tables.py
+│       ├── 8369118943a1_initial_revision.py
+│       ├── 9889b8c53673_add_brackets_table.py
+│       ├── 9e6f6578ca84_add_description_column_to_tokens_table.py
+│       ├── __pycache__
+│       │   ├── 0366ba6575ca_add_table_for_comments.cpython-312.pyc
+│       │   ├── 07dfbe5e1edc_add_format_to_pages.cpython-312.pyc
+│       │   ├── 080d29b15cd3_add_tokens_table.cpython-312.pyc
+│       │   ├── 0def790057c1_add_language_column_to_users_table.cpython-312.pyc
+│       │   ├── 1093835a1051_add_default_email_templates.cpython-312.pyc
+│       │   ├── 24ad6790bc3c_convert_rating_values_to_votes.cpython-312.pyc
+│       │   ├── 364b4efa1686_add_ratings_table.cpython-312.pyc
+│       │   ├── 46a278193a94_enable_millisecond_precision_in_mysql_.cpython-312.pyc
+│       │   ├── 4d3c1b59d011_add_next_id_to_challenges_table.cpython-312.pyc
+│       │   ├── 4e4d5a9ea000_add_type_to_awards.cpython-312.pyc
+│       │   ├── 4fe3eeed9a9d_add_attribution_to_challenges.cpython-312.pyc
+│       │   ├── 55623b100da8_add_target_column_to_tracking.cpython-312.pyc
+│       │   ├── 5c4996aeb2cb_add_sha1sum_field_to_files_require_.cpython-312.pyc
+│       │   ├── 5c98d9253f56_rename_core_beta_to_core.cpython-312.pyc
+│       │   ├── 6012fe8de495_add_connection_info_column_to_challenges.cpython-312.pyc
+│       │   ├── 62bf576b2cd3_add_solutions_table.cpython-312.pyc
+│       │   ├── 662d728ad7da_add_change_password_to_users.cpython-312.pyc
+│       │   ├── 75e8ab9a0014_add_fields_and_fieldentries_tables.cpython-312.pyc
+│       │   ├── 8369118943a1_initial_revision.cpython-312.pyc
+│       │   ├── 9889b8c53673_add_brackets_table.cpython-312.pyc
+│       │   ├── 9e6f6578ca84_add_description_column_to_tokens_table.cpython-312.pyc
+│       │   ├── a02c5bf43407_add_link_target_to_pages.cpython-312.pyc
+│       │   ├── a03403986a32_add_theme_code_injections_to_configs.cpython-312.pyc
+│       │   ├── a49ad66aa0f1_add_title_to_hint.cpython-312.pyc
+│       │   ├── b295b033364d_add_ondelete_cascade_to_foreign_keys.cpython-312.pyc
+│       │   ├── b5551cd26764_add_captain_column_to_teams.cpython-312.pyc
+│       │   ├── ef87d69ec29a_add_topics_and_challenge_topics_tables.cpython-312.pyc
+│       │   └── f73a96c97449_add_logic_column_to_challenges.cpython-312.pyc
+│       ├── a02c5bf43407_add_link_target_to_pages.py
+│       ├── a03403986a32_add_theme_code_injections_to_configs.py
+│       ├── a49ad66aa0f1_add_title_to_hint.py
+│       ├── b295b033364d_add_ondelete_cascade_to_foreign_keys.py
+│       ├── b5551cd26764_add_captain_column_to_teams.py
+│       ├── ef87d69ec29a_add_topics_and_challenge_topics_tables.py
+│       └── f73a96c97449_add_logic_column_to_challenges.py
+├── ping.py
+├── populate.py
+├── prepare.sh
+├── project_structure.txt
+├── requirements.in
+├── requirements.txt
+├── scripts
+│   ├── install_docker.sh
+│   └── pip-compile.sh
+├── serve.py
+├── setup.cfg
+├── tests
+│   ├── __init__.py
+│   ├── admin
+│   │   ├── __init__.py
+│   │   ├── test_challenges.py
+│   │   ├── test_config.py
+│   │   ├── test_csv.py
+│   │   ├── test_fields.py
+│   │   ├── test_notifications.py
+│   │   ├── test_pages.py
+│   │   ├── test_scoreboard.py
+│   │   ├── test_statistics.py
+│   │   ├── test_submissions.py
+│   │   ├── test_teams.py
+│   │   ├── test_users.py
+│   │   └── test_views.py
+│   ├── api
+│   │   ├── __init__.py
+│   │   ├── test_tokens.py
+│   │   └── v1
+│   │       ├── __init__.py
+│   │       ├── challenges
+│   │       │   └── requirements
+│   │       │       └── test_requirements.py
+│   │       ├── statistics
+│   │       │   ├── __init__.py
+│   │       │   └── test_scores.py
+│   │       ├── teams
+│   │       │   ├── __init__.py
+│   │       │   ├── test_scoring.py
+│   │       │   ├── test_team_members.py
+│   │       │   └── test_teams.py
+│   │       ├── test_awards.py
+│   │       ├── test_brackets.py
+│   │       ├── test_challenges.py
+│   │       ├── test_comments.py
+│   │       ├── test_config.py
+│   │       ├── test_csrf.py
+│   │       ├── test_exports.py
+│   │       ├── test_fields.py
+│   │       ├── test_files.py
+│   │       ├── test_flags.py
+│   │       ├── test_hints.py
+│   │       ├── test_notifications.py
+│   │       ├── test_pages.py
+│   │       ├── test_scoreboard.py
+│   │       ├── test_solutions.py
+│   │       ├── test_submissions.py
+│   │       ├── test_tags.py
+│   │       ├── test_teams.py
+│   │       ├── test_tokens.py
+│   │       ├── test_topics.py
+│   │       ├── test_users.py
+│   │       ├── user
+│   │       │   ├── __init__.py
+│   │       │   ├── test_admin_access.py
+│   │       │   ├── test_challenges.py
+│   │       │   └── test_hints.py
+│   │       └── users
+│   │           ├── __init__.py
+│   │           ├── test_scoring.py
+│   │           └── test_users.py
+│   ├── brackets
+│   │   └── test_brackets.py
+│   ├── cache
+│   │   ├── __init__.py
+│   │   ├── test_cache.py
+│   │   └── test_challenges.py
+│   ├── challenges
+│   │   ├── __init__.py
+│   │   ├── test_challenge_logic.py
+│   │   ├── test_challenge_types.py
+│   │   ├── test_dynamic.py
+│   │   └── test_ratings.py
+│   ├── constants
+│   │   ├── test_constants.py
+│   │   └── time.py
+│   ├── helpers.py
+│   ├── models
+│   │   └── test_model_utils.py
+│   ├── oauth
+│   │   ├── __init__.py
+│   │   ├── test_redirect.py
+│   │   ├── test_teams.py
+│   │   └── test_users.py
+│   ├── teams
+│   │   ├── __init__.py
+│   │   ├── test_auth.py
+│   │   ├── test_challenges.py
+│   │   ├── test_fields.py
+│   │   ├── test_hidden_team_scores.py
+│   │   ├── test_hints.py
+│   │   ├── test_invites.py
+│   │   ├── test_scoreboard.py
+│   │   └── test_teams.py
+│   ├── test_config.py
+│   ├── test_legal.py
+│   ├── test_plugin_utils.py
+│   ├── test_setup.py
+│   ├── test_share.py
+│   ├── test_themes.py
+│   ├── test_views.py
+│   ├── users
+│   │   ├── __init__.py
+│   │   ├── test_auth.py
+│   │   ├── test_challenges.py
+│   │   ├── test_fields.py
+│   │   ├── test_hints.py
+│   │   ├── test_profile.py
+│   │   ├── test_scoreboard.py
+│   │   ├── test_settings.py
+│   │   ├── test_setup.py
+│   │   ├── test_submissions.py
+│   │   └── test_users.py
+│   └── utils
+│       ├── __init__.py
+│       ├── test_ctftime.py
+│       ├── test_email.py
+│       ├── test_encoding.py
+│       ├── test_events.py
+│       ├── test_exports.py
+│       ├── test_formatters.py
+│       ├── test_humanize.py
+│       ├── test_markdown.py
+│       ├── test_passwords.py
+│       ├── test_plugins.py
+│       ├── test_ratelimit.py
+│       ├── test_sanitize.py
+│       ├── test_sessions.py
+│       ├── test_updates.py
+│       ├── test_uploaders.py
+│       └── test_validators.py
+└── wsgi.py
+
+282 directories, 1153 files
