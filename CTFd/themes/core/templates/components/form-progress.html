@@ -1,0 +1,66 @@
+<!-- Form completion progress indicator -->
+<div class="ctf-card p-4 mb-6" x-data="FormProgress">
+  <div class="flex items-center justify-between mb-3">
+    <h3 class="font-heading font-semibold text-lg">{% trans %}Setup Progress{% endtrans %}</h3>
+    <span class="text-sm text-muted-foreground" x-text="`${completedSteps}/${totalSteps} completed`"></span>
+  </div>
+  
+  <!-- Progress bar -->
+  <div class="w-full bg-muted rounded-full h-2 mb-4">
+    <div class="bg-primary h-2 rounded-full transition-all duration-500 ease-out" 
+         :style="`width: ${(completedSteps / totalSteps) * 100}%`"></div>
+  </div>
+  
+  <!-- Step checklist -->
+  <div class="space-y-2">
+    <template x-for="(step, index) in steps" :key="index">
+      <div class="flex items-center space-x-3">
+        <div class="flex-shrink-0 w-5 h-5 rounded-full border-2 transition-all duration-200"
+             :class="step.completed ? 'bg-primary border-primary' : 'border-border'">
+          <i class="fas fa-check text-primary-foreground text-xs" 
+             x-show="step.completed" 
+             style="margin: 2px 0 0 2px;"></i>
+        </div>
+        <span class="text-sm transition-colors duration-200"
+              :class="step.completed ? 'text-foreground' : 'text-muted-foreground'"
+              x-text="step.label"></span>
+      </div>
+    </template>
+  </div>
+</div>
+
+<script>
+document.addEventListener('alpine:init', () => {
+  Alpine.data('FormProgress', () => ({
+    steps: [
+      { label: 'Basic Information', completed: false },
+      { label: 'Competition Mode', completed: false },
+      { label: 'Visibility Settings', completed: false },
+      { label: 'Admin Account', completed: false },
+      { label: 'Theme & Branding', completed: false },
+      { label: 'Schedule Setup', completed: false },
+      { label: 'Integrations', completed: false }
+    ],
+    
+    get completedSteps() {
+      return this.steps.filter(step => step.completed).length;
+    },
+    
+    get totalSteps() {
+      return this.steps.length;
+    },
+    
+    markStepCompleted(stepIndex) {
+      if (stepIndex >= 0 && stepIndex < this.steps.length) {
+        this.steps[stepIndex].completed = true;
+      }
+    },
+    
+    markStepIncomplete(stepIndex) {
+      if (stepIndex >= 0 && stepIndex < this.steps.length) {
+        this.steps[stepIndex].completed = false;
+      }
+    }
+  }));
+});
+</script>

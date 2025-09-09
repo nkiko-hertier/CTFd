@@ -1,83 +1,128 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <div class="jumbotron">
-    <div class="container">
-      <h1>
-        {% trans %}Register{% endtrans %}
+<!-- Replaced jumbotron with modern hero section -->
+<div class="bg-gradient-to-br from-accent/5 to-primary/5 py-16">
+  <div class="container mx-auto px-4">
+    <div class="text-center">
+      <h1 class="font-heading font-bold text-4xl text-foreground mb-4">
+        {% trans %}Join the Competition{% endtrans %}
       </h1>
+      <p class="text-muted-foreground text-lg max-w-md mx-auto">
+        {% trans %}Create your account and start solving challenges{% endtrans %}
+      </p>
     </div>
   </div>
+</div>
 
-  <div class="container">
-    <div class="row">
-      <div class="col-md-6 offset-md-3">
+<!-- Modernized registration form with progress indicators and better UX -->
+<div class="py-12">
+  <div class="container mx-auto px-4">
+    <div class="max-w-md mx-auto">
+      <!-- Modern card container -->
+      <div class="ctf-card p-8">
         {% include "components/errors.html" %}
 
         {% if integrations.mlc() %}
-          <a class="btn btn-secondary btn-lg btn-block w-100" href="{{ url_for('auth.oauth_login') }}">
-            Login with Major League Cyber
+          <!-- Updated OAuth button styling -->
+          <a class="flex items-center justify-center w-full px-4 py-3 text-sm font-medium text-secondary-foreground bg-secondary hover:bg-secondary/90 rounded-md transition-colors mb-6" 
+             href="{{ url_for('auth.oauth_login') }}">
+            <i class="fas fa-shield-alt mr-2"></i>
+            {% trans %}Register with Major League Cyber{% endtrans %}
           </a>
 
-          <hr>
+          <div class="relative my-6">
+            <div class="absolute inset-0 flex items-center">
+              <div class="w-full border-t border-border"></div>
+            </div>
+            <div class="relative flex justify-center text-sm">
+              <span class="px-2 bg-card text-muted-foreground">{% trans %}Or create account with{% endtrans %}</span>
+            </div>
+          </div>
         {% endif %}
 
         {% with form = Forms.auth.RegistrationForm() %}
-
           {% from "macros/forms.html" import render_extra_fields %}
 
-          <form method="post" accept-charset="utf-8" role="form">
+          <!-- Added progress indicator for multi-step feel -->
+          <div class="mb-8">
+            <div class="flex items-center justify-between text-sm text-muted-foreground">
+              <span class="flex items-center">
+                <span class="flex items-center justify-center w-6 h-6 bg-primary text-primary-foreground rounded-full text-xs font-medium mr-2">1</span>
+                {% trans %}Account Details{% endtrans %}
+              </span>
+              <div class="flex-1 mx-4 border-t border-border"></div>
+              <span class="flex items-center">
+                <span class="flex items-center justify-center w-6 h-6 bg-muted text-muted-foreground rounded-full text-xs font-medium mr-2">2</span>
+                {% trans %}Start Competing{% endtrans %}
+              </span>
+            </div>
+          </div>
 
-            <div class="mb-3">
-              <b>{{ form.name.label(class="form-label") }}</b>
-              {{ form.name(class="form-control", value=name, autocomplete="username") }}
-              <small class="form-text text-muted">
-                {% trans %}Your username on the site{% endtrans %}
-              </small>
+          <form method="post" accept-charset="utf-8" role="form" class="space-y-6">
+            <!-- Modern form fields with better styling and help text -->
+            <div class="space-y-2">
+              {{ form.name.label(class="block text-sm font-medium text-foreground") }}
+              {{ form.name(class="ctf-input w-full", value=name, autocomplete="username", placeholder="Choose a unique username") }}
+              <p class="text-xs text-muted-foreground">
+                <i class="fas fa-info-circle mr-1"></i>
+                {% trans %}Your username will be visible to other participants{% endtrans %}
+              </p>
             </div>
 
-            <div class="mb-3">
-              <b>{{ form.email.label(class="form-label") }}</b>
-              {{ form.email(class="form-control", value=email, autocomplete="email") }}
-              <small class="form-text text-muted">
-                {% trans %}Never shown to the public{% endtrans %}
-              </small>
+            <div class="space-y-2">
+              {{ form.email.label(class="block text-sm font-medium text-foreground") }}
+              {{ form.email(class="ctf-input w-full", value=email, autocomplete="email", placeholder="Enter your email address") }}
+              <p class="text-xs text-muted-foreground">
+                <i class="fas fa-lock mr-1"></i>
+                {% trans %}Your email will never be shared publicly{% endtrans %}
+              </p>
             </div>
 
-            <div class="mb-3">
-              <b>{{ form.password.label(class="form-label") }}</b>
-              {{ form.password(class="form-control", value=password, autocomplete="new-password") }}
-              <small class="form-text text-muted">
-                {% trans %}Password used to log into your account{% endtrans %}
-              </small>
+            <div class="space-y-2">
+              {{ form.password.label(class="block text-sm font-medium text-foreground") }}
+              {{ form.password(class="ctf-input w-full", value=password, autocomplete="new-password", placeholder="Create a strong password") }}
+              <p class="text-xs text-muted-foreground">
+                <i class="fas fa-shield-alt mr-1"></i>
+                {% trans %}Use a strong password to protect your account{% endtrans %}
+              </p>
             </div>
 
             {{ form.nonce() }}
 
             {{ render_extra_fields(form.extra) }}
 
-            <div class="row pt-3">
-              <div class="col-6 col-md-4 offset-6 offset-md-8">
-                {{ form.submit(class="btn btn-block btn-primary w-100") }}
-              </div>
+            <!-- Improved submit button layout -->
+            <div class="pt-4">
+              {{ form.submit(class="ctf-button-primary w-full") }}
             </div>
 
+            <!-- Modern terms and privacy notice -->
             {% if Configs.tos_or_privacy %}
-              <div class="row pt-3">
-                <div class="col-md-12 text-center">
-                  <small class="text-muted text-center">
-                    {% trans trimmed privacy_link=Configs.privacy_link, tos_link=Configs.tos_link %}
-                    By registering, you agree to the
-                    <a href="{{ privacy_link }}" target="_blank">privacy policy</a>
-                    and <a href="{{ tos_link }}" target="_blank">terms of service</a>
-                    {% endtrans %}
-                  </small>
-                </div>
+              <div class="pt-4 text-center">
+                <p class="text-xs text-muted-foreground">
+                  {% trans trimmed privacy_link=Configs.privacy_link, tos_link=Configs.tos_link %}
+                  By registering, you agree to our
+                  <a href="{{ privacy_link }}" target="_blank" class="text-accent hover:text-accent/80 transition-colors">Privacy Policy</a>
+                  and <a href="{{ tos_link }}" target="_blank" class="text-accent hover:text-accent/80 transition-colors">Terms of Service</a>
+                  {% endtrans %}
+                </p>
               </div>
             {% endif %}
           </form>
         {% endwith %}
+
+        <!-- Added login link for existing users -->
+        <div class="mt-8 pt-6 border-t border-border text-center">
+          <p class="text-sm text-muted-foreground">
+            {% trans %}Already have an account?{% endtrans %}
+            <a href="{{ url_for('auth.login') }}" class="text-accent hover:text-accent/80 font-medium transition-colors ml-1">
+              {% trans %}Sign in here{% endtrans %}
+            </a>
+          </p>
+        </div>
       </div>
     </div>
   </div>
+</div>
 {% endblock %}

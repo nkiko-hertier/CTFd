@@ -1,0 +1,49 @@
+<!-- Modern progress stepper component for multi-step forms -->
+<div class="flex items-center justify-between mb-8" x-data="{ currentStep: 1, totalSteps: 7 }">
+  <template x-for="step in totalSteps" :key="step">
+    <div class="flex items-center" :class="step < totalSteps ? 'flex-1' : ''">
+      <!-- Step circle -->
+      <div class="flex items-center justify-center w-10 h-10 rounded-full border-2 transition-all duration-300"
+           :class="{
+             'bg-primary border-primary text-primary-foreground': step <= currentStep,
+             'bg-background border-border text-muted-foreground': step > currentStep
+           }">
+        <template x-if="step < currentStep">
+          <i class="fas fa-check text-sm"></i>
+        </template>
+        <template x-if="step >= currentStep">
+          <span class="text-sm font-medium" x-text="step"></span>
+        </template>
+      </div>
+      
+      <!-- Step label -->
+      <div class="ml-3 min-w-0" x-show="step <= totalSteps">
+        <p class="text-sm font-medium transition-colors duration-300"
+           :class="step <= currentStep ? 'text-foreground' : 'text-muted-foreground'"
+           x-text="getStepLabel(step)">
+        </p>
+      </div>
+      
+      <!-- Connector line -->
+      <div class="flex-1 h-0.5 mx-4 transition-colors duration-300" 
+           x-show="step < totalSteps"
+           :class="step < currentStep ? 'bg-primary' : 'bg-border'">
+      </div>
+    </div>
+  </template>
+</div>
+
+<script>
+function getStepLabel(step) {
+  const labels = {
+    1: 'General',
+    2: 'Mode',
+    3: 'Settings', 
+    4: 'Administration',
+    5: 'Style',
+    6: 'Date & Time',
+    7: 'Integrations'
+  };
+  return labels[step] || '';
+}
+</script>
