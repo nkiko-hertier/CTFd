@@ -1,86 +1,55 @@
 {% extends "base.html" %}
 
 {% block content %}
-<!-- Replaced jumbotron with modern hero section using TailwindCSS -->
-<div class="bg-gradient-to-br from-primary/5 to-accent/5 py-16">
-  <div class="container mx-auto px-4">
-    <div class="text-center">
-      <h1 class="font-heading font-bold text-4xl text-foreground mb-4">
-        {% trans %}Welcome Back{% endtrans %}
+  <div class="jumbotron">
+    <div class="container">
+      <h1>
+        {% trans %}Login{% endtrans %}
       </h1>
-      <p class="text-muted-foreground text-lg max-w-md mx-auto">
-        {% trans %}Sign in to your account to continue your CTF journey{% endtrans %}
-      </p>
     </div>
   </div>
-</div>
 
-<!-- Modernized form layout with card design and better spacing -->
-<div class="py-12">
-  <div class="container mx-auto px-4">
-    <div class="max-w-md mx-auto">
-      <!-- Modern card container -->
-      <div class="ctf-card p-8">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 col offset-md-2 col-lg-6 offset-lg-3">
         {% include "components/errors.html" %}
 
         {% if integrations.mlc() %}
-          <!-- Updated OAuth button with modern styling -->
-          <a class="flex items-center justify-center w-full px-4 py-3 text-sm font-medium text-secondary-foreground bg-secondary hover:bg-secondary/90 rounded-md transition-colors mb-6" 
-             href="{{ url_for('auth.oauth_login') }}">
-            <i class="fas fa-shield-alt mr-2"></i>
-            {% trans %}Login with Major League Cyber{% endtrans %}
+          <a class="btn btn-secondary btn-lg btn-block w-100" href="{{ url_for('auth.oauth_login') }}">
+            Login with Major League Cyber
           </a>
 
-          <div class="relative my-6">
-            <div class="absolute inset-0 flex items-center">
-              <div class="w-full border-t border-border"></div>
-            </div>
-            <div class="relative flex justify-center text-sm">
-              <span class="px-2 bg-card text-muted-foreground">{% trans %}Or continue with{% endtrans %}</span>
-            </div>
-          </div>
+          <hr>
         {% endif %}
 
         {% with form = Forms.auth.LoginForm() %}
-          <form method="post" accept-charset="utf-8" class="space-y-6">
-            <!-- Modern form field styling with better labels and inputs -->
-            <div class="space-y-2">
-              {{ form.name.label(class="block text-sm font-medium text-foreground") }}
-              {{ form.name(class="ctf-input w-full", value=name, autocomplete="username email", placeholder="Enter your username or email") }}
+          <form method="post" accept-charset="utf-8">
+            <div class="mb-3">
+              <b>{{ form.name.label(class="form-label") }}</b>
+              {{ form.name(class="form-control", value=name, autocomplete="username email") }}
             </div>
 
-            <div class="space-y-2">
-              {{ form.password.label(class="block text-sm font-medium text-foreground") }}
-              {{ form.password(class="ctf-input w-full", value=password, autocomplete="current-password", placeholder="Enter your password") }}
+            <div class="mb-3">
+              <b>{{ form.password.label(class="form-label") }}</b>
+              {{ form.password(class="form-control", value=password, autocomplete="current-password") }}
             </div>
 
-            <!-- Improved layout for forgot password and submit button -->
-            <div class="flex items-center justify-between pt-4">
-              <a class="text-sm text-accent hover:text-accent/80 transition-colors" 
-                 href="{{ url_for('auth.reset_password') }}">
-                {% trans %}Forgot your password?{% endtrans %}
-              </a>
+            <div class="row pt-3">
+              <div class="col-6 col-md-8">
+                <a class="align-middle" href="{{ url_for('auth.reset_password') }}">
+                  {% trans %}Forgot your password?{% endtrans %}
+                </a>
+              </div>
 
-              {{ form.submit(class="ctf-button-primary ml-4") }}
+              <div class="col-6 col-md-4">
+                {{ form.submit(class="btn btn-block btn-primary w-100") }}
+              </div>
             </div>
 
             {{ form.nonce() }}
           </form>
         {% endwith %}
-
-        <!-- Added registration link for better UX -->
-        {% if registration_visible() %}
-          <div class="mt-8 pt-6 border-t border-border text-center">
-            <p class="text-sm text-muted-foreground">
-              {% trans %}Don't have an account?{% endtrans %}
-              <a href="{{ url_for('auth.register') }}" class="text-accent hover:text-accent/80 font-medium transition-colors ml-1">
-                {% trans %}Sign up here{% endtrans %}
-              </a>
-            </p>
-          </div>
-        {% endif %}
       </div>
     </div>
   </div>
-</div>
 {% endblock %}

@@ -1,26 +1,18 @@
 {% extends "base.html" %}
 
 {% block content %}
-<!-- Modernized 403 error page with better design -->
-<div class="min-h-96 flex items-center justify-center py-16">
-  <div class="text-center">
-    <div class="w-24 h-24 bg-destructive/10 rounded-full flex items-center justify-center mx-auto mb-8">
-      <i class="fas fa-lock text-destructive text-4xl"></i>
-    </div>
-    
-    <h1 class="font-heading font-bold text-6xl text-foreground mb-4">403</h1>
-    <h2 class="font-heading font-semibold text-2xl text-muted-foreground mb-6">
-      {% trans %}Access Forbidden{% endtrans %}
-    </h2>
-    
-    <p class="text-muted-foreground mb-8 max-w-md mx-auto">
-      {% trans %}You don't have permission to access this resource. Please contact an administrator if you believe this is an error.{% endtrans %}
-    </p>
-    
-    <a href="{{ url_for('views.static_html', route='/') }}" class="ctf-button-primary">
-      <i class="fas fa-home mr-2"></i>
-      {% trans %}Go Home{% endtrans %}
-    </a>
-  </div>
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="pt-5 mt-5 text-center">
+				<h1>{{ error }}</h1>
+				<hr class="w-50 m-auto">
+				<br/>
+				<h2>{% trans %}403 Forbidden{% endtrans %}</h2>
+			</div>
+		</div>
+	</div>
 </div>
+
 {% endblock %}

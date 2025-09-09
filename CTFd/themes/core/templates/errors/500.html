@@ -1,32 +1,19 @@
 {% extends "base.html" %}
 
 {% block content %}
-<!-- Modernized 500 error page with better design -->
-<div class="min-h-96 flex items-center justify-center py-16">
-  <div class="text-center">
-    <div class="w-24 h-24 bg-chart-4/10 rounded-full flex items-center justify-center mx-auto mb-8">
-      <i class="fas fa-exclamation-triangle text-chart-4 text-4xl"></i>
-    </div>
-    
-    <h1 class="font-heading font-bold text-6xl text-foreground mb-4">500</h1>
-    <h2 class="font-heading font-semibold text-2xl text-muted-foreground mb-6">
-      {% trans %}Server Error{% endtrans %}
-    </h2>
-    
-    <p class="text-muted-foreground mb-8 max-w-md mx-auto">
-      {% trans %}Something went wrong on our end. Our team has been notified and is working to fix the issue.{% endtrans %}
-    </p>
-    
-    <div class="flex flex-col sm:flex-row gap-4 justify-center">
-      <button onclick="window.location.reload()" class="ctf-button-secondary">
-        <i class="fas fa-redo mr-2"></i>
-        {% trans %}Try Again{% endtrans %}
-      </button>
-      <a href="{{ url_for('views.static_html', route='/') }}" class="ctf-button-primary">
-        <i class="fas fa-home mr-2"></i>
-        {% trans %}Go Home{% endtrans %}
-      </a>
-    </div>
-  </div>
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="pt-5 mt-5 text-center">
+				<h1>500</h1>
+				<hr class="w-50 m-auto">
+				<br/>
+				<h2>{{ error }}</h2>
+			</div>
+		</div>
+	</div>
 </div>
+
+
 {% endblock %}
