@@ -1,16 +1,25 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-	<title>Admin Panel</title>
+	<title>{% block title %}Admin Panel{% endblock %}</title>
 	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+	<meta http-equiv="X-UA-Compatible" content="ie=edge"/>
 	<link rel="shortcut icon" href="{{ url_for('views.themes', theme='admin', path='img/favicon.ico') }}" type="image/x-icon">
 	<link rel="icon" href="{{ url_for('views.themes', theme='admin', path='img/favicon.ico') }}" type="image/x-icon">
+	
+	<!-- Updated to use Tabler UI CSS framework -->
+	<link href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/css/tabler.min.css" rel="stylesheet"/>
+	<link href="https://cdn.jsdelivr.net/npm/@tabler/icons@2.44.0/icons-sprite.svg" rel="preload" as="image">
+	<style>
+		@import url("https://cdn.jsdelivr.net/npm/@tabler/icons@2.44.0/tabler-icons.min.css");
+	</style>
+	
 	{{ Assets.css("assets/css/main.scss", theme="admin") }}
 	{{ Assets.css("assets/css/fonts.scss", theme="admin") }}
 	{{ Assets.css("assets/css/admin.scss", theme="admin") }}
 	{{ Assets.css("assets/css/codemirror.scss", theme="admin") }}
+	
 	<script type="text/javascript">
 		var init = {
 			'urlRoot': "{{ request.script_root }}",
@@ -37,114 +46,341 @@
 	{% endfor %}
 </head>
 
-<body>
-	<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-		<div class="container">
-			<a href="{{ url_for('views.static_html', route='/') }}" class="navbar-brand">CTFd</a>
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#base-navbars"
-					aria-controls="base-navbars" aria-expanded="false" aria-label="Toggle navigation">
+<body class="d-flex flex-column">
+	<script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/js/tabler.min.js"></script>
+	
+	<!-- Modernized navbar with Tabler UI components and theme switcher -->
+	<header class="navbar navbar-expand-md d-print-none">
+		<div class="container-xl">
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu" aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
-			<div class="collapse navbar-collapse" id="base-navbars">
-				<ul class="navbar-nav mr-auto">
-					<li class="nav-item"><a class="nav-link" href="{{ url_for('admin.statistics') }}">Statistics</a></li>
-					<li class="nav-item"><a class="nav-link" href="{{ url_for('admin.notifications') }}">Notifications</a>
-					</li>
-					<li class="nav-item dropdown">
-						<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">Pages</a>
-						<div class="dropdown-menu">
-							<a class="dropdown-item" href="{{ url_for('admin.pages_listing') }}">All Pages</a>
-							<a class="dropdown-item" href="{{ url_for('admin.pages_new') }}">New Page</a>
-						</div>
-					</li>
-					<li class="nav-item"><a class="nav-link" href="{{ url_for('admin.users_listing') }}">Users</a></li>
-					{% if get_config('user_mode') == 'teams' %}
-					<li class="nav-item"><a class="nav-link" href="{{ url_for('admin.teams_listing') }}">Teams</a></li>
-					{% endif %}
-					<li class="nav-item"><a class="nav-link" href="{{ url_for('admin.scoreboard_listing') }}">Scoreboard</a></li>
-					<li class="nav-item"><a class="nav-link" href="{{ url_for('admin.challenges_listing') }}">Challenges</a></li>
-					<li class="nav-item dropdown">
-						<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
-						   aria-haspopup="true" aria-expanded="true">Submissions</a>
-						<div class="dropdown-menu">
-							<a class="dropdown-item" href="{{ url_for('admin.submissions_listing') }}">All Submissions</a>
-							<a class="dropdown-item" href="{{ url_for('admin.submissions_listing', submission_type='correct') }}">Correct Submissions</a>
-							<a class="dropdown-item" href="{{ url_for('admin.submissions_listing', submission_type='incorrect') }}">Incorrect Submissions</a>
-						</div>
-					</li>
-					<li class="nav-item"><a class="nav-link" href="{{ url_for('admin.config') }}">Config</a></li>
-
-					{% set plugin_menu = get_admin_plugin_menu_bar() %}
-					{% set plugins = get_menubar_plugins() %}
-					{% if plugin_menu or plugins %}
+			<h1 class="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3">
+				<a href="{{ url_for('views.static_html', route='/') }}" class="text-decoration-none">
+					<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-flag me-2" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+						<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+						<path d="M5 5a5 5 0 0 1 7 0a5 5 0 0 0 7 0v9a5 5 0 0 1 -7 0a5 5 0 0 0 -7 0z"/>
+						<path d="M5 21v-7"/>
+					</svg>
+					CTFd Admin
+				</a>
+			</h1>
+			<div class="navbar-nav flex-row order-md-last">
+				<!-- Added theme switcher button -->
+				<div class="nav-item dropdown d-none d-md-flex me-3">
+					<a href="#" class="nav-link px-0" data-bs-toggle="dropdown" tabindex="-1" aria-label="Show theme selector">
+						<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+							<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+							<circle cx="12" cy="12" r="4"/>
+							<path d="m3 12l1.5 0l.5 -1.5l-1 -1l1 -1l1.5 .5l1.5 0l0 -1.5l1 -1l1 1l.5 1.5l1.5 0l0 1.5l1.5 .5l1 1l-1 1l-.5 1.5l0 1.5l-1.5 0l-.5 1.5l-1 1l-1 -1l-1.5 -.5l-1.5 0l0 1.5l-1 1l-1 -1l-.5 -1.5l-1.5 0l0 -1.5"/>
+						</svg>
+					</a>
+					<div class="dropdown-menu">
+						<a href="#" class="dropdown-item" data-bs-theme-value="light">
+							<svg xmlns="http://www.w3.org/2000/svg" class="icon me-2" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+								<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+								<circle cx="12" cy="12" r="4"/>
+								<path d="m3 12l1.5 0l.5 -1.5l-1 -1l1 -1l1.5 .5l1.5 0l0 -1.5l1 -1l1 1l.5 1.5l1.5 0l0 1.5l1.5 .5l1 1l-1 1l-.5 1.5l0 1.5l-1.5 0l-.5 1.5l-1 1l-1 -1l-1.5 -.5l-1.5 0l0 1.5l-1 1l-1 -1l-.5 -1.5l-1.5 0l0 -1.5"/>
+							</svg>
+							Light
+						</a>
+						<a href="#" class="dropdown-item" data-bs-theme-value="dark">
+							<svg xmlns="http://www.w3.org/2000/svg" class="icon me-2" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+								<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+								<path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z"/>
+							</svg>
+							Dark
+						</a>
+						<a href="#" class="dropdown-item" data-bs-theme-value="auto">
+							<svg xmlns="http://www.w3.org/2000/svg" class="icon me-2" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+								<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+								<rect x="4" y="4" width="16" height="12" rx="1"/>
+								<path d="M4 16l16 0"/>
+								<path d="M8 20l8 0"/>
+								<path d="M12 16l0 4"/>
+							</svg>
+							Auto
+						</a>
+					</div>
+				</div>
+				<a href="https://docs.ctfd.io/" target="_blank" class="nav-link px-0 me-3" title="Documentation">
+					<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+						<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+						<circle cx="12" cy="12" r="9"/>
+						<path d="M12 17l0 .01"/>
+						<path d="M12 13.5a1.5 1.5 0 0 1 1 -1.5a2.6 2.6 0 1 0 -3 -2.5"/>
+					</svg>
+				</a>
+			</div>
+			<div class="collapse navbar-collapse" id="navbar-menu">
+				<div class="d-flex flex-column flex-md-row flex-fill align-items-stretch align-items-md-center">
+					<ul class="navbar-nav">
 						<li class="nav-item">
-							<a class="nav-link d-none d-md-block d-lg-block">|</a>
+							<a class="nav-link" href="{{ url_for('admin.statistics') }}">
+								<span class="nav-link-icon d-md-none d-lg-inline-block">
+									<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+										<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+										<path d="M3 12m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v6a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z"/>
+										<path d="M9 8m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v10a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z"/>
+										<path d="M15 4m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z"/>
+										<path d="M4 20l14 0"/>
+									</svg>
+								</span>
+								<span class="nav-link-title">Statistics</span>
+							</a>
 						</li>
-
-						{% for menu in plugin_menu %}
-							{% if request.script_root %}
-								{% set route = '/' + request.script_root + '/' + menu.route %}
-							{% else %}
-								{% set route = menu.route %}
-							{% endif %}
-							<li class="nav-item">
-								<a class="nav-link" href="{{ route }}" {% if menu.link_target %}target="{{ menu.link_target }}"{% endif %}>
-									{{ menu.title }}
-								</a>
-							</li>
-						{% endfor %}
-
-						{% if plugins %}
+						<li class="nav-item">
+							<a class="nav-link" href="{{ url_for('admin.notifications') }}">
+								<span class="nav-link-icon d-md-none d-lg-inline-block">
+									<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+										<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+										<path d="M10 5a2 2 0 1 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3h-16a4 4 0 0 0 2 -3v-3a7 7 0 0 1 4 -6"/>
+										<path d="M9 17v1a3 3 0 0 0 6 0v-1"/>
+									</svg>
+								</span>
+								<span class="nav-link-title">Notifications</span>
+							</a>
+						</li>
 						<li class="nav-item dropdown">
-							<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Plugins <span class="caret"></span></a>
-							<ul class="dropdown-menu">
-									{% for plugin in plugins %}
-											<a class="dropdown-item" href="{{ request.script_root }}{{ plugin.route }}">{{ plugin.name }}</a>
-									{% endfor %}
-							</ul>
+							<a class="nav-link dropdown-toggle" href="#navbar-extra" data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button" aria-expanded="false">
+								<span class="nav-link-icon d-md-none d-lg-inline-block">
+									<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+										<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+										<path d="M14 3v4a1 1 0 0 0 1 1h4"/>
+										<path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z"/>
+									</svg>
+								</span>
+								<span class="nav-link-title">Pages</span>
+							</a>
+							<div class="dropdown-menu">
+								<a class="dropdown-item" href="{{ url_for('admin.pages_listing') }}">All Pages</a>
+								<a class="dropdown-item" href="{{ url_for('admin.pages_new') }}">New Page</a>
+							</div>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="{{ url_for('admin.users_listing') }}">
+								<span class="nav-link-icon d-md-none d-lg-inline-block">
+									<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+										<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+										<path d="M9 7m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0"/>
+										<path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"/>
+										<path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+										<path d="M21 21v-2a4 4 0 0 0 -3 -3.85"/>
+									</svg>
+								</span>
+								<span class="nav-link-title">Users</span>
+							</a>
+						</li>
+						{% if get_config('user_mode') == 'teams' %}
+						<li class="nav-item">
+							<a class="nav-link" href="{{ url_for('admin.teams_listing') }}">
+								<span class="nav-link-icon d-md-none d-lg-inline-block">
+									<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+										<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+										<path d="M10 13a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"/>
+										<path d="M8 21v-1a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2v1"/>
+										<path d="M15 5a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"/>
+										<path d="M17 10h2a2 2 0 0 1 2 2v1"/>
+										<path d="M5 5a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"/>
+										<path d="M3 13v-1a2 2 0 0 1 2 -2h2"/>
+									</svg>
+								</span>
+								<span class="nav-link-title">Teams</span>
+							</a>
 						</li>
 						{% endif %}
-					{% endif %}
-				</ul>
-				<ul class="nav navbar-nav navbar-right">
-					<li class="nav-item">
-						<a class="nav-link" href="https://docs.ctfd.io/" target="_blank">
-							<i class="far fa-question-circle"></i>
-						</a>
-					</li>
-				</ul>
+						<li class="nav-item">
+							<a class="nav-link" href="{{ url_for('admin.scoreboard_listing') }}">
+								<span class="nav-link-icon d-md-none d-lg-inline-block">
+									<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+										<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+										<path d="M15 21h-9a1 1 0 0 1 -1 -1v-1a1 1 0 0 1 1 -1h9m4 -4v7a1 1 0 0 1 -1 1"/>
+										<path d="M9.5 21v-7.5a.5 .5 0 0 1 .5 -.5h1a.5 .5 0 0 1 .5 .5v7.5"/>
+										<path d="M13.5 21v-2.5a.5 .5 0 0 1 .5 -.5h1a.5 .5 0 0 1 .5 .5v2.5"/>
+										<path d="M5.5 21v-4.5a.5 .5 0 0 1 .5 -.5h1a.5 .5 0 0 1 .5 .5v4.5"/>
+										<path d="M12 14v-8a1 1 0 0 0 -1 -1h-2a1 1 0 0 0 -1 1v3"/>
+										<path d="M8 3l0 .01"/>
+										<path d="M16 4l0 .01"/>
+										<path d="M12 4l0 .01"/>
+									</svg>
+								</span>
+								<span class="nav-link-title">Scoreboard</span>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="{{ url_for('admin.challenges_listing') }}">
+								<span class="nav-link-icon d-md-none d-lg-inline-block">
+									<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+										<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+										<path d="M5 5a5 5 0 0 1 7 0a5 5 0 0 0 7 0v9a5 5 0 0 1 -7 0a5 5 0 0 0 -7 0z"/>
+										<path d="M5 21v-7"/>
+									</svg>
+								</span>
+								<span class="nav-link-title">Challenges</span>
+							</a>
+						</li>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#navbar-extra" data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button" aria-expanded="false">
+								<span class="nav-link-icon d-md-none d-lg-inline-block">
+									<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+										<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+										<path d="M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2h-2"/>
+										<path d="M9 3m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z"/>
+									</svg>
+								</span>
+								<span class="nav-link-title">Submissions</span>
+							</a>
+							<div class="dropdown-menu">
+								<a class="dropdown-item" href="{{ url_for('admin.submissions_listing') }}">All Submissions</a>
+								<a class="dropdown-item" href="{{ url_for('admin.submissions_listing', submission_type='correct') }}">Correct Submissions</a>
+								<a class="dropdown-item" href="{{ url_for('admin.submissions_listing', submission_type='incorrect') }}">Incorrect Submissions</a>
+							</div>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="{{ url_for('admin.config') }}">
+								<span class="nav-link-icon d-md-none d-lg-inline-block">
+									<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+										<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+										<path d="M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z"/>
+										<path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0"/>
+									</svg>
+								</span>
+								<span class="nav-link-title">Config</span>
+							</a>
+						</li>
+
+						{% set plugin_menu = get_admin_plugin_menu_bar() %}
+						{% set plugins = get_menubar_plugins() %}
+						{% if plugin_menu or plugins %}
+							{% for menu in plugin_menu %}
+								{% if request.script_root %}
+									{% set route = '/' + request.script_root + '/' + menu.route %}
+								{% else %}
+									{% set route = menu.route %}
+								{% endif %}
+								<li class="nav-item">
+									<a class="nav-link" href="{{ route }}" {% if menu.link_target %}target="{{ menu.link_target }}"{% endif %}>
+										<span class="nav-link-icon d-md-none d-lg-inline-block">
+											<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+												<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+												<path d="M12 6l4 6l5 -4l-2 10h-14l-2 -10l5 4z"/>
+											</svg>
+										</span>
+										<span class="nav-link-title">{{ menu.title }}</span>
+									</a>
+								</li>
+							{% endfor %}
+
+							{% if plugins %}
+							<li class="nav-item dropdown">
+								<a class="nav-link dropdown-toggle" href="#navbar-extra" data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button" aria-expanded="false">
+									<span class="nav-link-icon d-md-none d-lg-inline-block">
+										<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+											<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+											<path d="M12 6l4 6l5 -4l-2 10h-14l-2 -10l5 4z"/>
+										</svg>
+									</span>
+									<span class="nav-link-title">Plugins</span>
+								</a>
+								<div class="dropdown-menu">
+									{% for plugin in plugins %}
+										<a class="dropdown-item" href="{{ request.script_root }}{{ plugin.route }}">{{ plugin.name }}</a>
+									{% endfor %}
+								</div>
+							</li>
+							{% endif %}
+						{% endif %}
+					</ul>
+				</div>
 			</div>
 		</div>
-	</nav>
+	</header>
 
-	<main role="main">
+	<div class="page-wrapper">
 		{% if get_config('version_latest') %}
-		<div class="container-fluid bg-warning text-center py-3">
-			<div class="row">
-				<div class="col-md-12">
-					<a class="btn btn-warning" href="{{ get_config('version_latest') }}">
-						A new CTFd version is available!
-					</a>
+		<div class="container-fluid">
+			<div class="alert alert-warning" role="alert">
+				<div class="d-flex">
+					<div>
+						<svg xmlns="http://www.w3.org/2000/svg" class="icon alert-icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+							<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+							<path d="M12 9v2m0 4v.01"/>
+							<path d="M5 19h14a2 2 0 0 0 1.84 -2.75l-7.1 -12.25a2 2 0 0 0 -3.5 0l-7.1 12.25a2 2 0 0 0 1.75 2.75"/>
+						</svg>
+					</div>
+					<div>
+						<h4 class="alert-title">New CTFd Version Available!</h4>
+						<div class="text-muted">A new version of CTFd is available for download.</div>
+						<div class="btn-list">
+							<a href="{{ get_config('version_latest') }}" class="btn btn-warning" target="_blank">Download Update</a>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
 		{% endif %}
-		{% block content %}
-		{% endblock %}
-	</main>
 
-	<footer class="footer pt-2">
-		<div class="container text-center">
-			<a href="https://ctfd.io" class="text-secondary">
-				<small class="text-muted">
-					Powered by CTFd
-				</small>
-			</a>
-			<span>
-				<small class="text-muted"><br> Version {{ get_config('ctf_version') }}</small>
-			</span>
+		<div class="page-body">
+			{% block content %}
+			{% endblock %}
 		</div>
-	</footer>
+
+		<footer class="footer footer-transparent d-print-none">
+			<div class="container-xl">
+				<div class="row text-center align-items-center flex-row-reverse">
+					<div class="col-12 col-lg-auto mt-3 mt-lg-0">
+						<ul class="list-inline list-inline-dots mb-0">
+							<li class="list-inline-item">
+								<a href="https://ctfd.io" class="link-secondary text-decoration-none">
+									Powered by CTFd
+								</a>
+							</li>
+							<li class="list-inline-item">
+								<span class="text-muted">Version {{ get_config('ctf_version') }}</span>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</footer>
+	</div>
+
+	<!-- Added theme switching JavaScript functionality -->
+	<script>
+		// Theme switching functionality
+		(() => {
+			'use strict'
+			const storedTheme = localStorage.getItem('theme')
+			const getPreferredTheme = () => {
+				if (storedTheme) {
+					return storedTheme
+				}
+				return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+			}
+			const setTheme = function (theme) {
+				if (theme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+					document.documentElement.setAttribute('data-bs-theme', 'dark')
+				} else {
+					document.documentElement.setAttribute('data-bs-theme', theme)
+				}
+			}
+			setTheme(getPreferredTheme())
+			window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+				if (storedTheme !== 'light' && storedTheme !== 'dark') {
+					setTheme(getPreferredTheme())
+				}
+			})
+			window.addEventListener('DOMContentLoaded', () => {
+				document.querySelectorAll('[data-bs-theme-value]').forEach(toggle => {
+					toggle.addEventListener('click', () => {
+						const theme = toggle.getAttribute('data-bs-theme-value')
+						localStorage.setItem('theme', theme)
+						setTheme(theme)
+					})
+				})
+			})
+		})()
+	</script>
 
 	{% block entrypoint %}
 		{{ Assets.js("assets/js/pages/main.js", theme="admin") }}
@@ -162,5 +398,4 @@
 		{% endif %}
 	{% endfor %}
 </body>
-
 </html>

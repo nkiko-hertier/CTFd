@@ -1,63 +1,114 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <div class="jumbotron">
-    <div class="container">
-      <h1>
-        {% trans %}Scoreboard{% endtrans %}
-      </h1>
-    </div>
-  </div>
-  <div class="container">
-    {% include "components/errors.html" %}
-
-    <div id="score-graph" class="align-items-center" :class="{'d-flex': show, 'd-none': !show}" x-data="ScoreboardDetail" x-ref="scoregraph" @bracket-change.window="activeBracket=$event.detail; update();">
-      <div class="col-md-12 text-center">
-        <i class="fas fa-circle-notch fa-spin fa-3x fa-fw spinner"></i>
-      </div>
-    </div>
-
-    <div id="scoreboard" class="row" x-data="ScoreboardList">
-      <template x-if="brackets.length && standings.length">
-        <div class="col-md-12 py-3">
-          <nav class="nav nav-pills nav-fill">
-            <button :class="{'nav-link': true, 'active': !activeBracket}" @click="activeBracket=null">{% trans %}All{% endtrans %}</button>
-            <template x-for="bracket in brackets">
-              <button :class="{'nav-link': true, 'active': activeBracket == bracket.id}" x-text="bracket.name" @click="activeBracket=bracket.id"></button>
-            </template>
-          </nav>
+  <!-- Modern scoreboard with Tabler styling -->
+  <div class="container-xl">
+    <div class="page-header d-print-none">
+      <div class="container-xl">
+        <div class="row g-2 align-items-center">
+          <div class="col">
+            <div class="page-pretitle">
+              {% trans %}Competition{% endtrans %}
+            </div>
+            <h2 class="page-title">
+              {% trans %}Scoreboard{% endtrans %}
+            </h2>
+          </div>
         </div>
-      </template>
-
-      <div class="col-md-12" x-show="standings.length">
-        <table class="table table-striped align-middle">
-          <thead>
-          <tr>
-            <th style="width: 10px">{% trans %}Place{% endtrans %}</th>
-            <th class="text-start ps-3">{{ get_mode_as_word(capitalize=True) }}</th>
-            <th>{% trans %}Score{% endtrans %}</th>
-          </tr>
-          </thead>
-
-          <tbody>
-            <template x-for="(standing, index) in standings.filter(i => activeBracket ? i.bracket_id==activeBracket : true)">
-              <tr>
-                <th scope="row" class="text-center" x-text="index + 1"></th>
-                <td class="text-start">
-                  <a :href="standing.account_url" x-text="standing.name"></a>
-                  <template x-if="standing.bracket_name">
-                    <span class="badge bg-secondary ms-2" x-text="standing.bracket_name"></span>
-                  </template>
-                </td>
-                <td x-text="standing.score"></td>
-              </tr>
-            </template>
-          </tbody>
-        </table>
       </div>
+    </div>
 
-      <div class="col-md-12" x-show="! standings.length">
-        <h3 class="text-center text-muted">{% trans %}Scoreboard is empty{% endtrans %}</h3>
+    <div class="page-body">
+      <div class="container-xl">
+        {% include "components/errors.html" %}
+
+        <div class="card mb-3" id="score-graph" :class="{'d-block': show, 'd-none': !show}" x-data="ScoreboardDetail" x-ref="scoregraph" @bracket-change.window="activeBracket=$event.detail; update();">
+          <div class="card-body text-center">
+            <div class="spinner-border text-primary" role="status">
+              <span class="visually-hidden">Loading chart...</span>
+            </div>
+          </div>
+        </div>
+
+        <div id="scoreboard" x-data="ScoreboardList">
+          <template x-if="brackets.length && standings.length">
+            <div class="card mb-3">
+              <div class="card-header">
+                <ul class="nav nav-tabs card-header-tabs" data-bs-toggle="tabs">
+                  <li class="nav-item">
+                    <button class="nav-link" :class="{'active': !activeBracket}" @click="activeBracket=null">
+                      {% trans %}All{% endtrans %}
+                    </button>
+                  </li>
+                  <template x-for="bracket in brackets">
+                    <li class="nav-item">
+                      <button class="nav-link" :class="{'active': activeBracket == bracket.id}" x-text="bracket.name" @click="activeBracket=bracket.id"></button>
+                    </li>
+                  </template>
+                </ul>
+              </div>
+            </div>
+          </template>
+
+          <div class="card" x-show="standings.length">
+            <div class="table-responsive">
+              <table class="table table-vcenter card-table">
+                <thead>
+                  <tr>
+                    <th class="w-1">{% trans %}Place{% endtrans %}</th>
+                    <th>{{ get_mode_as_word(capitalize=True) }}</th>
+                    <th class="text-end">{% trans %}Score{% endtrans %}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <template x-for="(standing, index) in standings.filter(i => activeBracket ? i.bracket_id==activeBracket : true)">
+                    <tr>
+                      <td>
+                        <span class="badge" :class="{
+                          'bg-gold': index === 0,
+                          'bg-silver': index === 1, 
+                          'bg-bronze': index === 2,
+                          'bg-secondary': index > 2
+                        }" x-text="index + 1"></span>
+                      </td>
+                      <td>
+                        <div class="d-flex py-1 align-items-center">
+                          <span class="avatar me-2" :style="`background-image: url(https://ui-avatars.com/api/?name=${encodeURIComponent(standing.name)}&background=206bc4&color=fff)`"></span>
+                          <div class="flex-fill">
+                            <div class="font-weight-medium">
+                              <a :href="standing.account_url" x-text="standing.name" class="text-reset"></a>
+                            </div>
+                            <template x-if="standing.bracket_name">
+                              <div class="text-muted">
+                                <span class="badge bg-secondary" x-text="standing.bracket_name"></span>
+                              </div>
+                            </template>
+                          </div>
+                        </div>
+                      </td>
+                      <td class="text-end">
+                        <span class="text-muted" x-text="standing.score"></span>
+                      </td>
+                    </tr>
+                  </template>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="empty" x-show="! standings.length">
+            <div class="empty-icon">
+              <!-- Updated chart icon reference -->
+              <svg class="icon" width="24" height="24">
+                <use href="https://cdn.jsdelivr.net/npm/@tabler/icons@2.44.0/tabler-sprite.svg#tabler-chart-bar"></use>
+              </svg>
+            </div>
+            <p class="empty-title">{% trans %}Scoreboard is empty{% endtrans %}</p>
+            <p class="empty-subtitle text-muted">
+              {% trans %}No scores to display yet. Start solving challenges!{% endtrans %}
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
