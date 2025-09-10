@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign in to your account</title>
+
+    <!-- Font Awesome for social icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" xintegrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+rL+A3/C5yV4gH6xL7m1xS8bL7pB4N4/a5k+I5g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Tailwind CSS Play CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Alpine.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <style>
+        :root {
+            --green: rgb(159, 239, 0);
+            --bg1: #101927;
+            --bg2: #151f2e;
+            --bg3: #1e2939;
+            --border: #27313f;
+        }
+
+        /* Custom Tailwind config to use CSS variables */
+        .peer:valid ~ .peer-valid\:bg-\[var\(--green\)\] {
+            background-color: var(--green);
+        }
+
+        .peer:valid ~ .peer-valid\:text-black {
+            color: black;
+        }
+
+        .peer:valid ~ .peer-valid\:hover\:shadow-2xl {
+            box-shadow: 0 25px 50px -12px rgba(159, 239, 0, 0.4);
+        }
+    </style>
+</head>
+<body class="bg-[var(--bg1)] text-white flex items-center justify-center min-h-screen p-4">
+    {% block content %}
+</body>
+</html>

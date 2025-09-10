@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+    <title>Document</title>
+    <style>
+        .bg-video {
+            width: 100%;
+            height: auto;
+            max-height: 1448px;
+            position: absolute;
+            top: 41px;
+            left: 0;
+            z-index: -9;
+        }
+        :root {
+  --blue: #007bff;
+  --indigo: #6610f2;
+  --purple: #6f42c1;
+  --pink: #e83e8c;
+  --red: #dc3545;
+  --orange: #fd7e14;
+  --yellow: #ffc107;
+  --green: rgb(159, 239, 0);
+  --teal: #20c997;
+  --cyan: #17a2b8;
+  --white: #fff;
+  --gray: #6c757d;
+  --gray-dark: #343a40;
+  --bg: #0b121f;
+  --bg0: #0b121f9678;
+  --primary: #007bff;
+  --secondary: #6c757d;
+  --success: #28a745;
+  --info: #17a2b8;
+  --warning: #ffc107;
+  --danger: #dc3545;
+  --light: #f8f9fa;
+  --dark: #343a40;
+  --breakpoint-xxxxs: 0;
+  --breakpoint-xxxs: 320px;
+  --breakpoint-xxs: 375px;
+  --breakpoint-xs: 568px;
+  --breakpoint-sm: 667px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 992px;
+  --p-surface-0: #ffffff;
+  --p-slate-50: #f8fafc;
+  --p-slate-100: #f1f5f9;
+  --p-slate-200: #e2e8f0;
+  --p-slate-300: #cbd5e1;
+  --p-slate-400: #94a3b8;
+  --p-slate-500: #64748b;
+  --p-slate-600: #475569;
+  --p-slate-700: #334155;
+  --p-slate-800: #1e293b;
+  --p-slate-900: #0f172a;
+  --p-slate-950: #020617;
+  --breakpoint-xl: 1200px;
+  --breakpoint-xxl: 1440px;
+  --font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+.btn-primary{
+    background-color: rgb(159, 239, 0);
+    color: black;
+    border-radius: 3px;
+}
+.btn-muted{
+    background-color: #232e41;
+    color: white;
+    border-radius: 3px;
+}
+    </style>
+</head>
+
+<body class="text-white bg-[var(--bg)]">
+    <nav class=" min-h-[80px] flex items-center px-10">
+        <div class="logo font-bold">
+            Mile<span class="text-[var(--green)]">Box</span>
+        </div>
+    </nav>
+    <div class="flex flex-col h-[calc(100vh-80px)]">
+        <div class="relative w-full h-full">
+            <div class="bg-gradient-to-t from-[var(--bg)] to-slate-900/50 absolute size-full">
+            <div class="size-full px-10 space-y-5 flex flex-col justify-center">
+                <h1 class="text-8xl font-bold max-sm:text-6xl">
+                    Your Cyber<br />
+                    Performance<br />
+                    Center
+                </h1>
+                <p class="text-xl text-slate-400 max-sm:text-lg">Build and sustain high-performing cyber teams keeping <br />
+                    your organization protected against real world threats. 
+                </p>
+                <div class="md:flex gap-7">
+                    <a href="" class="btn-primary font-semibold block w-fit p-3 px-5">Login Account</a>
+                    <a href="" class="btn-muted font-semibold block w-fit p-3 px-5 mt-4 md:mt-0">Create Account</a>
+                </div>
+            </div>
+            </div>
+        <video class="bg-video absolute inset-0 w-full h-full object-cover" playsinline="" autoplay="" muted="" loop="">
+            <source src="https://cdn.hackthebox.com/website/Textless_Cyber_Performance_Center_Updated.mp4"
+                type="video/mp4">
+        </video> 
+        </div>
+    </div>
+</body>
+
+</html>

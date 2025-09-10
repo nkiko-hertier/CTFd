@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign in to platform</title>
+    <style>
+        :root {
+            --green: rgb(159, 239, 0);
+            --green2: rgba(159, 239, 0, 0.435);
+            --bg1: #101927;
+            --bg2: #151f2e;
+            --bg3: #1e2939;
+            --border: #27313f;
+        }
+    </style>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+rL+A3/C5yV4gH6xL7m1xS8bL7pB4N4/a5k+I5g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body class="bg-[var(--bg1)] text-white flex justify-center items-center min-h-screen">
+    
+    <div x-data="{ email: '', password: '' }" class="w-[500px] rounded-md min-h-[500px] bg-[var(--bg2)] p-10">
+        <form action="">
+            <h1 class="text-2xl">Sign in to platform</h1>
+            <div class="space-y-2 mt-5">
+                <label class="text-slate-400 text-sm" for="email">Email</label>
+                <input x-model="email" id="email" type="email" class="peer bg-[var(--bg3)] block p-2 w-full rounded-md border border-[var(--border)]" required>
+            </div>
+            <div class="space-y-2 mt-5">
+                <label class="text-slate-400 text-sm" for="password">Password</label>
+                <input x-model="password" id="password" type="password" class="peer bg-[var(--bg3)] block p-2 w-full rounded-md border border-[var(--border)]" required>
+            </div>
+            <a href="" class="text-slate-400 text-sm mt-5 block">Forget password</a>
+            <div class="mt-5">
+                <button
+                    x-bind:disabled="!email || !password"
+                    class="
+                        bg-[var(--green)] text-black text-sm block p-3 w-full rounded-md border-[var(--border)]
+                        disabled:bg-[var(--bg3)] disabled:text-slate-400 disabled:cursor-not-allowed disabled:border
+                        peer-valid:bg-[var(--green)] peer-valid:text-black hover:shadow-2xl hover:shadow-[var(--green2)] disabled:shadow-transparent
+                    ">
+                    Sign in
+                </button>
+            </div>
+            <p class="text-slate-400 text-sm mt-4">
+                Don't have account <a href="/register" class="text-[var(--green)]">create Account</a>
+            </p>
+        </form>
+    </div>
+</body>
+</html>

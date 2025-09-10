@@ -1,63 +1,69 @@
-{% extends "base.html" %}
+{% extends "auth_base.html" %}
 
 {% block content %}
-  <!-- Modern hero section with Tabler styling -->
-  <div class="page page-center">
-    <div class="container container-tight py-4">
-      <div class="text-center mb-4">
-        {% if Configs.ctf_logo %}
-          <img src="{{ Configs.ctf_logo }}" height="64" alt="{{ Configs.ctf_name }}" class="mb-3">
-        {% endif %}
-        <h1 class="h2 text-muted">{% trans %}Sign in to your account{% endtrans %}</h1>
-      </div>
-      
-      <div class="card card-md">
-        <div class="card-body">
-          {% include "components/errors.html" %}
-
-          {% if integrations.mlc() %}
-            <div class="mb-3">
-              <a class="btn btn-outline-primary w-100" href="{{ url_for('auth.oauth_login') }}">
-                <svg class="icon me-2" width="24" height="24">
-                  <use href="#tabler-brand-oauth"></use>
-                </svg>
-                Login with Major League Cyber
-              </a>
-            </div>
-            <div class="hr-text">or</div>
-          {% endif %}
-
-          {% with form = Forms.auth.LoginForm() %}
-            <form method="post" accept-charset="utf-8" autocomplete="off">
-              <div class="mb-3">
-                <label class="form-label">{{ form.name.label.text }}</label>
-                {{ form.name(class="form-control", value=name, autocomplete="username email", placeholder="Enter username or email") }}
-              </div>
-
-              <div class="mb-2">
-                <label class="form-label">
-                  {{ form.password.label.text }}
-                  <span class="form-label-description">
-                    <a href="{{ url_for('auth.reset_password') }}">{% trans %}Forgot password?{% endtrans %}</a>
-                  </span>
-                </label>
-                {{ form.password(class="form-control", value=password, autocomplete="current-password", placeholder="Enter password") }}
-              </div>
-
-              <div class="form-footer">
-                {{ form.submit(class="btn btn-primary w-100") }}
-              </div>
-
-              {{ form.nonce() }}
-            </form>
-          {% endwith %}
-        </div>
-      </div>
-      
-      <div class="text-center text-muted mt-3">
-        {% trans %}Don't have account yet?{% endtrans %} 
-        <a href="{{ url_for('auth.register') }}" tabindex="-1">{% trans %}Sign up{% endtrans %}</a>
-      </div>
-    </div>
+<div x-data="{ name: '', password: '' }" class="w-full max-w-md rounded-md min-h-[500px] bg-[var(--bg2)] p-10">
+  <div class="text-center mb-6">
+      {% if Configs.ctf_logo %}
+        <img src="{{ Configs.ctf_logo }}" height="64" alt="{{ Configs.ctf_name }}" class="mx-auto mb-3">
+      {% endif %}
+      <h1 class="text-2xl text-white">Sign in to platform</h1>
   </div>
+  
+  <!-- Placeholder for server-side errors -->
+  {% include "components/errors.html" %}
+
+  <!-- Social login section -->
+  {% if integrations.mlc() %}
+      <div class="mb-3">
+        <a class="w-full flex items-center justify-center px-4 py-3 border border-[var(--border)] text-base font-semibold rounded-lg shadow-sm text-white bg-transparent hover:bg-[var(--bg3)] transition duration-200" href="{{ url_for('auth.oauth_login') }}">
+          <i class="fa-solid fa-cloud-arrow-right mr-2"></i>
+          Login with Major League Cyber
+        </a>
+      </div>
+      <div class="relative my-6">
+          <div class="absolute inset-0 flex items-center">
+              <div class="w-full border-t border-[var(--border)]"></div>
+          </div>
+          <div class="relative flex justify-center text-xs uppercase">
+              <span class="bg-[var(--bg2)] px-2 text-slate-400">or</span>
+          </div>
+      </div>
+  {% endif %}
+
+  {% with form = Forms.auth.LoginForm() %}
+      <form method="post" accept-charset="utf-8" autocomplete="off" class="space-y-5">
+          <div class="space-y-2">
+              <label class="text-slate-400 text-sm" for="name">{{ form.name.label.text }}</label>
+              <input x-model="name" id="name" type="text" autocomplete="username email" placeholder="Enter username or email" class="peer bg-[var(--bg3)] block p-2 w-full rounded-md border border-[var(--border)] focus:ring-1 focus:ring-slate-400 focus:border-slate-400" required>
+          </div>
+          
+          <div class="space-y-2">
+              <div class="flex justify-between items-center">
+                  <label class="text-slate-400 text-sm" for="password">{{ form.password.label.text }}</label>
+                  <a href="{{ url_for('auth.reset_password') }}" class="text-slate-400 text-sm hover:text-[var(--green)] transition-colors">Forgot password?</a>
+              </div>
+              <input x-model="password" id="password" type="password" autocomplete="current-password" placeholder="Enter password" class="peer bg-[var(--bg3)] block p-2 w-full rounded-md border border-[var(--border)] focus:ring-1 focus:ring-slate-400 focus:border-slate-400" required>
+          </div>
+          
+          <div class="mt-5">
+              <button
+                  x-bind:disabled="!name || !password"
+                  class="
+                      bg-[var(--green)] text-black text-sm block p-3 w-full rounded-md border-transparent
+                      disabled:bg-[var(--bg3)] disabled:text-slate-400 disabled:cursor-not-allowed disabled:border disabled:opacity-50
+                      peer-valid:bg-[var(--green)] peer-valid:text-black hover:shadow-2xl hover:shadow-[rgba(159,239,0,0.4)] disabled:shadow-transparent
+                  ">
+                  {{ form.submit(class="hidden") }}
+                  Sign in
+              </button>
+          </div>
+          {{ form.nonce() }}
+      </form>
+  {% endwith %}
+  
+  <p class="text-slate-400 text-sm mt-4 text-center">
+      Don't have an account yet?
+      <a href="{{ url_for('auth.register') }}" class="text-[var(--green)] hover:text-white transition-colors">create Account</a>
+  </p>
+</div>
 {% endblock %}

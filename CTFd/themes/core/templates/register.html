@@ -1,84 +1,91 @@
-{% extends "base.html" %}
+{% extends "auth_base.html" %}
 
 {% block content %}
   <!-- Modern registration form with Tabler styling -->
-  <div class="page page-center">
-    <div class="container container-tight py-4">
-      <div class="text-center mb-4">
+  <div x-data="{ name: '', email: '', password: '', tos: false }" class="w-full max-w-md rounded-md min-h-[500px] bg-[var(--bg2)] p-10">
+    <div class="text-center mb-6">
         {% if Configs.ctf_logo %}
-          <img src="{{ Configs.ctf_logo }}" height="64" alt="{{ Configs.ctf_name }}" class="mb-3">
+          <img src="{{ Configs.ctf_logo }}" height="64" alt="{{ Configs.ctf_name }}" class="mx-auto mb-3">
         {% endif %}
-        <h1 class="h2 text-muted">{% trans %}Create new account{% endtrans %}</h1>
-      </div>
-      
-      <div class="card card-md">
-        <div class="card-body">
-          {% include "components/errors.html" %}
+        <h1 class="text-2xl text-white">Create new account</h1>
+    </div>
+    
+    <!-- Placeholder for server-side errors -->
+    {% include "components/errors.html" %}
 
-          {% if integrations.mlc() %}
-            <div class="mb-3">
-              <a class="btn btn-outline-primary w-100" href="{{ url_for('auth.oauth_login') }}">
-                <svg class="icon me-2" width="24" height="24">
-                  <use href="#tabler-brand-oauth"></use>
-                </svg>
-                Register with Major League Cyber
-              </a>
+    <!-- Social login section -->
+    {% if integrations.mlc() %}
+        <div class="mb-3">
+          <a class="w-full flex items-center justify-center px-4 py-3 border border-[var(--border)] text-base font-semibold rounded-lg shadow-sm text-white bg-transparent hover:bg-[var(--bg3)] transition duration-200" href="{{ url_for('auth.oauth_login') }}">
+            <i class="fa-solid fa-cloud-arrow-right mr-2"></i>
+            Register with Major League Cyber
+          </a>
+        </div>
+        <div class="relative my-6">
+            <div class="absolute inset-0 flex items-center">
+                <div class="w-full border-t border-[var(--border)]"></div>
             </div>
-            <div class="hr-text">or</div>
-          {% endif %}
+            <div class="relative flex justify-center text-xs uppercase">
+                <span class="bg-[var(--bg2)] px-2 text-slate-400">or</span>
+            </div>
+        </div>
+    {% endif %}
 
-          {% with form = Forms.auth.RegistrationForm() %}
-            {% from "macros/forms.html" import render_extra_fields %}
+    {% with form = Forms.auth.RegistrationForm() %}
+        {% from "macros/forms.html" import render_extra_fields %}
 
-            <form method="post" accept-charset="utf-8" role="form">
-              <div class="mb-3">
-                <label class="form-label required">{{ form.name.label.text }}</label>
-                {{ form.name(class="form-control", value=name, autocomplete="username", placeholder="Enter your username") }}
-                <small class="form-hint">{% trans %}Your username on the site{% endtrans %}</small>
-              </div>
+        <form method="post" accept-charset="utf-8" role="form" class="space-y-5">
+            <div class="space-y-2">
+                <label class="text-slate-400 text-sm required" for="name">{{ form.name.label.text }}</label>
+                <input x-model="name" id="name" type="text" autocomplete="username" placeholder="Enter your username" class="bg-[var(--bg3)] block p-2 w-full rounded-md border border-[var(--border)] focus:ring-1 focus:ring-slate-400 focus:border-slate-400" required>
+                <small class="text-xs text-slate-500">Your username on the site</small>
+            </div>
 
-              <div class="mb-3">
-                <label class="form-label required">{{ form.email.label.text }}</label>
-                {{ form.email(class="form-control", value=email, autocomplete="email", placeholder="Enter your email") }}
-                <small class="form-hint">{% trans %}Never shown to the public{% endtrans %}</small>
-              </div>
+            <div class="space-y-2">
+                <label class="text-slate-400 text-sm required" for="email">{{ form.email.label.text }}</label>
+                <input x-model="email" id="email" type="email" autocomplete="email" placeholder="Enter your email" class="bg-[var(--bg3)] block p-2 w-full rounded-md border border-[var(--border)] focus:ring-1 focus:ring-slate-400 focus:border-slate-400" required>
+                <small class="text-xs text-slate-500">Never shown to the public</small>
+            </div>
 
-              <div class="mb-3">
-                <label class="form-label required">{{ form.password.label.text }}</label>
-                {{ form.password(class="form-control", value=password, autocomplete="new-password", placeholder="Create a password") }}
-                <small class="form-hint">{% trans %}Password used to log into your account{% endtrans %}</small>
-              </div>
+            <div class="space-y-2">
+                <label class="text-slate-400 text-sm required" for="password">{{ form.password.label.text }}</label>
+                <input x-model="password" id="password" type="password" autocomplete="new-password" placeholder="Create a password" class="bg-[var(--bg3)] block p-2 w-full rounded-md border border-[var(--border)] focus:ring-1 focus:ring-slate-400 focus:border-slate-400" required>
+                <small class="text-xs text-slate-500">Password used to log into your account</small>
+            </div>
 
-              {{ form.nonce() }}
+            {{ form.nonce() }}
+            {{ render_extra_fields(form.extra) }}
 
-              {{ render_extra_fields(form.extra) }}
-
-              {% if Configs.tos_or_privacy %}
+            {% if Configs.tos_or_privacy %}
                 <div class="mb-3">
-                  <label class="form-check">
-                    <input class="form-check-input" type="checkbox" required>
-                    <span class="form-check-label">
-                      {% trans trimmed privacy_link=Configs.privacy_link, tos_link=Configs.tos_link %}
-                      I agree to the <a href="{{ privacy_link }}" target="_blank" class="link-primary">privacy policy</a>
-                      and <a href="{{ tos_link }}" target="_blank" class="link-primary">terms of service</a>
-                      {% endtrans %}
+                  <label class="flex items-center space-x-2 text-sm text-slate-400">
+                    <input x-model="tos" class="form-check-input w-4 h-4 bg-[var(--bg3)] text-[var(--green)] border-[var(--border)] focus:ring-[var(--green)] rounded" type="checkbox" required>
+                    <span class="ml-2">
+                      I agree to the <a href="{{ Configs.privacy_link }}" target="_blank" class="text-[var(--green)] hover:text-white transition-colors">privacy policy</a>
+                      and <a href="{{ Configs.tos_link }}" target="_blank" class="text-[var(--green)] hover:text-white transition-colors">terms of service</a>
                     </span>
                   </label>
                 </div>
-              {% endif %}
+            {% endif %}
 
-              <div class="form-footer">
-                {{ form.submit(class="btn btn-primary w-100") }}
-              </div>
-            </form>
-          {% endwith %}
-        </div>
-      </div>
-      
-      <div class="text-center text-muted mt-3">
-        {% trans %}Already have account?{% endtrans %} 
-        <a href="{{ url_for('auth.login') }}" tabindex="-1">{% trans %}Sign in{% endtrans %}</a>
-      </div>
-    </div>
-  </div>
+            <div class="mt-5">
+                <button
+                    x-bind:disabled="!name || !email || !password || !tos"
+                    class="
+                        bg-[var(--green)] text-black text-sm block p-3 w-full rounded-md border-transparent
+                        disabled:bg-[var(--bg3)] disabled:text-slate-400 disabled:cursor-not-allowed disabled:border disabled:opacity-50
+                        peer-valid:bg-[var(--green)] peer-valid:text-black hover:shadow-2xl hover:shadow-[rgba(159,239,0,0.4)] disabled:shadow-transparent
+                    ">
+                    {{ form.submit(class="hidden") }}
+                    Create account
+                </button>
+            </div>
+        </form>
+    {% endwith %}
+    
+    <p class="text-slate-400 text-sm mt-4 text-center">
+        Already have account?
+        <a href="{{ url_for('auth.login') }}" class="text-[var(--green)] hover:text-white transition-colors">Sign in</a>
+    </p>
+</div>
 {% endblock %}
