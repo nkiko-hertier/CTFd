@@ -10,7 +10,10 @@
   </div>
   
   <!-- Placeholder for server-side errors -->
-  {% include "components/errors.html" %}
+   <div class="bg-red-500/10 border border-red-500 text-red-500 text-sm p-3 my-5 flex gap-3 items-center>
+    <i class="fa-solid fa-circle-question"></i>
+       {% include "components/errors.html" %}
+    </div>
 
   <!-- Social login section -->
   {% if integrations.mlc() %}
@@ -34,7 +37,7 @@
       <form method="post" accept-charset="utf-8" autocomplete="off" class="space-y-5">
           <div class="space-y-2">
               <label class="text-slate-400 text-sm" for="name">{{ form.name.label.text }}</label>
-              <input x-model="name" id="name" type="text" autocomplete="username email" placeholder="Enter username or email" class="peer bg-[var(--bg3)] block p-2 w-full rounded-md border border-[var(--border)] focus:ring-1 focus:ring-slate-400 focus:border-slate-400" required>
+              <input x-model="name" id="name" name="name" type="text" autocomplete="username email" placeholder="Enter username or email" class="peer bg-[var(--bg3)] block p-2 w-full rounded-md border border-[var(--border)] focus:ring-1 focus:ring-slate-400 focus:border-slate-400" required>
           </div>
           
           <div class="space-y-2">
@@ -42,7 +45,7 @@
                   <label class="text-slate-400 text-sm" for="password">{{ form.password.label.text }}</label>
                   <a href="{{ url_for('auth.reset_password') }}" class="text-slate-400 text-sm hover:text-[var(--green)] transition-colors">Forgot password?</a>
               </div>
-              <input x-model="password" id="password" type="password" autocomplete="current-password" placeholder="Enter password" class="peer bg-[var(--bg3)] block p-2 w-full rounded-md border border-[var(--border)] focus:ring-1 focus:ring-slate-400 focus:border-slate-400" required>
+              <input x-model="password" name="password" id="password" type="password" autocomplete="current-password" placeholder="Enter password" class="peer bg-[var(--bg3)] block p-2 w-full rounded-md border border-[var(--border)] focus:ring-1 focus:ring-slate-400 focus:border-slate-400" required>
           </div>
           
           <div class="mt-5">

@@ -1,8 +1,35 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <div class="container">
-    {{ content | safe }}
+  <div>
+    <!-- {{ content | safe }} -->
+    <div class="flex flex-col h-[calc(100vh-80px)]">
+        <div class="relative w-full h-full">
+            <div class="bg-gradient-to-t from-[var(--bg)] to-slate-900/50 absolute size-full">
+                <div class="size-full px-10 space-y-5 flex flex-col justify-center">
+                    <h1 class="text-8xl font-bold max-sm:text-6xl">
+                        Your Cyber<br />
+                        Performance<br />
+                        Center
+                    </h1>
+                    <p class="text-xl text-slate-400 max-sm:text-lg">Build and sustain high-performing cyber teams keeping
+                        <br />
+                        your organization protected against real world threats.
+                    </p>
+                    <div class="md:flex gap-7">
+                        <a href="" class="btn-primary font-semibold block w-fit p-3 px-5 rounded-md">Login Account</a>
+                        <a href="" class="btn-muted font-semibold block w-fit p-3 px-5 mt-4 md:mt-0 rounded-md">Create
+                            Account</a>
+                    </div>
+                </div>
+            </div>
+            <video class="bg-video absolute inset-0 w-full h-full object-cover" playsinline="" autoplay="" muted=""
+                loop="">
+                <source src="https://cdn.hackthebox.com/website/Textless_Cyber_Performance_Center_Updated.mp4"
+                    type="video/mp4">
+            </video>
+        </div>
+    </div>
   </div>
 {% endblock %}
 

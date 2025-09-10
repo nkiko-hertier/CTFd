@@ -2,7 +2,7 @@
 
 {% block content %}
   <!-- Modern registration form with Tabler styling -->
-  <div x-data="{ name: '', email: '', password: '', tos: false }" class="w-full max-w-md rounded-md min-h-[500px] bg-[var(--bg2)] p-10">
+  <div x-data="{ name: '', email: '', password: '', tos: true }" class="w-full max-w-md rounded-md min-h-[500px] bg-[var(--bg2)] p-10">
     <div class="text-center mb-6">
         {% if Configs.ctf_logo %}
           <img src="{{ Configs.ctf_logo }}" height="64" alt="{{ Configs.ctf_name }}" class="mx-auto mb-3">
@@ -37,19 +37,19 @@
         <form method="post" accept-charset="utf-8" role="form" class="space-y-5">
             <div class="space-y-2">
                 <label class="text-slate-400 text-sm required" for="name">{{ form.name.label.text }}</label>
-                <input x-model="name" id="name" type="text" autocomplete="username" placeholder="Enter your username" class="bg-[var(--bg3)] block p-2 w-full rounded-md border border-[var(--border)] focus:ring-1 focus:ring-slate-400 focus:border-slate-400" required>
+                <input x-model="name" id="name" name="name" type="text" autocomplete="username" placeholder="Enter your username" class="bg-[var(--bg3)] block p-2 w-full rounded-md border border-[var(--border)] focus:ring-1 focus:ring-slate-400 focus:border-slate-400" required>
                 <small class="text-xs text-slate-500">Your username on the site</small>
             </div>
 
             <div class="space-y-2">
                 <label class="text-slate-400 text-sm required" for="email">{{ form.email.label.text }}</label>
-                <input x-model="email" id="email" type="email" autocomplete="email" placeholder="Enter your email" class="bg-[var(--bg3)] block p-2 w-full rounded-md border border-[var(--border)] focus:ring-1 focus:ring-slate-400 focus:border-slate-400" required>
+                <input x-model="email" id="email" name="email" type="email" autocomplete="email" placeholder="Enter your email" class="bg-[var(--bg3)] block p-2 w-full rounded-md border border-[var(--border)] focus:ring-1 focus:ring-slate-400 focus:border-slate-400" required>
                 <small class="text-xs text-slate-500">Never shown to the public</small>
             </div>
 
             <div class="space-y-2">
                 <label class="text-slate-400 text-sm required" for="password">{{ form.password.label.text }}</label>
-                <input x-model="password" id="password" type="password" autocomplete="new-password" placeholder="Create a password" class="bg-[var(--bg3)] block p-2 w-full rounded-md border border-[var(--border)] focus:ring-1 focus:ring-slate-400 focus:border-slate-400" required>
+                <input x-model="password" id="password" name="password" type="password" autocomplete="new-password" placeholder="Create a password" class="bg-[var(--bg3)] block p-2 w-full rounded-md border border-[var(--border)] focus:ring-1 focus:ring-slate-400 focus:border-slate-400" required>
                 <small class="text-xs text-slate-500">Password used to log into your account</small>
             </div>
 
@@ -70,7 +70,7 @@
 
             <div class="mt-5">
                 <button
-                    x-bind:disabled="!name || !email || !password || !tos"
+                    x-bind:disabled="!name || !password || !email"
                     class="
                         bg-[var(--green)] text-black text-sm block p-3 w-full rounded-md border-transparent
                         disabled:bg-[var(--bg3)] disabled:text-slate-400 disabled:cursor-not-allowed disabled:border disabled:opacity-50
