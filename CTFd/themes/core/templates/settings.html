@@ -2,18 +2,19 @@
 {% from "macros/forms.html" import render_extra_fields %}
 
 {% block content %}
-  <div class="jumbotron">
+  <div class="jumbotron mt-5">
     <div class="container">
-      <h1>
+      <h1 class="text-xl font-semibold">Dashboard</h1>
+      <h1 class="text-sm text-slate-400">
         {% trans %}Settings{% endtrans %}
       </h1>
     </div>
   </div>
 
-  <div class="container">
-    <div class="row">
+  <div class="bg-[var(--bg2)] p-4 rounded shadow-sm mt-5 flex">
+    <div class="flex gap-4 w-full px-4">
 
-      <div class="col-md-3 offset-md-1 mb-3 mb-md-0">
+      <div class="">
         <div class="nav flex-column nav-pills" role="tablist">
           <button
               class="nav-link active" id="settings-profile-tab" data-bs-toggle="pill"
@@ -28,7 +29,7 @@
         </div>
       </div>
 
-      <div class="col-md-8">
+      <div class="w-full">
         <div class="tab-content" id="v-pills-tabContent">
           <div class="tab-pane fade show active" id="profile" role="tabpanel">
             {% include "components/errors.html" %}
@@ -41,48 +42,65 @@
                   class="form-horizontal"
               >
 
-                <div class="mb-3">
+              <div>
+                <h1 class="text-lg font-semibold mb-2">Basic Information</h1>
+                <!-- <p class="text-sm text-slate-400">fill real data</p> -->
+              </div>
+
+              <div class="md:flex md:gap-4">
+                <div class="mb-3 md:w-full">
                   <b>{{ form.name.label(class="form-label") }}</b>
                   {{ form.name(class="form-control", value=name) }}
                 </div>
-
-                <div class="mb-3">
+                
+                <div class="mb-3 md:w-full">
                   <b>{{ form.email.label(class="form-label") }}</b>
                   {{ form.email(class="form-control", value=email) }}
                 </div>
-
+              </div>
+                
                 <div class="mb-3">
                   <b>{{ form.language.label(class="form-label") }}</b>
                   {{ form.language(class="form-select", value=language) }}
                 </div>
 
-                <hr>
+              <div>
+                <h1 class="text-lg font-semibold mt-4 mb-2">Account Security</h1>
+                <!-- <p class="text-sm text-slate-400">fill real data</p> -->
+              </div>
 
-                <div class="mb-3">
+              <div class="md:flex md:gap-4">
+                <div class="mb-3 md:w-full">
                   <b>{{ form.confirm.label(class="form-label") }}</b>
                   {{ form.confirm(class="form-control") }}
                 </div>
-                <div class="mb-3">
+                <div class="mb-3 md:w-full">
                   <b>{{ form.password.label(class="form-label") }}</b>
                   {{ form.password(class="form-control") }}
                 </div>
+              </div>
 
-                <hr>
+              <div>
+                <h1 class="text-lg font-semibold mt-4 mb-2">Social Information</h1>
+                <!-- <p class="text-sm text-slate-400">fill real data</p> -->
+              </div>
 
                 <div class="mb-3">
                   <b>{{ form.affiliation.label(class="form-label") }}</b>
                   {{ form.affiliation(class="form-control", value=affiliation or "") }}
                 </div>
-                <div class="mb-3">
+
+              <div class="md:flex md:gap-4">
+                <div class="mb-3 md:w-full">
                   <b>{{ form.website.label(class="form-label") }}</b>
                   {{ form.website(class="form-control", value=website or "") }}
                 </div>
-                <div class="mb-3">
+                <div class="mb-3 md:w-full">
                   <b>{{ form.country.label(class="form-label") }}</b>
                   {{ form.country(class="form-select", value=country) }}
                 </div>
+              </div>
 
-                <hr>
 
                 {{ render_extra_fields(form.extra) }}
 
@@ -112,7 +130,7 @@
                 </div>
 
                 <div class="mb-3">
-                  {{ form.submit(class="btn btn-primary float-end px-4") }}
+                  {{ form.submit(class="btn btn-primary w-full float-end px-4") }}
                 </div>
               </form>
             {% endwith %}

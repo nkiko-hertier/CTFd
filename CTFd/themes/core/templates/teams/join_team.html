@@ -1,37 +1,45 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <div class="jumbotron">
-    <div class="container">
-      <h1>{% trans %}Join Team{% endtrans %}</h1>
-    </div>
-  </div>
+<div class="jumbotron mt-5 mb-4">
   <div class="container">
-    <div class="row">
-      <div class="col-md-8 col-lg-6 offset-md-2 offset-lg-3">
+    <h1 class="text-xl font-semibold">Dashboard</h1>
+    <h1 class="text-sm text-slate-400">
+      {% trans %}Join Teams{% endtrans %}
+    </h1>
+  </div>
+</div>
+  {% include "dashbox.html" %}
+  <div class="container bg-[var(--bg2)] p-4 rounded border-slate-600">
+    <div >
+      <div class="w-full">
+              <div>
+                <h1 class="text-lg font-semibold mb-2">Join a team</h1>
+                <!-- <p class="text-sm text-slate-400">fill real data</p> -->
+              </div>
         {% include "components/errors.html" %}
 
         {% with form = Forms.teams.TeamJoinForm() %}
-          <form method="POST">
-            <div class="mb-3">
-              {{ form.name.label(class="form-label") }}
-              {{ form.name(class="form-control") }}
-            </div>
+        <form method="POST">
+          <div class="mb-3">
+            {{ form.name.label(class="form-label") }}
+            {{ form.name(class="form-control") }}
+          </div>
+          <div class="mb-3">
+            {{ form.password.label(class="form-label") }}
+            {{ form.password(class="form-control") }}
+          </div>
 
-            <div class="mb-3">
-              {{ form.password.label(class="form-label") }}
-              {{ form.password(class="form-control") }}
+          <div class="row pt-3">
+            <div class="col-md-12">
+              {{ form.submit(class="btn btn-success w-full float-end px-4") }}
             </div>
-
-            <div class="row pt-3">
-              <div class="col-md-12">
-                {{ form.submit(class="btn btn-success float-end px-4") }}
-              </div>
-            </div>
-            {{ form.nonce() }}
-          </form>
+          </div>
+          {{ form.nonce() }}
+        </form>
         {% endwith %}
       </div>
     </div>
   </div>
+</div>
 {% endblock %}

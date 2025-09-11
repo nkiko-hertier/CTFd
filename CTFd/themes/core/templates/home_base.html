@@ -8,18 +8,37 @@
     <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
     <!-- Load Alpine.js for interactive components -->
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
-    <!-- Load Font Awesome for icons -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <!-- Load Font Awesome for the hamburger icon -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         xintegrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-
+    
     <!-- Jinja2 for dynamic page title and favicon -->
     <title>{{ title or Configs.ctf_name }}</title>
     <link rel="shortcut icon" href="{{ Configs.ctf_small_icon }}" type="image/x-icon">
-    {{ meta | safe }}
+  {{ meta | safe }}
+
+  <!-- {% block stylesheets %}
+    {{ Assets.css("assets/scss/main.scss") }}
+  {% endblock %}
+
+  {{ Plugins.styles }}
+
+  {{ Assets.js("assets/js/color_mode_switcher.js", type=None) }} -->
     <!-- {{ Configs.theme_header }} -->
 
     <style>
+        .bg-video {
+            width: 100%;
+            height: auto;
+            max-height: 1448px;
+            position: absolute;
+            top: 41px;
+            left: 0;
+            z-index: -9;
+        }
+
         :root {
             --blue: #007bff;
             --indigo: #6610f2;
@@ -105,123 +124,93 @@
     </script>
 </head>
 
-<body class="text-white bg-[var(--bg)] flex h-screen" x-data="{ mobileMenuOpen: false, avatarMenuOpen: false }">
-
-    <!-- Mobile menu button -->
-    <div class="md:hidden fixed top-0 left-0 right-0 z-30 flex justify-between items-center h-20 px-6 bg-[var(--bg)]">
-        <a href="/" class="font-bold text-xl">
-            {% if Configs.ctf_logo %}
-                <img src="{{ Configs.ctf_logo }}" alt="{{ Configs.ctf_name }}" class="h-8">
-            {% else %}
-                Mile<span class="text-[var(--green)]">Box</span>
-            {% endif %}
-        </a>
-        <button @click="mobileMenuOpen = true" class="text-2xl text-white">
-            <i class="fas fa-bars"></i>
-        </button>
-    </div>
-
-    <!-- Sidebar Navigation for Desktop -->
-    <aside class="hidden md:flex flex-col min-h-screen w-64 bg-slate-900 border-r border-slate-700 p-6 z-20">
-        <!-- Logo -->
-        <div class="logo font-bold text-2xl mb-8">
-            <a href="/">
+<body class="text-white bg-[var(--bg)]" x-data="{ mobileMenuOpen: false, avatarMenuOpen: false }">
+    <nav class="min-h-[80px] flex items-center justify-between px-10 relative z-10">
+        <div class="logo font-bold">
+            <a href="/" class="font-bold">
                 {% if Configs.ctf_logo %}
-                    <img src="{{ Configs.ctf_logo }}" alt="{{ Configs.ctf_name }}" class="h-10">
+                    <img src="{{ Configs.ctf_logo }}" alt="{{ Configs.ctf_name }}" class="h-8">
                 {% else %}
                     Mile<span class="text-[var(--green)]">Box</span>
                 {% endif %}
             </a>
         </div>
-        <!-- Main Navigation Links -->
-        <ul class="flex flex-col space-y-2 flex-grow">
-            <a href="{{ url_for('challenges.listing') }}"
-                class="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors duration-200 hover:bg-slate-700 hover:text-[var(--green)]">
-                <i class="fas fa-flag"></i>
-                <span>{% trans %}Challenges{% endtrans %}</span>
-            </a>
-            <a href="{{ url_for('scoreboard.listing') }}"
-                class="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors duration-200 hover:bg-slate-700 hover:text-[var(--green)]">
-                <i class="fas fa-trophy"></i>
-                <span>{% trans %}Scoreboard{% endtrans %}</span>
-            </a>
+        <div class="flex gap-10 items-center">
+            <!-- Desktop Navigation Links -->
+            <ul class="hidden md:flex gap-4">
+                <a href="{{ url_for('challenges.listing') }}" class="hover:text-[var(--green)] transition-colors">
+                    {% trans %}Challenges{% endtrans %}
+                </a>
+                <a href="{{ url_for('scoreboard.listing') }}" class="hover:text-[var(--green)] transition-colors">
+                    {% trans %}Scoreboard{% endtrans %}
+                </a>
+                {% if Session.id %}
+                <a href="{{ url_for('teams.private') if Configs.user_mode == 'teams' else url_for('users.private') }}" class="hover:text-[var(--green)] transition-colors">
+                    {% trans %}Profile{% endtrans %}
+                </a>
+                {% endif %}
+            </ul>
+
+            <!-- Mobile menu button -->
+            <button @click="mobileMenuOpen = true" class="md:hidden text-2xl text-white">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <!-- Conditional rendering based on user login status -->
             {% if Session.id %}
-            <a href="{{ url_for('teams.private') if Configs.user_mode == 'teams' else url_for('users.private') }}"
-                class="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors duration-200 hover:bg-slate-700 hover:text-[var(--green)]">
-                <i class="fas fa-user-circle"></i>
-                <span>{% trans %}Profile{% endtrans %}</span>
-            </a>
-            <a href="{{ url_for('views.settings') }}"
-                class="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors duration-200 hover:bg-slate-700 hover:text-[var(--green)]">
-                <i class="fas fa-cog"></i>
-                <span>{% trans %}Settings{% endtrans %}</span>
-            </a>
-            {% endif %}
-        </ul>
-        <!-- User Avatar and Dropdown for logged-in users -->
-        <div class="mt-8 pt-4 border-t border-slate-700 flex items-center justify-between">
-            {% if Session.id %}
-            <div class="flex items-center gap-3">
-                <div class="bg-yellow-300 size-10 rounded-full overflow-hidden">
+            <!-- User Avatar and Dropdown for logged-in users -->
+            <div class="relative" @click.outside="avatarMenuOpen = false">
+                <button @click="avatarMenuOpen = !avatarMenuOpen"
+                    class="bg-yellow-300 size-10 rounded-full overflow-hidden focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--green)]">
                     <img src="https://api.dicebear.com/8.x/avataaars/svg?seed={{ User.name }}"
                         class="size-full object-cover object-center" alt="User Avatar">
-                </div>
-                <div>
-                    <span class="block font-semibold">{{ User.name }}</span>
-                    <span class="block text-sm text-slate-400">
-                        {% if Configs.user_mode == 'teams' %}
-                            {{ Team.name }}
-                        {% else %}
-                            User
-                        {% endif %}
-                    </span>
+                </button>
+                <!-- Dropdown Menu -->
+                <div x-show="avatarMenuOpen" x-transition:enter="transition ease-out duration-200"
+                    x-transition:enter-start="transform opacity-0 scale-95"
+                    x-transition:enter-end="transform opacity-100 scale-100"
+                    x-transition:leave="transition ease-in duration-75"
+                    x-transition:leave-start="transform opacity-100 scale-100"
+                    x-transition:leave-end="transform opacity-0 scale-95"
+                    class="absolute right-0 mt-2 w-48 bg-slate-800 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                    role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
+                    <div class="py-1" role="none">
+                        <a href="{{ url_for('views.settings') }}"
+                            class="block px-4 py-2 text-sm text-slate-200 hover:bg-slate-700" role="menuitem"
+                            tabindex="-1">
+                            {% trans %}Settings{% endtrans %}
+                        </a>
+                        <a href="{{ url_for('auth.logout') }}"
+                            class="block px-4 py-2 text-sm text-slate-200 hover:bg-slate-700" role="menuitem"
+                            tabindex="-1">
+                            {% trans %}Logout{% endtrans %}
+                        </a>
+                    </div>
                 </div>
             </div>
-            <a href="{{ url_for('auth.logout') }}"
-                class="text-slate-400 hover:text-white transition-colors">
-                <i class="fas fa-sign-out-alt"></i>
-            </a>
             {% else %}
             <!-- Login/Create Account buttons for guests -->
-            <div class="flex flex-col gap-3 w-full">
-                <a href="{{ url_for('auth.login') }}" class="btn-primary font-semibold block w-full text-center p-3 rounded-md">
+            <div class="hidden md:flex gap-7">
+                <a href="{{ url_for('auth.login') }}" class="btn-primary font-semibold block w-fit p-3 px-5 rounded-md">
                     {% trans %}Login Account{% endtrans %}
-                </a>
-                <a href="{{ url_for('auth.register') }}" class="btn-muted font-semibold block w-full text-center p-3 rounded-md">
-                    {% trans %}Create Account{% endtrans %}
                 </a>
             </div>
             {% endif %}
         </div>
-    </aside>
-
-    <!-- Main Content Area -->
-    <main class="md:pl-0 pt-20 md:pt-0 h-screen overflow-y-auto">
-        <div class="min-h-screen">
-            {% block content %}
-            {% endblock %}
-        </div>
-    </main>
+    </nav>
 
     <!-- Full-screen Mobile Menu (hidden by default) -->
     <div x-show="mobileMenuOpen" x-transition:enter="transition ease-out duration-300"
         x-transition:enter-start="opacity-0 translate-x-full" x-transition:enter-end="opacity-100 translate-x-0"
         x-transition:leave="transition ease-in duration-300" x-transition:leave-start="opacity-100 translate-x-0"
-        x-transition:leave-end="opacity-0 translate-x-full" class="fixed inset-0 z-40 bg-slate-900 px-6 py-8"
+        x-transition:leave-end="opacity-0 translate-x-full" class="fixed inset-0 z-20 bg-[var(--bg)] px-10 py-8 md:hidden"
         style="display: none;">
-        <div class="flex justify-between items-center mb-8">
-            <a href="/" class="font-bold text-2xl">
-                {% if Configs.ctf_logo %}
-                    <img src="{{ Configs.ctf_logo }}" alt="{{ Configs.ctf_name }}" class="h-10">
-                {% else %}
-                    Mile<span class="text-[var(--green)]">Box</span>
-                {% endif %}
-            </a>
+        <div class="flex justify-end">
             <button @click="mobileMenuOpen = false" class="text-3xl text-white">
                 <i class="fas fa-times"></i>
             </button>
         </div>
-        <div class="flex flex-col gap-6 text-xl">
+        <div class="flex flex-col gap-6 mt-8 text-xl">
             <a href="{{ url_for('challenges.listing') }}" class="hover:text-[var(--green)] transition-colors">
                 {% trans %}Challenges{% endtrans %}
             </a>
@@ -231,9 +220,6 @@
             {% if Session.id %}
             <a href="{{ url_for('teams.private') if Configs.user_mode == 'teams' else url_for('users.private') }}" class="hover:text-[var(--green)] transition-colors">
                 {% trans %}Profile{% endtrans %}
-            </a>
-            <a href="{{ url_for('views.settings') }}" class="hover:text-[var(--green)] transition-colors">
-                {% trans %}Settings{% endtrans %}
             </a>
             <hr class="border-t border-slate-700" />
             <a href="{{ url_for('auth.logout') }}" class="hover:text-[var(--green)] transition-colors">
@@ -251,6 +237,17 @@
         </div>
     </div>
 
+    <!-- Main Content Block -->
+    <main class="page-wrapper">
+        <div class="page-body">
+            {% block content %}
+            {% endblock %}
+        </div>
+
+    <footer class="text-center py-5 text-sm text-slate-600">
+        <p>copyright &copy; Designed by Nkiko Hertier</p>
+    </footer>
+    </main>
     <!-- {% include "components/notifications.html" %} -->
 
 {% block scripts %}
@@ -259,7 +256,7 @@
 
 {{ Plugins.scripts }}
 
-<!-- {{ Configs.theme_footer }} -->
+{{ Configs.theme_footer }}
 </body>
 
 </html>

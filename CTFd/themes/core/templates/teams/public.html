@@ -1,10 +1,18 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <div class="jumbotron">
-    <div class="container">
-      <h1 id="team-id" data-ctfd-team-id="{{ team.id }}">{{ team.name }}</h1>
+<div class="jumbotron mt-5 mb-4">
+  <div class="container">
+    <h1 class="text-xl font-semibold">{% trans %}Team Profile{% endtrans %}</h1>
+    <h1 class="text-sm text-slate-400">{{ team.name }}</h1>
+  </div>
+</div>
+{% include "dashbox.html" %}
+<div class="container bg-[var(--bg2)] p-4 rounded border-slate-600">
+  <div class="w-full">
+    {% include "components/errors.html" %}
 
+    <div class="mb-4">
       {% if team.oauth_id %}
         <a href="https://majorleaguecyber.org/t/{{ team.name }}">
           <h3 class="d-inline-block mx-1"><span class="badge bg-primary rounded-pill">{% trans %}Official{% endtrans %}</span></h3>
@@ -54,16 +62,10 @@
           </a>
         {% endif %}
       </div>
-
-      {% if team.fields or team.website %}
-        <hr class="w-50 mx-auto">
-      {% endif %}
-
+    </div>
+    
+    <div class="mb-4">
       <h2 id="team-place" class="text-center">
-        {# This intentionally hides the team's place when scores are hidden because this can be
-          their internal profile and we don't want to leak their place in the CTF. #}
-
-        {# Public page hiding is done at the route level #}
         {% if scores_visible() %}
           {% if place %}
             {{ place }}
@@ -71,7 +73,6 @@
           {% endif %}
         {% endif %}
       </h2>
-
       <h2 id="team-score" class="text-center">
         {% if score %}
           {{ score }}
@@ -79,16 +80,10 @@
         {% endif %}
       </h2>
     </div>
-  </div>
 
-  <div class="container">
-    {% include "components/errors.html" %}
-
-    <br>
-
+    <h1 class="text-lg font-semibold mb-2">{% trans %}Members{% endtrans %}</h1>
     <div class="row">
       <div class="col-md-12">
-        <h3>{% trans %}Members{% endtrans %}</h3>
         <table class="table table-striped align-middle">
           <thead>
           <tr>
@@ -120,37 +115,33 @@
 
     {% if solves or awards %}
       {% if awards %}
+        <br>
+        <h1 class="text-lg font-semibold mb-2">{% trans %}Awards{% endtrans %}</h1>
         <div class="row">
           <div class="col-md-12">
-            <h3>{% trans %}Awards{% endtrans %}</h3>
           </div>
-
           {% for award in awards %}
             <div class="col-md-3 col-sm-6">
               <p class="text-center">
                 <i class="award-icon award-{{ award.icon }} fa-2x"></i> <br>
                 <strong>{{ award.name }}</strong>
               </p>
-
               {% if award.category %}
                 <p class="text-center">{{ award.category }}</p>
               {% endif %}
-
               {% if award.description %}
                 <p class="text-center">{{ award.description }}</p>
               {% endif %}
-
               <p class="text-center">{{ award.value }}</p>
             </div>
           {% endfor %}
         </div>
-
         <br>
       {% endif %}
 
+      <h1 class="text-lg font-semibold mb-2">{% trans %}Solves{% endtrans %}</h1>
       <div class="row">
         <div class="col-md-12">
-          <h3>{% trans %}Solves{% endtrans %}</h3>
           <table class="table table-striped align-middle">
             <thead>
             <tr>
@@ -250,6 +241,7 @@
       </div>
     {% endif %}
   </div>
+</div>
 {% endblock %}
 
 {% block scripts %}

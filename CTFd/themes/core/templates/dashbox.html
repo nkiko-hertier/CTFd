@@ -1,0 +1,35 @@
+<div class="md:flex gap-4">
+  <div class="p-6 bg-[var(--bg2)] text-white rounded h-fit w-full max-w-sm">
+    <div class=" mb-4">
+      <div class="text-xl text-xl">
+        <!-- hey hand emoji -->
+        Hey 👋, Welcome back!
+      </div>
+      <p class="text-sm text-slate-400">Navigatable dashboard interface for general users</p>
+      <div id="live-time" class="text-4xl ds-font text-slate-200 mt-4 font-extrabold tracking-tight">
+        <span id="hours"></span>:<span id="minutes"></span>:<span id="seconds"></span>
+      </div>
+    </div>
+    <p class="text-sm text-gray-400">
+      Let's make today productive.
+    </p>
+  </div>
+
+  <script>
+    function updateTime() {
+      const now = new Date();
+      const hours = String(now.getHours()).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      const seconds = String(now.getSeconds()).padStart(2, '0');
+
+      document.getElementById('hours').textContent = hours;
+      document.getElementById('minutes').textContent = minutes;
+      document.getElementById('seconds').textContent = seconds;
+    }
+
+    // Update time every second
+    setInterval(updateTime, 1000);
+
+    // Initial call to set the time immediately
+    updateTime();
+  </script>

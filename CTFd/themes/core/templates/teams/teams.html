@@ -1,16 +1,18 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <div class="jumbotron">
-    <div class="container">
-      <h1>{% trans %}Teams{% endtrans %}</h1>
-    </div>
-  </div>
-
+<div class="jumbotron mt-5 mb-4">
   <div class="container">
+    <h1 class="text-xl font-semibold">{% trans %}Teams{% endtrans %}</h1>
+    <h1 class="text-sm text-slate-400">Find and join a team</h1>
+  </div>
+</div>
+{% include "dashbox.html" %}
+<div class="container bg-[var(--bg2)] p-4 rounded border-slate-600">
+  <div class="w-full">
     <div class="row">
       <div class="col-md-12">
-        {% if q and field %}z
+        {% if q and field %}
           <h5 class="text-muted text-center">
             Searching for teams with <strong>{{ field }}</strong> matching <strong>{{ q }}</strong>
           </h5>
@@ -106,12 +108,12 @@
               </td>
 
               <td class="d-none d-md-table-cell">
-							<span>
-								{% if team.country %}
+              <span>
+                {% if team.country %}
                   <i class="flag-{{ team.country.lower() }}"></i>
                   {{ lookup_country_code(team.country) }}
                 {% endif %}
-							</span>
+              </span>
               </td>
             </tr>
           {% endfor %}
@@ -146,6 +148,7 @@
     {% endif %}
 
   </div>
+</div>
 {% endblock %}
 
 {% block scripts %}
