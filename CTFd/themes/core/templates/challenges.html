@@ -1,91 +1,78 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <!-- Modern challenges page with enhanced Tabler styling -->
-  <div class="container-xl">
-    <div class="page-header d-print-none">
-      <div class="container-xl">
-        <div class="row g-2 align-items-center">
-          <div class="col">
-            <div class="page-pretitle">
-              {% trans %}Competition{% endtrans %}
-            </div>
-            <h2 class="page-title">
-              {% trans %}Challenges{% endtrans %}
-            </h2>
+  <div class="jumbotron mt-5 mb-4">
+    <div class="container">
+      <h1 class="text-xl font-semibold">{% trans %}Challenges{% endtrans %}</h1>
+      <h1 class="text-sm text-slate-400">{% trans %}Competition challenges{% endtrans %}</h1>
+    </div>
+  </div>
+  {% include "dashbox.html" %}
+  <div class="container bg-[var(--bg2)] p-4 rounded border-slate-600">
+    {% include "components/errors.html" %}
+
+    <div 
+      x-data="ChallengeBoard" 
+      @load-challenges.window="loadChallenges()" 
+      @load-challenge.window="loadChallenge($event.detail)"
+    >
+      <div
+          x-ref="challengeWindow" id="challenge-window" class="modal fade" tabindex="-1" role="dialog" x-data=""
+          x-html="$store.challenge.data.view"
+      ></div>
+
+      <div x-show="!loaded">
+        <div class="d-flex justify-content-center align-items-center" style="min-height: 400px;">
+          <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="page-body">
-      <div class="container-xl">
-        {% include "components/errors.html" %}
-
-        <div 
-          x-data="ChallengeBoard" 
-          @load-challenges.window="loadChallenges()" 
-          @load-challenge.window="loadChallenge($event.detail)"
-        >
-          <div
-              x-ref="challengeWindow" id="challenge-window" class="modal fade" tabindex="-1" role="dialog" x-data=""
-              x-html="$store.challenge.data.view"
-          ></div>
-
-          <div x-show="!loaded">
-            <div class="d-flex justify-content-center align-items-center" style="min-height: 400px;">
-              <div class="spinner-border text-primary" role="status">
-                <span class="visually-hidden">Loading...</span>
+      <div x-show="loaded">
+        <template x-for="(category, idx) in getCategories()" :key="idx">
+          <div class="mb-4">
+            <div class="row align-items-center mb-3">
+              <div class="col">
+                <h3 class="card-title" x-text="category"></h3>
               </div>
             </div>
-          </div>
 
-          <div x-show="loaded">
-            <template x-for="(category, idx) in getCategories()" :key="idx">
-              <div class="mb-4">
-                <div class="row align-items-center mb-3">
-                  <div class="col">
-                    <h3 class="card-title" x-text="category"></h3>
-                  </div>
-                </div>
-
-                <div class="row row-cards">
-                  <template x-for="(c, idx) in getChallenges(category)" :key="c.id">
-                    <div class="col-sm-6 col-lg-4 col-xl-3">
-                      <div class="card card-sm challenge-button" 
-                           :class="[
-                             c.solved_by_me ? 'bg-success text-white challenge-solved' : 'card-link',
-                             ...c.tags.map((tag) => `tag-${tag.value.replace(/ /g, '-')}`),
-                           ];"
-                           @click="loadChallenge(c.id)"
-                           style="cursor: pointer;">
-                        <div class="card-body text-center">
-                          <div class="mb-2">
-                            <!-- Updated icon reference to use proper CDN -->
-                            <svg class="icon icon-lg" width="24" height="24">
-                              <use href="https://cdn.jsdelivr.net/npm/@tabler/icons@2.44.0/tabler-sprite.svg#tabler-trophy"></use>
-                            </svg>
-                          </div>
-                          <h3 class="card-title mb-1" x-text="c.name"></h3>
-                          <div class="text-muted">
-                            <span class="badge" :class="c.solved_by_me ? 'bg-white text-success' : 'bg-primary'" x-text="c.value + ' pts'"></span>
-                          </div>
-                          <div x-show="c.solved_by_me" class="mt-2">
-                            <!-- Updated check icon reference -->
-                            <svg class="icon text-white" width="20" height="20">
-                              <use href="https://cdn.jsdelivr.net/npm/@tabler/icons@2.44.0/tabler-sprite.svg#tabler-check"></use>
-                            </svg>
-                            <small>Solved</small>
-                          </div>
-                        </div>
+            <div class="row row-cards">
+              <template x-for="(c, idx) in getChallenges(category)" :key="c.id">
+                <div class="col-sm-6 col-lg-4 col-xl-3">
+                  <div class="card card-sm challenge-button" 
+                       :class="[
+                         c.solved_by_me ? 'bg-success text-white challenge-solved' : 'card-link',
+                         ...c.tags.map((tag) => `tag-${tag.value.replace(/ /g, '-')}`),
+                       ];"
+                       @click="loadChallenge(c.id)"
+                       style="cursor: pointer;">
+                    <div class="card-body text-center">
+                      <div class="mb-2">
+                        <!-- Updated icon reference to use proper CDN -->
+                        <svg class="icon icon-lg" width="24" height="24">
+                          <use href="https://cdn.jsdelivr.net/npm/@tabler/icons@2.44.0/tabler-sprite.svg#tabler-trophy"></use>
+                        </svg>
+                      </div>
+                      <h3 class="card-title mb-1" x-text="c.name"></h3>
+                      <div class="text-muted">
+                        <span class="badge" :class="c.solved_by_me ? 'bg-white text-success' : 'bg-primary'" x-text="c.value + ' pts'"></span>
+                      </div>
+                      <div x-show="c.solved_by_me" class="mt-2">
+                        <!-- Updated check icon reference -->
+                        <svg class="icon text-white" width="20" height="20">
+                          <use href="https://cdn.jsdelivr.net/npm/@tabler/icons@2.44.0/tabler-sprite.svg#tabler-check"></use>
+                        </svg>
+                        <small>Solved</small>
                       </div>
                     </div>
-                  </template>
+                  </div>
                 </div>
-              </div>
-            </template>
+              </template>
+            </div>
           </div>
-        </div>
+        </template>
       </div>
     </div>
   </div>

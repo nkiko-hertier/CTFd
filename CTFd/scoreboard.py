@@ -2,6 +2,7 @@ from flask import Blueprint, render_template
 
 from CTFd.utils import config
 from CTFd.utils.config.visibility import scores_visible
+from CTFd.utils.decorators import require_complete_profile
 from CTFd.utils.decorators.visibility import (
     check_account_visibility,
     check_score_visibility,

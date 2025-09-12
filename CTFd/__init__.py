@@ -6,7 +6,7 @@ import weakref
 from distutils.version import StrictVersion
 
 import jinja2
-from flask import Flask, Request
+from flask import Flask, Request, redirect, request, url_for
 from flask_babel import Babel
 from flask_migrate import upgrade
 from jinja2 import FileSystemLoader
@@ -31,7 +31,7 @@ from CTFd.utils.initialization import (
 from CTFd.utils.migrations import create_database, migrations, stamp_latest_revision
 from CTFd.utils.sessions import CachingSessionInterface
 from CTFd.utils.updates import update_check
-from CTFd.utils.user import get_locale
+from CTFd.utils.user import get_locale, authed
 
 __version__ = "3.8.0"
 __channel__ = "oss"
@@ -305,6 +305,33 @@ def create_app(config="CTFd.config.Config"):
         init_request_processors(app)
         init_template_filters(app)
         init_template_globals(app)
+
+        # ==========================================================
+        # This is the new code to handle global authentication checks
+        # ==========================================================
+        # Define a set of endpoints that are publicly accessible without authentication.
+        # This includes the homepage, login, register, and password reset pages.
+        PUBLIC_ENDPOINTS = {
+            'views.static_html',  # Assuming your homepage endpoint is named 'views.home'
+            'views.setup',  # Assuming your homepage endpoint is named 'views.home'
+            'auth.login',
+            'auth.register',
+            'auth.reset_password',
+            'challenges.listing'
+        }
+
+        @app.before_request
+        def check_authentication():
+            # If the user is not authenticated and the current endpoint is not in the public list,
+            # redirect them to the login page.
+            if not authed() and request.endpoint not in PUBLIC_ENDPOINTS:
+                # Add a check to prevent redirect loops and errors on favicon requests, etc.
+                if request.endpoint:
+                    return redirect(url_for('auth.login', next=request.path))
+
+        # ==========================================================
+        # End of new code block
+        # ==========================================================
 
         # Importing here allows tests to use sensible names (e.g. api instead of api_bp)
         from CTFd.admin import admin

@@ -1,12 +1,13 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <div class="jumbotron">
+  <div class="jumbotron mt-5 mb-4">
     <div class="container">
-      <h1>{% trans %}Users{% endtrans %}</h1>
+      <h1 class="text-xl font-semibold">{% trans %}Users{% endtrans %}</h1>
+      <h1 class="text-sm text-slate-400">{% trans %}Browse and search for users{% endtrans %}</h1>
     </div>
   </div>
-  <div class="container">
+  <div class="container bg-[var(--bg2)] p-4 rounded border-slate-600">
     <div class="row">
       <div class="col-md-12">
         {% if q and field %}
@@ -87,22 +88,22 @@
                 {% if user.affiliation %}
                   {% if user.affiliation | length > 50 %}
                     <span data-toggle="tooltip" data-placement="top" title="{{ user.affiliation }}">
-									{% if user.affiliation %}{{ user.affiliation | truncate(50) }}{% endif %}
-								</span>
+                  {% if user.affiliation %}{{ user.affiliation | truncate(50) }}{% endif %}
+                </span>
                   {% else %}
                     <span>
-									{% if user.affiliation %}{{ user.affiliation | truncate(50) }}{% endif %}
-								</span>
+                  {% if user.affiliation %}{{ user.affiliation | truncate(50) }}{% endif %}
+                </span>
                   {% endif %}
                 {% endif %}
               </td>
               <td class="d-none d-md-table-cell d-lg-table-cell">
-								<span>
-									{% if user.country %}
+                <span>
+                  {% if user.country %}
                     <i class="flag-{{ user.country.lower() }}"></i>
                     {{ lookup_country_code(user.country) }}
                   {% endif %}
-								</span>
+                </span>
               </td>
             </tr>
           {% endfor %}

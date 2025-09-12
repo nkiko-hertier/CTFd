@@ -143,6 +143,42 @@
         .form-text.text-muted {
             color: #586980 !important;
         }
+        * Base table styling */
+.table {
+--bs-table-bg: var(--bg1) !important;
+--bs-table-color: white !important;
+--bs-table-border-color: var(--border) !important;
+color: white !important;
+}
+
+/* Table head styling */
+.table thead {
+border-bottom: 2px solid var(--border) !important;
+}
+.table th {
+background-color: var(--bg2) !important;
+border-color: var(--border) !important;
+color: white !important;
+}
+
+/* Table body styling */
+.table tbody {
+border-top: none !important;
+}
+.table td,
+.table th {
+background-color: var(--bg3) !important;
+border-color: var(--border) !important;
+color: white !important;
+}
+.table td {
+    background-color: var(--bg1) !important;
+}
+
+/* Hover effect for tables with the .table-hover class */
+.table-hover tbody tr:hover {
+--bs-table-hover-bg: var(--bg3) !important;
+}
     </style>
     
     <script type="text/javascript">
@@ -237,18 +273,19 @@
             {% endif %}
         </div>
     </nav>
-    <nav class="bg-[var(--bg2)] border-b min-h-[40px] border-t border-[var(--border)] px-20">
+    <nav class="bg-[var(--bg2)] max-md:hidden border-b min-h-[40px] border-t border-[var(--border)] px-20"
+         x-data="{ currentPath: window.location.pathname }">
         <div class="flex">
-            <a class="p-2 border-b border-blue-500 hover:text-white text-slate-300" href="/teams">
+            <a :class="{'border-b border-blue-500 text-white': currentPath === '/teams', 'hover:text-white text-slate-300': currentPath !== '/teams'}" class="p-2" href="/teams">
                 <i class="bi bi-house-door-fill"></i> Home
             </a>
-            <a class="p-2 hover:text-white text-slate-300" href="/challenges">
+            <a :class="{'border-b border-blue-500 text-white': currentPath === '/challenges', 'hover:text-white text-slate-300': currentPath !== '/challenges'}" class="p-2" href="/challenges">
                 <i class="bi bi-award-fill"></i> Challenges
             </a>
-            <a class="p-2 hover:text-white text-slate-300" href="/user">
+            <a :class="{'border-b border-blue-500 text-white': currentPath === '/user', 'hover:text-white text-slate-300': currentPath !== '/user'}" class="p-2" href="/user">
                 <i class="bi bi-person-fill"></i> Profile
             </a>
-            <a class="p-2 hover:text-white text-slate-300" href="/settings">
+            <a :class="{'border-b border-blue-500 text-white': currentPath === '/settings', 'hover:text-white text-slate-300': currentPath !== '/settings'}" class="p-2" href="/settings">
                 <i class="bi bi-gear-fill"></i> Settings
             </a>
         </div>
@@ -293,7 +330,7 @@
     </div>
 
     <main class="page-wrapper">
-        <div class="page-body px-20">
+        <div class="page-body px-10 md:px-20">
             {% block content %}
             {% endblock %}
         </div>

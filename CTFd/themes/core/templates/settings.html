@@ -2,7 +2,7 @@
 {% from "macros/forms.html" import render_extra_fields %}
 
 {% block content %}
-  <div class="jumbotron mt-5">
+  <div class="jumbotron mt-5 mb-5">
     <div class="container">
       <h1 class="text-xl font-semibold">Dashboard</h1>
       <h1 class="text-sm text-slate-400">
@@ -10,8 +10,8 @@
       </h1>
     </div>
   </div>
-
-  <div class="bg-[var(--bg2)] p-4 rounded shadow-sm mt-5 flex">
+  {% include "dashbox.html" %}
+  <div class="bg-[var(--bg2)] p-4 rounded shadow-sm flex">
     <div class="flex gap-4 w-full px-4">
 
       <div class="">
