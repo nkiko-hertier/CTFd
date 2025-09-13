@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Load Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <!-- Load Alpine.js for interactive components -->
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
@@ -15,7 +16,7 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     
     <!-- Jinja2 for dynamic page title and favicon -->
-    <title>{{ title or Configs.ctf_name }}</title>
+    <title>{{ title or Configs.ctf_name }} | Home</title>
     <link rel="shortcut icon" href="{{ Configs.ctf_small_icon }}" type="image/x-icon">
   {{ meta | safe }}
 
@@ -37,6 +38,9 @@
             top: 41px;
             left: 0;
             z-index: -9;
+        }
+        *{
+            scroll-behavior: smooth;
         }
 
         :root {
@@ -104,6 +108,15 @@
             color: white;
             border-radius: 3px;
         }
+        #home:target {
+            scroll-margin-top: 80px; /* Adjust this value based on your navbar height */
+        }
+        #about:target {
+            scroll-margin-top: 80px; /* Adjust this value based on your navbar height */
+        }
+        #testimanial:target {
+            scroll-margin-top: 80px; /* Adjust this value based on your navbar height */
+        }
     </style>
 
     <!-- Jinja2 JS variables for client-side logic -->
@@ -130,7 +143,7 @@
 </head>
 
 <body class="text-white bg-[var(--bg)]" x-data="{ mobileMenuOpen: false, avatarMenuOpen: false }">
-    <nav class="min-h-[80px] flex items-center justify-between px-10 relative z-10">
+    <nav class="min-h-[80px] sticky top-0 bg-slate-800/50 backdrop-blur-lg  flex items-center justify-between px-10 relative z-10">
         <div class="logo font-bold">
             <a href="/" class="font-bold">
                 {% if Configs.ctf_logo %}
@@ -143,11 +156,14 @@
         <div class="flex gap-10 items-center">
             <!-- Desktop Navigation Links -->
             <ul class="hidden md:flex gap-4">
-                <a href="{{ url_for('challenges.listing') }}" class="hover:text-[var(--green)] transition-colors">
-                    {% trans %}Challenges{% endtrans %}
+                <a href="#home" class="hover:text-[var(--green)] transition-colors">
+                    Home
                 </a>
-                <a href="{{ url_for('scoreboard.listing') }}" class="hover:text-[var(--green)] transition-colors">
-                    {% trans %}Scoreboard{% endtrans %}
+                <a href="#about" class="hover:text-[var(--green)] transition-colors">
+                    About
+                </a>
+                <a href="#testimanial" class="hover:text-[var(--green)] transition-colors">
+                    Testimanial
                 </a>
                 {% if Session.id %}
                 <a href="{{ url_for('teams.private') if Configs.user_mode == 'teams' else url_for('users.private') }}" class="hover:text-[var(--green)] transition-colors">
@@ -167,7 +183,7 @@
             <div class="relative" @click.outside="avatarMenuOpen = false">
                 <button @click="avatarMenuOpen = !avatarMenuOpen"
                     class="bg-yellow-300 size-10 rounded-full overflow-hidden focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--green)]">
-                    <img src="https://api.dicebear.com/8.x/avataaars/svg?seed={{ User.name }}"
+                    <img src="https://avatar.iran.liara.run/public"
                         class="size-full object-cover object-center" alt="User Avatar">
                 </button>
                 <!-- Dropdown Menu -->
@@ -216,12 +232,16 @@
             </button>
         </div>
         <div class="flex flex-col gap-6 mt-8 text-xl">
-            <a href="{{ url_for('challenges.listing') }}" class="hover:text-[var(--green)] transition-colors">
-                {% trans %}Challenges{% endtrans %}
-            </a>
-            <a href="{{ url_for('scoreboard.listing') }}" class="hover:text-[var(--green)] transition-colors">
-                {% trans %}Scoreboard{% endtrans %}
-            </a>
+            
+                <a href="#home" @click="mobileMenuOpen = false" class="hover:text-[var(--green)] transition-colors">
+                    Home
+                </a>
+                <a href="#about" @click="mobileMenuOpen = false" class="hover:text-[var(--green)] transition-colors">
+                    About
+                </a>
+                <a href="#testimanial" @click="mobileMenuOpen = false" class="hover:text-[var(--green)] transition-colors">
+                    Testimanial
+                </a>
             {% if Session.id %}
             <a href="{{ url_for('teams.private') if Configs.user_mode == 'teams' else url_for('users.private') }}" class="hover:text-[var(--green)] transition-colors">
                 {% trans %}Profile{% endtrans %}
