@@ -56,8 +56,8 @@
     }
 
     :root {
-      --bg1: #f9fafb;
-      --bg2: #ffffff;
+      --bg1: #f9fafb1f;
+      --bg2: #ffffff6e;
       --bg3: #f1f5f9;
       --text: #1e293b;
       --text-muted: #64748b;
@@ -66,9 +66,18 @@
       --accent: #7cb518;
     }
 
+    form{
+      padding: 20px;
+  backdrop-filter: blur(2px);
+  shadow: 10px 10px 10px 10px var(--bg1);
+  /* box-shadow: 0px 0px 10px 0px #1e1d2f73; */
+  background-color: var(--bg1);
+  /* border-radius: 10px; */
+    }
+
     [data-theme="dark"] {
-      --bg1: #151a29;
-      --bg2: #1e293b;
+      --bg1: #151a2956;
+      --bg2: #1e293b98;
       --bg3: #334155;     
       --text: #e2e8f0;
       --text-muted: #94a3b8;
@@ -76,6 +85,72 @@
       --hover: #273549;
       --accent: #9fef00;
     }
+        :root {
+            /* Light Theme Colors */
+            --gradient-start: #f1f5f9;
+            --gradient-end: #e2e8f0;
+            --line-color: rgba(100, 116, 139, 0.1);
+            --text-color: #1e293b;
+            --background-base: var(--gradient-start);
+            --gradient-background: linear-gradient(
+                to bottom right,
+                var(--gradient-start),
+                var(--gradient-end)
+            );
+        }
+
+        [data-theme="dark"] {
+            /* Dark Theme Colors */
+            --gradient-start: #414869;
+            --gradient-end: #0f172a;
+            --line-color: rgba(226, 232, 240, 0.041);
+            --text-color: #f1f5f9;
+            --background-base: var(--gradient-end);
+            --gradient-background: linear-gradient(
+                to bottom right,
+                var(--gradient-start),
+                var(--gradient-end)
+            );
+        }
+
+        body {
+            height: 100vh;
+            margin: 0;
+            color: var(--text-color);
+
+            /* The core of the gradient and pattern */
+            background-color: var(--background-base);
+            background-repeat: no-repeat;
+            background-image:
+                /* This is the line pattern layer */
+                repeating-linear-gradient(
+                    -45deg,
+                    transparent,
+                    transparent 10px,
+                    var(--line-color) 10px,
+                    var(--line-color) 11px
+                ),
+                /* This is the main soft gradient layer */
+                var(--gradient-background);
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 700;
+        }
+
+        p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin-top: 1rem;
+        }
+
+        .theme-toggle-btn {
+            @apply p-2 rounded-full;
+            background-color: var(--text-color);
+            color: var(--background-base);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
     .align-items-center {
         background-color: var(--bg2) !important;
         border-bottom: var(--border) !important;
@@ -85,11 +160,6 @@
     .align-items-center:hover {
         background-color: var(--hover) !important;
         color: var(--text);
-    }
-
-    body {
-      background-color: var(--bg1);
-      color: var(--text);
     }
 
     .card {
@@ -157,19 +227,9 @@
         }
   </style>
   <style>
-    /* Specific Styles for the `challenges` Table
-    These styles target the Bootstrap classes used in the challenges table
-    and adapt them to your new theme.
-    */
-
-    /* main > .container, 
-    .jumbotron {
-      background: var(--bg2);
-      padding: 10px;
-      border-radius: 5px;
-      border: 1px solid var(--border);
-    } */
-    /* Table General Styling */
+   .card{
+    backdrop-filter: blur(10px);
+   }
     .table {
         width: 100%;
         margin-bottom: 1rem;
@@ -281,7 +341,7 @@
 </style>
 </head>
 
-<body class="min-h-screen" x-init="initTheme()">
+<body class="h-screen overflow-hidden" x-init="initTheme()">
   <div class="flex min-h-screen">
     <aside class="w-64 bg-[var(--bg2)] border-r border-[var(--border)] hidden md:block">
       <div class="p-5 font-bold text-xl flex items-center gap-2 border-b border-[var(--border)]">
@@ -384,7 +444,7 @@
       </nav>
     </aside>
 
-    <div class="flex-1 flex flex-col">
+    <div class="flex-1 flex flex-col overflow-auto flex-1">
       <header class="sticky top-0 z-10 bg-[var(--bg2)] border-b border-[var(--border)] px-4 py-3 flex justify-between items-center">
         <div class="flex items-center gap-2">
           <button @click="sidebarOpen = !sidebarOpen" class="text-xl md:hidden">
@@ -415,7 +475,7 @@
         </div>
       </header>
 
-      <main class="p-6 space-y-6">
+      <main class="p-6 space-y-6"> 
         {% if get_config('version_latest') %}
         <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 rounded-md shadow" role="alert">
           <div class="flex items-center gap-3">
