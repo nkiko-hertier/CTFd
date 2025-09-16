@@ -285,6 +285,11 @@ color: white !important;
             <a :class="{'border-b border-blue-500 text-white': currentPath === '/user', 'hover:text-white text-slate-300': currentPath !== '/user'}" class="p-2" href="/user">
                 <i class="bi bi-person-fill"></i> Profile
             </a>
+            {% if is_admin() %}
+            <a :class="{'border-b border-blue-500 text-white': currentPath === '/user', 'hover:text-white text-slate-300': currentPath !== '/user'}" class="p-2" href="/admin">
+                <i class="bi bi-person-fill"></i> Admin Panel
+            </a>
+            {% endif %}
             <a :class="{'border-b border-blue-500 text-white': currentPath === '/settings', 'hover:text-white text-slate-300': currentPath !== '/settings'}" class="p-2" href="/settings">
                 <i class="bi bi-gear-fill"></i> Settings
             </a>
