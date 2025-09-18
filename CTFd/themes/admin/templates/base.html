@@ -108,6 +108,13 @@
         [data-theme="light"] .container{
           border: 1px solid var(--border);
         }
+
+        [data-theme="light"] .jumbotron .container{
+          border: none !important;
+        }
+        a:hover{
+          text-decoration: none;
+        }
         body {
             height: 100vh;
             margin: 0;
@@ -165,7 +172,7 @@
         .form-select, select {
             background-color: var(--bg3) !important;
             display: block !important;
-            color: white;
+            color: var(--text-color);
             padding: 0.5rem !important;
             width: 100% !important;
             border-radius: 0.375rem !important;
@@ -179,7 +186,7 @@
             box-shadow: 0 0 0 1px #94a3b8 !important;
             border-color: #94a3b8 !important;
             outline: 2px solid transparent !important;
-            color: white;
+            color: var(--text-color);
             outline-offset: 2px !important;
         }
 
@@ -188,7 +195,7 @@
         }
 
         label {
-            color: #94a3b8 !important;
+            color: var(--text) !important;
             font-size: 0.875rem !important;
         }
 
@@ -223,21 +230,20 @@
         .table thead {
         border-bottom: 2px solid var(--border) !important;
         }
-        .table th {
-        background-color: var(--bg2) !important;
-        border-color: var(--border) !important;
-        color: var(--text-color) !important;
-        }
 
         /* Table body styling */
         .table tbody {
         border-top: none !important;
         }
-        .table td,
-        .table th {
+        .table td{
         background-color: var(--bg3) !important;
         border-color: var(--border) !important;
         color: var(--text-color) !important;
+        }
+        .table th {
+        background-color: #243041 !important;
+        border-color: var(--border) !important;
+        color: #f3f4f6 !important;
         }
         .table td {
             background-color: var(--bg1) !important;
@@ -256,6 +262,10 @@
     .jumbotron{
       background-color: var(--bg2);
       border: 1px solid var(--border);
+      height: 140px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       padding: 10px;
     }
     

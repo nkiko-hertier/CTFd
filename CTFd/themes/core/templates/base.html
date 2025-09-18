@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" :class="theme === 'light' ? 'theme-light' : ''"
     x-data="{ 
-        theme: localStorage.getItem('theme') || 'dark',
+        theme: 'dark',
         toggleTheme() {
             this.theme = this.theme === 'dark' ? 'light' : 'dark';
             localStorage.setItem('theme', this.theme);

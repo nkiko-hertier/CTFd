@@ -82,7 +82,7 @@ function bulkToggleAccounts(_event) {
     <form id="scoreboard-bulk-edit">
       <div class="form-group">
         <label>Visibility</label>
-        <select name="visibility" data-initial="">
+        <select name="visibility" class="form-control" data-initial="">
           <option value="">--</option>
           <option value="visible">Visible</option>
           <option value="hidden">Hidden</option>
