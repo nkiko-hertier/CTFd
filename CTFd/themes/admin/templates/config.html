@@ -1,423 +1,252 @@
 {% extends "admin/base.html" %}
 
-{% block title %}Configuration - Admin Panel{% endblock %}
-
 {% block stylesheets %}
 	<link rel="stylesheet" type="text/css" href="{{ url_for('views.themes', theme='admin', path='css/codemirror.css') }}">
 {% endblock %}
 
 {% block content %}
-<!-- Updated header to use Tabler page header component -->
-<div class="page-header d-print-none">
-	<div class="container-xl">
-		<div class="row g-2 align-items-center">
-			<div class="col">
-				<div class="page-pretitle">Admin Panel</div>
-				<h2 class="page-title">Configuration</h2>
-			</div>
-		</div>
+<div class="jumbotron">
+	<div class="container">
+		<h1>Configuration</h1>
 	</div>
 </div>
+<div class="container">
+	<div class="row">
+		<div class="col-md-3">
+			<ul id="config-sidebar" class="nav nav-pills flex-column">
 
-<div class="page-body">
-	<div class="container-xl">
-		<div class="row">
-			<!-- Modernized sidebar navigation with Tabler styling -->
-			<div class="col-md-3">
-				<div class="card">
-					<div class="card-body p-2">
-						<div class="list-group list-group-transparent">
-							<a class="list-group-item list-group-item-action d-flex align-items-center active" href="#general" role="tab" data-bs-toggle="tab">
-								<span class="me-3">
-									<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-										<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-										<path d="M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z"/>
-										<path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0"/>
-									</svg>
-								</span>
-								General
-							</a>
+				<li class="nav-item">
+					<a class="nav-link rounded-0 py-1 active" href="#general" role="tab" data-toggle="tab">
+						<i class="fa fa-gear action-icon"></i>General
+					</a>
+				</li>
+				<!-- Appearance -->
+				<small class="section-title">Appearance</small>
+				<li class="nav-item">
+					<a class="nav-link rounded-0 py-1" href="#logo" role="tab" data-toggle="tab">
+						<i class="fa fa-signature action-icon"></i>Logo
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link rounded-0 py-1" href="#theme" role="tab" data-toggle="tab">
+						<i class="fa fa-brush action-icon"></i>Theme
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link rounded-0 py-1" href="#localization" role="tab" data-toggle="tab">
+						<i class="fa fa-language action-icon"></i>Localization
+					</a>
+				</li>
+				<!-- Access -->
+				<small class="section-title">Access</small>
+				<li class="nav-item">
+					<a class="nav-link rounded-0 py-1" href="#visibility" role="tab" data-toggle="tab">
+						<i class="fa fa-eye action-icon"></i>Visibility
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link rounded-0 py-1" href="#ctftime" role="tab" data-toggle="tab">
+						<i class="fa fa-stopwatch action-icon"></i>Start and End Time
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link rounded-0 py-1" href="#pause" role="tab" data-toggle="tab">
+						<i class="fa fa-pause action-icon"></i>Pause
+					</a>
+				</li>
 
-							<!-- Appearance Section -->
-							<div class="list-group-header sticky-top">Appearance</div>
-							<a class="list-group-item list-group-item-action d-flex align-items-center" href="#logo" role="tab" data-bs-toggle="tab">
-								<span class="me-3">
-									<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-										<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-										<path d="M3 7a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v2a3 3 0 0 1 -3 3h-12a3 3 0 0 1 -3 -3v-2z"/>
-										<path d="M8 7v1"/>
-										<path d="M16 7v1"/>
-										<path d="M3 17a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v2a3 3 0 0 1 -3 3h-12a3 3 0 0 1 -3 -3v-2z"/>
-										<path d="M8 17v1"/>
-										<path d="M16 17v1"/>
-									</svg>
-								</span>
-								Logo
-							</a>
-							<a class="list-group-item list-group-item-action d-flex align-items-center" href="#theme" role="tab" data-bs-toggle="tab">
-								<span class="me-3">
-									<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-										<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-										<path d="M7 13a4 4 0 1 1 8 0"/>
-										<path d="M12 17l0 4"/>
-										<path d="M8 21l8 0"/>
-										<path d="M12 3c-.5 0 -1 .5 -1 1s.5 1 1 1s1 -.5 1 -1s-.5 -1 -1 -1z"/>
-										<path d="M12 3l0 -1"/>
-									</svg>
-								</span>
-								Theme
-							</a>
-							<a class="list-group-item list-group-item-action d-flex align-items-center" href="#localization" role="tab" data-bs-toggle="tab">
-								<span class="me-3">
-									<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-										<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-										<path d="M4 5h7"/>
-										<path d="M9 3v2c0 4.418 -2.239 8 -5 8"/>
-										<path d="M5 9c0 2.144 2.952 3.908 6.7 4"/>
-										<path d="M12 20l4 -9l4 9"/>
-										<path d="M19.1 18h-6.2"/>
-									</svg>
-								</span>
-								Localization
-							</a>
+				<!-- Users -->
+				<small class="section-title">Users</small>
+				<li class="nav-item">
+					<a class="nav-link rounded-0 py-1" href="#accounts" role="tab" data-toggle="tab">
+						<i class="fa fa-users action-icon"></i>Accounts
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link rounded-0 py-1" href="#brackets" role="tab" data-toggle="tab">
+						<i class="fa fa-chart-line action-icon"></i>Scoreboard Brackets
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link rounded-0 py-1" href="#fields" role="tab" data-toggle="tab">
+						<i class="fa fa-fingerprint action-icon"></i>Custom Fields
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link rounded-0 py-1" href="#registration_code" role="tab" data-toggle="tab">
+						<i class="fa fa-user-lock action-icon"></i>Registration Code
+					</a>
+				</li>
 
-							<!-- Access Section -->
-							<div class="list-group-header sticky-top">Access</div>
-							<a class="list-group-item list-group-item-action d-flex align-items-center" href="#visibility" role="tab" data-bs-toggle="tab">
-								<span class="me-3">
-									<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-										<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-										<path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"/>
-										<path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6"/>
-									</svg>
-								</span>
-								Visibility
-							</a>
-							<a class="list-group-item list-group-item-action d-flex align-items-center" href="#ctftime" role="tab" data-bs-toggle="tab">
-								<span class="me-3">
-									<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-										<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-										<path d="M12 7v5l3 3"/>
-										<path d="M12 7a5 5 0 1 1 -5 5"/>
-										<path d="M13 15l2 2l4 -4"/>
-									</svg>
-								</span>
-								Start and End Time
-							</a>
-							<a class="list-group-item list-group-item-action d-flex align-items-center" href="#pause" role="tab" data-bs-toggle="tab">
-								<span class="me-3">
-									<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-										<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-										<path d="M6 5m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v12a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z"/>
-										<path d="M14 5m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v12a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z"/>
-									</svg>
-								</span>
-								Pause
-							</a>
+				<!-- Challenges -->
+				<small class="section-title">Challenges</small>
+				<li class="nav-item">
+					<a class="nav-link rounded-0 py-1" href="#challenges" role="tab" data-toggle="tab">
+						<i class="fa fa-users action-icon"></i>Challenges
+					</a>
+				</li>
 
-							<!-- Users Section -->
-							<div class="list-group-header sticky-top">Users</div>
-							<a class="list-group-item list-group-item-action d-flex align-items-center" href="#accounts" role="tab" data-bs-toggle="tab">
-								<span class="me-3">
-									<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-										<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-										<path d="M12 3a11 11 0 0 0 -11 11a11 11 0 0 0 11 11a11 11 0 0 0 11 -11a11 11 0 0 0 -11 -11z"/>
-										<path d="M12 6a3 3 0 0 1 3 3a3 3 0 0 1 -3 3a3 3 0 0 1 -3 -3a3 3 0 0 1 3 -3z"/>
-										<path d="M16 18v4h4"/>
-										<path d="M8 18v4h4"/>
-									</svg>
-								</span>
-								Accounts
-							</a>
-							<a class="list-group-item list-group-item-action d-flex align-items-center" href="#brackets" role="tab" data-bs-toggle="tab">
-								<span class="me-3">
-									<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-										<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-										<path d="M12 3v18"/>
-										<path d="M5 7h14"/>
-										<path d="M5 12h14"/>
-										<path d="M5 17h14"/>
-									</svg>
-								</span>
-								Scoreboard Brackets
-							</a>
-							<a class="list-group-item list-group-item-action d-flex align-items-center" href="#fields" role="tab" data-bs-toggle="tab">
-								<span class="me-3">
-									<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-										<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-										<path d="M12 3v18"/>
-										<path d="M5 7h14"/>
-										<path d="M5 12h14"/>
-										<path d="M5 17h14"/>
-									</svg>
-								</span>
-								Custom Fields
-							</a>
-							<a class="list-group-item list-group-item-action d-flex align-items-center" href="#registration_code" role="tab" data-bs-toggle="tab">
-								<span class="me-3">
-									<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-										<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-										<path d="M12 12m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/>
-										<path d="M6 12a9 9 0 0 0 9 9"/>
-										<path d="M6 3v18"/>
-										<path d="M21 3v18"/>
-									</svg>
-								</span>
-								Registration Code
-							</a>
+				<!-- Backup -->
+				<small class="section-title">Backup</small>
+				<li class="nav-item">
+					<a class="nav-link rounded-0 py-1" href="#backup" role="tab" data-toggle="tab">
+						<i class="fa fa-file-import action-icon"></i>Import & Export
+					</a>
+				</li>
 
-							<!-- Challenges Section -->
-							<div class="list-group-header sticky-top">Challenges</div>
-							<a class="list-group-item list-group-item-action d-flex align-items-center" href="#challenges" role="tab" data-bs-toggle="tab">
-								<span class="me-3">
-									<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-										<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-										<path d="M12 3v18"/>
-										<path d="M5 7h14"/>
-										<path d="M5 12h14"/>
-										<path d="M5 17h14"/>
-									</svg>
-								</span>
-								Challenges
-							</a>
+				<!-- Security -->
+				<small class="section-title">Security</small>
+				<li class="nav-item">
+					<a class="nav-link rounded-0 py-1" href="#sanitize" role="tab" data-toggle="tab">
+						<i class="fa fa-shield-halved action-icon"></i>Sanitize
+					</a>
+				</li>
 
-							<!-- Backup Section -->
-							<div class="list-group-header sticky-top">Backup</div>
-							<a class="list-group-item list-group-item-action d-flex align-items-center" href="#backup" role="tab" data-bs-toggle="tab">
-								<span class="me-3">
-									<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-										<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-										<path d="M12 3v18"/>
-										<path d="M5 7h14"/>
-										<path d="M5 12h14"/>
-										<path d="M5 17h14"/>
-									</svg>
-								</span>
-								Import & Export
-							</a>
+				<!-- Pages -->
+				<small class="section-title">Pages</small>
+				<li class="nav-item">
+					<a class="nav-link rounded-0 py-1" href="#legal" role="tab" data-toggle="tab">
+						<i class="fa fa-scale-balanced action-icon"></i>Legal
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link rounded-0 py-1" href="#robots" role="tab" data-toggle="tab">
+						<i class="fa fa-robot action-icon"></i>Robots.txt
+					</a>
+				</li>
+				
+				<!-- Integrations -->
+				<small class="section-title">Integrations</small>
+				<li class="nav-item">
+					<a class="nav-link rounded-0 py-1" href="#email" role="tab" data-toggle="tab">
+						<i class="fa fa-envelope action-icon"></i>Email Notifications
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link rounded-0 py-1" href="#social" role="tab" data-toggle="tab">
+						<i class="fa fa-share-nodes action-icon"></i>Social Sharing
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link rounded-0 py-1s" href="#mlc" role="tab" data-toggle="tab">
+						<i class="fa fa-network-wired action-icon"></i>MajorLeagueCyber
+					</a>
+				</li>
+				
+				<!-- Plugins -->
+				{% set plugins = get_configurable_plugins() %}
+				{% if plugins %}
+					<small class="section-title">Plugins</small>
+					{% for plugin in plugins %}
+						{% if plugin.config %}
+							<li class="nav-item">
+								<a class="nav-link rounded-0 py-1" href="#plugin_{{loop.index}}" role="tab" data-toggle="tab">
+									<i class="fa-solid fa-puzzle-piece action-icon"></i>{{ plugin.name }}
+								</a>
+							</li>
+						{% elif plugin.route %}
+							<li class="nav-item">
+								<a class="nav-link rounded-0 py-1" href="{{ plugin.route }}" target="_blank">
+									<i class="fa-solid fa-puzzle-piece action-icon"></i>{{ plugin.name }} <i class="fa-solid fa-arrow-up-right-from-square fa-xs"></i>
+								</a>
+							</li>
+						{% endif %}
+					{% endfor %}
+				{% endif %}
 
-							<!-- Security Section -->
-							<div class="list-group-header sticky-top">Security</div>
-							<a class="list-group-item list-group-item-action d-flex align-items-center" href="#sanitize" role="tab" data-bs-toggle="tab">
-								<span class="me-3">
-									<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-										<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-										<path d="M12 3v18"/>
-										<path d="M5 7h14"/>
-										<path d="M5 12h14"/>
-										<path d="M5 17h14"/>
-									</svg>
-								</span>
-								Sanitize
-							</a>
-
-							<!-- Pages Section -->
-							<div class="list-group-header sticky-top">Pages</div>
-							<a class="list-group-item list-group-item-action d-flex align-items-center" href="#legal" role="tab" data-bs-toggle="tab">
-								<span class="me-3">
-									<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-										<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-										<path d="M12 3v18"/>
-										<path d="M5 7h14"/>
-										<path d="M5 12h14"/>
-										<path d="M5 17h14"/>
-									</svg>
-								</span>
-								Legal
-							</a>
-							<a class="list-group-item list-group-item-action d-flex align-items-center" href="#robots" role="tab" data-bs-toggle="tab">
-								<span class="me-3">
-									<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-										<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-										<path d="M12 3v18"/>
-										<path d="M5 7h14"/>
-										<path d="M5 12h14"/>
-										<path d="M5 17h14"/>
-									</svg>
-								</span>
-								Robots.txt
-							</a>
-							
-							<!-- Integrations Section -->
-							<div class="list-group-header sticky-top">Integrations</div>
-							<a class="list-group-item list-group-item-action d-flex align-items-center" href="#email" role="tab" data-bs-toggle="tab">
-								<span class="me-3">
-									<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-										<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-										<path d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z"/>
-										<path d="M12 14l0 4"/>
-										<path d="M12 10l0 -4"/>
-										<path d="M14 12l4 0"/>
-										<path d="M8 12l-4 0"/>
-									</svg>
-								</span>
-								Email Notifications
-							</a>
-							<a class="list-group-item list-group-item-action d-flex align-items-center" href="#social" role="tab" data-bs-toggle="tab">
-								<span class="me-3">
-									<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-										<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-										<path d="M5 12h14"/>
-										<path d="M12 3v18"/>
-										<path d="M14 9l3 3l-3 3"/>
-										<path d="M8 9l-3 3l3 3"/>
-									</svg>
-								</span>
-								Social Sharing
-							</a>
-							<a class="list-group-item list-group-item-action d-flex align-items-center" href="#mlc" role="tab" data-bs-toggle="tab">
-								<span class="me-3">
-									<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-										<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-										<path d="M12 3v18"/>
-										<path d="M5 7h14"/>
-										<path d="M5 12h14"/>
-										<path d="M5 17h14"/>
-									</svg>
-								</span>
-								MajorLeagueCyber
-							</a>
-							
-							<!-- Plugins Section -->
-							{% set plugins = get_configurable_plugins() %}
-							{% if plugins %}
-								<div class="list-group-header sticky-top">Plugins</div>
-								{% for plugin in plugins %}
-									{% if plugin.config %}
-										<a class="list-group-item list-group-item-action d-flex align-items-center" href="#plugin_{{loop.index}}" role="tab" data-bs-toggle="tab">
-											<span class="me-3">
-												<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-													<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-													<path d="M12 3v18"/>
-													<path d="M5 7h14"/>
-													<path d="M5 12h14"/>
-													<path d="M5 17h14"/>
-												</svg>
-											</span>
-											{{ plugin.name }}
-										</a>
-									{% elif plugin.route %}
-										<a class="list-group-item list-group-item-action d-flex align-items-center" href="{{ plugin.route }}" target="_blank">
-											<span class="me-3">
-												<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-													<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-													<path d="M12 3v18"/>
-													<path d="M5 7h14"/>
-													<path d="M5 12h14"/>
-													<path d="M5 17h14"/>
-												</svg>
-											</span>
-											{{ plugin.name }} <i class="fa-solid fa-arrow-up-right-from-square fa-xs"></i>
-										</a>
-									{% endif %}
-								{% endfor %}
-							{% endif %}
-
-							<!-- Danger Zone Section -->
-							<div class="list-group-header sticky-top">Danger Zone</div>
-							<a class="list-group-item list-group-item-action d-flex align-items-center" href="#usermode" role="tab" data-bs-toggle="tab">
-								<span class="me-3">
-									<svg xmlns="http://www.w3.org/2000/svg" class="icon text-danger" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-										<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-										<path d="M8 7a4 4 0 1 0 8 0c0 3 0 5 0 6a2 2 0 0 1 -4 0a2 2 0 0 1 -4 0c0 -1 0 -3 0 -6"/>
-										<path d="M12 17.5l0 .01"/>
-									</svg>
-								</span>
-								User Mode
-							</a>
-							<a class="list-group-item list-group-item-action d-flex align-items-center text-danger" href="{{ url_for('admin.reset') }}">
-								<span class="me-3">
-									<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-										<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-										<path d="M4 7v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-10"/>
-										<path d="M10 11v6"/>
-										<path d="M14 11v6"/>
-										<path d="M5 7l1 0"/>
-										<path d="M4 7l1 -4l4 0"/>
-										<path d="M19 7l-1 0"/>
-										<path d="M20 7l-1 -4l-4 0"/>
-									</svg>
-								</span>
-								Reset
-							</a>
-						</div>
-					</div>
+				<!-- Reset -->
+				<small class="section-title">Danger zone</small>
+				<li class="nav-item">
+					<a class="nav-link rounded-0 py-1" href="#usermode" role="tab" data-toggle="tab">
+						<i class="fa fa-people-arrows action-icon"></i>User Mode
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link rounded-0 py-1" href="{{ url_for('admin.reset') }}" role="tab">
+						<i class="fa fa-trash-can action-icon"></i>Reset
+					</a>
+				</li>
+			</ul>
+		</div>
+		<div class="col-md-9">
+			{% for error in errors %}
+				<div class="alert alert-danger alert-dismissable" role="alert">
+					<span class="sr-only">Error:</span>
+					{{ error }}
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
 				</div>
-			</div>
+			{% endfor %}
 
-			<!-- Updated main content area with Tabler card styling -->
-			<div class="col-md-9">
-				{% for error in errors %}
-					<div class="alert alert-danger alert-dismissible" role="alert">
-						<div class="d-flex">
-							<div>
-								<svg xmlns="http://www.w3.org/2000/svg" class="icon alert-icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-									<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-									<circle cx="12" cy="12" r="9"/>
-									<path d="M12 8l0 4"/>
-									<path d="M12 16l.01 0"/>
-								</svg>
+			<div class="tab-content">
+				{% include "admin/configs/general.html" %}
+
+				<!-- Appearance -->
+
+				{% include "admin/configs/logo.html" %}
+
+				{% include "admin/configs/theme.html" %}
+
+				{% include "admin/configs/localization.html" %}
+
+				<!-- Access -->
+
+				{% include "admin/configs/visibility.html" %}
+
+				{% include "admin/configs/time.html" %}
+
+				{% include "admin/configs/pause.html" %}
+
+				<!-- Users -->
+
+				{% include "admin/configs/accounts.html" %}
+
+				{% include "admin/configs/usermode.html" %}
+
+				{% include "admin/configs/brackets.html" %}
+
+				{% include "admin/configs/fields.html" %}
+
+				{% include "admin/configs/registration_code.html" %}
+
+				<!-- Challeges -->
+
+				{% include "admin/configs/challenges.html" %}
+
+				<!-- Security -->
+
+				{% include "admin/configs/backup.html" %}
+
+				{% include "admin/configs/sanitize.html" %}
+
+				<!-- Pages -->
+
+				{% include "admin/configs/legal.html" %}
+
+				{% include "admin/configs/robots.html" %}
+
+				<!-- Integrations -->
+
+				{% include "admin/configs/email.html" %}
+
+				{% include "admin/configs/social.html" %}
+
+				{% include "admin/configs/mlc.html" %}
+
+				<!-- Plugins -->
+				
+				{% if plugins %}
+					{% for plugin in plugins %}
+						{% if plugin.config %}
+							<div role="tabpanel" class="tab-pane config-section" id="plugin_{{loop.index}}">
+								{% include plugin.config %}
 							</div>
-							<div>
-								<h4 class="alert-title">Error!</h4>
-								<div class="text-muted">{{ error }}</div>
-							</div>
-						</div>
-						<a class="btn-close" data-bs-dismiss="alert" aria-label="close"></a>
-					</div>
-				{% endfor %}
-
-				<div class="card">
-					<div class="card-body">
-						<div class="tab-content">
-							{% include "admin/configs/general.html" %}
-
-							<!-- Appearance -->
-							{% include "admin/configs/logo.html" %}
-							{% include "admin/configs/theme.html" %}
-							{% include "admin/configs/localization.html" %}
-
-							<!-- Access -->
-							{% include "admin/configs/visibility.html" %}
-							{% include "admin/configs/time.html" %}
-							{% include "admin/configs/pause.html" %}
-
-							<!-- Users -->
-							{% include "admin/configs/accounts.html" %}
-							{% include "admin/configs/usermode.html" %}
-							{% include "admin/configs/brackets.html" %}
-							{% include "admin/configs/fields.html" %}
-							{% include "admin/configs/registration_code.html" %}
-
-							<!-- Challenges -->
-							{% include "admin/configs/challenges.html" %}
-
-							<!-- Security -->
-							{% include "admin/configs/backup.html" %}
-							{% include "admin/configs/sanitize.html" %}
-
-							<!-- Pages -->
-							{% include "admin/configs/legal.html" %}
-							{% include "admin/configs/robots.html" %}
-
-							<!-- Integrations -->
-							{% include "admin/configs/email.html" %}
-							{% include "admin/configs/social.html" %}
-							{% include "admin/configs/mlc.html" %}
-
-							<!-- Plugins -->
-							{% if plugins %}
-								{% for plugin in plugins %}
-									{% if plugin.config %}
-										<div role="tabpanel" class="tab-pane config-section" id="plugin_{{loop.index}}">
-											{% include plugin.config %}
-										</div>
-									{% endif %}
-								{% endfor %}
-							{% endif %}
-						</div>
-					</div>
-				</div>
+						{% endif %}
+					{% endfor %}
+				{% endif %}
+				<!-- Danger zone -->
+				<!-- reset.html is top-level so no need to include -->
 			</div>
 		</div>
 	</div>

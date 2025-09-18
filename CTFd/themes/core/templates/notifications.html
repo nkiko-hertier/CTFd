@@ -1,33 +1,46 @@
 {% extends "base.html" %}
 
 {% block content %}
-	<div class="jumbotron">
-		<div class="container">
-			<h1>
-				{% trans %}Notifications{% endtrans %}
-			</h1>
-		</div>
-	</div>
-	<div class="container">
-		{% if not notifications %}
-		<h2 class="text-center">
-			{% trans %}There are no notifications yet{% endtrans %}
-		</h2>
-		{% endif %}
-		{% for notification in notifications %}
-		<div class="card bg-body-tertiary mb-4">
-			<div class="card-body">
-				<h3 class="card-title">{{ notification.title }}</h3>
-				<blockquote class="blockquote mb-0">
-					<p>{{ notification.html }}</p>
-					<small class="text-muted"><span data-time="{{ notification.date | isoformat }}"></span></small>
-				</blockquote>
-			</div>
-		</div>
-		{% endfor %}
-	</div>
+    <div class="jumbotron mt-5 mb-4">
+        <div class="container">
+            <h1 class="text-xl font-semibold">{% trans %}Notifications{% endtrans %}</h1>
+            <h1 class="text-sm text-slate-400">{% trans %}Your recent alerts{% endtrans %}</h1>
+        </div>
+    </div>
+    {% include "dashbox.html" %}
+
+    <div class="container bg-[var(--bg2)] p-4 rounded border-slate-600">
+        {% include "components/errors.html" %}
+
+        {% if not notifications %}
+            <h2 class="text-center text-slate-400">
+                {% trans %}There are no notifications yet{% endtrans %}
+            </h2>
+        {% else %}
+            {% for notification in notifications %}
+                <div class="bg-[var(--bg1)] p-4 mb-4">
+                    <div class="card-body">
+                        <h3 class="card-title">{{ notification.title }}</h3>
+                        <blockquote class="pl-4 mt-3 border-l-2 bg-green-500/5 p-2 border-[var(--green)]">
+                            <p class="text-sm">{{ notification.html }}</p>
+                            <small class="text-slate-400 text-sm"><span data-time="{{ notification.date | isoformat }}"></span></small>
+                        </blockquote>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
 {% endblock %}
 
 {% block scripts %}
   {{ Assets.js("assets/js/notifications.js") }}
+{% endblock %}
+
+{% block entrypoint %}
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Any Alpine.js or other initialization scripts for this page can go here
+      Alpine.start();
+    });
+  </script>
 {% endblock %}

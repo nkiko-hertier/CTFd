@@ -1,5 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" :class="theme === 'light' ? 'theme-light' : ''"
+    x-data="{ 
+        theme: localStorage.getItem('theme') || 'dark',
+        toggleTheme() {
+            this.theme = this.theme === 'dark' ? 'light' : 'dark';
+            localStorage.setItem('theme', this.theme);
+        },
+        mobileMenuOpen: false,
+        avatarMenuOpen: false
+    }">
 
 <head>
     <meta charset="UTF-8">
@@ -12,11 +21,11 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        xintegrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        xintegrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
     <title>{{ title or Configs.ctf_name }}</title>
     <link rel="shortcut icon" href="{{ Configs.ctf_small_icon }}" type="image/x-icon">
@@ -25,15 +34,6 @@
     {{ Configs.theme_header }}
 
     <style>
-        .bg-video {
-            width: 100%;
-            height: auto;
-            max-height: 1448px;
-            position: absolute;
-            top: 41px;
-            left: 0;
-            z-index: -9;
-        }
 
         .ds-font {
             font-family: 'DS-Digital', sans-serif;
@@ -92,6 +92,46 @@
             --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
         }
 
+        .theme-light {
+            --bg1: #f3f4f6;
+            --bg2: #ffffff;
+            --bg3: #e5e7eb;
+            --border: #d1d5db;
+            --p-slate-950: #ffffff;
+            --p-slate-900: #0f172a;
+            --p-slate-800: #1e293b;
+            --p-slate-700: #334155;
+            --p-slate-600: #475569;
+            --p-slate-500: #64748b;
+            --p-slate-400: #94a3b8;
+            --white: #000;
+        }
+        
+        .theme-light .text-white {
+            color: black;
+        }
+
+        .theme-light .btn-close {
+            filter: invert(0) !important;
+        }
+
+        .theme-light .table {
+            --bs-table-bg: #e5e7eb !important;
+            --bs-table-color: black !important;
+            --bs-table-border-color: #d1d5db !important;
+            color: black !important;
+        }
+
+        .theme-light .table th {
+            background-color: #d1d5db !important;
+            border-color: #d1d5db !important;
+            color: black !important;
+        }
+
+        .theme-light .table td {
+            background-color: #f3f4f6 !important;
+        }
+
         .form-control,
         .form-select {
             background-color: var(--bg3) !important;
@@ -143,42 +183,42 @@
         .form-text.text-muted {
             color: #586980 !important;
         }
-        * Base table styling */
-.table {
---bs-table-bg: var(--bg1) !important;
---bs-table-color: white !important;
---bs-table-border-color: var(--border) !important;
-color: white !important;
-}
+        /* Base table styling */
+        .table {
+        --bs-table-bg: var(--bg1) !important;
+        --bs-table-color: white !important;
+        --bs-table-border-color: var(--border) !important;
+        color: white !important;
+        }
 
-/* Table head styling */
-.table thead {
-border-bottom: 2px solid var(--border) !important;
-}
-.table th {
-background-color: var(--bg2) !important;
-border-color: var(--border) !important;
-color: white !important;
-}
+        /* Table head styling */
+        .table thead {
+        border-bottom: 2px solid var(--border) !important;
+        }
+        .table th {
+        background-color: var(--bg2) !important;
+        border-color: var(--border) !important;
+        color: white !important;
+        }
 
-/* Table body styling */
-.table tbody {
-border-top: none !important;
-}
-.table td,
-.table th {
-background-color: var(--bg3) !important;
-border-color: var(--border) !important;
-color: white !important;
-}
-.table td {
-    background-color: var(--bg1) !important;
-}
+        /* Table body styling */
+        .table tbody {
+        border-top: none !important;
+        }
+        .table td,
+        .table th {
+        background-color: var(--bg3) !important;
+        border-color: var(--border) !important;
+        color: white !important;
+        }
+        .table td {
+            background-color: var(--bg1) !important;
+        }
 
-/* Hover effect for tables with the .table-hover class */
-.table-hover tbody tr:hover {
---bs-table-hover-bg: var(--bg3) !important;
-}
+        /* Hover effect for tables with the .table-hover class */
+        .table-hover tbody tr:hover {
+        --bs-table-hover-bg: var(--bg3) !important;
+        }
     </style>
     
     <script type="text/javascript">
@@ -203,7 +243,7 @@ color: white !important;
     </script>
 </head>
 
-<body class="text-white bg-[var(--bg1)]" x-data="{ mobileMenuOpen: false, avatarMenuOpen: false }">
+<body class="text-white bg-[var(--bg1)]">
     <nav class="min-h-[80px] bg-[var(--bg3)] flex items-center justify-between px-10 relative z-10">
         <div class="logo font-bold">
             <a href="/" class="font-bold">
@@ -222,7 +262,6 @@ color: white !important;
                 <li><a href="{{ url_for('challenges.listing') }}" class="hover:text-[var(--green)] transition-colors">{% trans %}Challenges{% endtrans %}</a></li>
                 <li><a href="{{ url_for('scoreboard.listing') }}" class="hover:text-[var(--green)] transition-colors">{% trans %}Scoreboard{% endtrans %}</a></li>
 
-
                 {% if Session.id %}
                 <li><a href="{{ url_for('teams.private') if Configs.user_mode == 'teams' else url_for('users.private') }}"
                     class="hover:text-[var(--green)] transition-colors">{% trans %}Profile{% endtrans %}</a></li>
@@ -232,7 +271,7 @@ color: white !important;
             {% if Session.id %}
             <!-- Notification Icon -->
             <div class="flex items-center gap-1">
-           <div>
+           <div class="hidden md:block">
             <a href="{{ url_for('views.notifications') }}">
               
               <span class="d-sm-inline d-md-none d-lg-inline">
@@ -241,7 +280,7 @@ color: white !important;
               </span>
             </a>
             </div>
-            <div class="relative flex items-center gap-2" @click.outside="avatarMenuOpen = false">
+            <div class="relative flex items-center gap-2 hidden md:flex" @click.outside="avatarMenuOpen = false">
                 <button @click="avatarMenuOpen = !avatarMenuOpen"
                     class="bg-yellow-300 size-10 rounded-full overflow-hidden focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--green)]">
                     <img src="https://avatar.iran.liara.run/public"
@@ -274,15 +313,11 @@ color: white !important;
                 </div>
             </div>
             </div>
-            {% else %}
-
-            <!-- <div class="hidden md:flex gap-7">
-                <a href="{{ url_for('auth.login') }}" class="btn-primary font-semibold block w-fit p-3 px-5 rounded-md">
-                    {% trans %}Login Account{% endtrans %}
-                </a>
-            </div> -->
             {% endif %}
 
+            <button @click="toggleTheme()" class="hidden text-2xl text-white hover:text-[var(--green)] transition-colors">
+                <i :class="theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon'"></i>
+            </button>
 
             <button @click="mobileMenuOpen = true" class="md:hidden text-2xl text-white">
                 <i class="fas fa-bars"></i>
@@ -293,24 +328,27 @@ color: white !important;
          x-data="{ currentPath: window.location.pathname }">
         <div class="flex">
             {% if Configs.user_mode == 'teams' %}
-            <a :class="{'border-b border-blue-500 text-white': currentPath === '/teams', 'hover:text-white text-slate-300': currentPath !== '/teams'}" class="p-2" href="/teams">
+            <a :class="{'border-b border-blue-500 text-white': currentPath === '/teams', 'hover:text-white text-slate-300': currentPath !== '/teams'}" class="p-2" href="{{ url_for('teams.listing') }}">
                 <i class="bi bi-house-door-fill"></i> Teams
             </a>
             {% endif %}
-            <a :class="{'border-b border-blue-500 text-white': currentPath === '/challenges', 'hover:text-white text-slate-300': currentPath !== '/challenges'}" class="p-2" href="/challenges">
+            <a :class="{'border-b border-blue-500 text-white': currentPath === '/challenges', 'hover:text-white text-slate-300': currentPath !== '/challenges'}" class="p-2" href="{{ url_for('challenges.listing') }}">
                 <i class="bi bi-award-fill"></i> Challenges
             </a>
-            <a :class="{'border-b border-blue-500 text-white': currentPath === '/user', 'hover:text-white text-slate-300': currentPath !== '/user'}" class="p-2" href="/user">
+            <a :class="{'border-b border-blue-500 text-white': currentPath === '/user', 'hover:text-white text-slate-300': currentPath !== '/user'}" class="p-2" href="{{ url_for('users.private') }}">
                 <i class="bi bi-person-fill"></i> Profile
+            </a>
+            <a :class="{'border-b border-blue-500 text-white': currentPath === '/users', 'hover:text-white text-slate-300': currentPath !== '/users'}" class="p-2" href="{{ url_for('users.listing') }}">
+                <i class="bi bi-people-fill"></i> Users
+            </a>
+            <a :class="{'border-b border-blue-500 text-white': currentPath === '/settings', 'hover:text-white text-slate-300': currentPath !== '/settings'}" class="p-2" href="{{ url_for('views.settings') }}">
+                <i class="bi bi-gear-fill"></i> Settings
             </a>
             {% if is_admin() %}
             <a :class="{'border-b border-blue-500 text-white': currentPath === '/admin', 'hover:text-white text-slate-300': currentPath !== '/user'}" class="p-2" href="/admin">
                 <i class="bi bi-person-fill"></i> Admin Panel
             </a>
             {% endif %}
-            <a :class="{'border-b border-blue-500 text-white': currentPath === '/settings', 'hover:text-white text-slate-300': currentPath !== '/settings'}" class="p-2" href="/settings">
-                <i class="bi bi-gear-fill"></i> Settings
-            </a>
         </div>
     </nav>
 
@@ -319,11 +357,33 @@ color: white !important;
         x-transition:leave="transition ease-in duration-300" x-transition:leave-start="opacity-100 translate-x-0"
         x-transition:leave-end="opacity-0 translate-x-full"
         class="fixed inset-0 z-20 bg-[var(--bg)] px-10 py-8 md:hidden" style="display: none;">
-        <div class="flex justify-end">
+        <div class="flex justify-end items-center gap-4">
+            <button @click="toggleTheme()" class="text-2xl hidden text-white hover:text-[var(--green)] transition-colors">
+                <i :class="theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon'"></i>
+            </button>
             <button @click="mobileMenuOpen = false" class="text-3xl text-white">
                 <i class="fas fa-times"></i>
             </button>
         </div>
+
+        {% if Session.id %}
+        <div class="mt-8 flex items-center gap-4">
+            <div class="size-16 rounded-full overflow-hidden">
+                <img src="https://avatar.iran.liara.run/public" class="size-full object-cover object-center" alt="User Avatar">
+            </div>
+            <div>
+                <h3 class="font-bold text-xl">{{ User.name }}</h3>
+                <p class="text-slate-400 text-sm">@{{ User.name }}</p>
+                <div class="flex items-center gap-1 mt-2">
+                    <a href="{{ url_for('views.notifications') }}" class="text-sm">
+                        <i class="fas fa-bell pe-1"></i> Notifications
+                        <span x-data x-show="$store.unread_count > 0" x-text="$store.unread_count" class="badge rounded-pill bg-danger badge-notification"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        
         <div class="flex flex-col gap-6 mt-8 text-xl">
             <a href="{{ url_for('challenges.listing') }}" class="hover:text-[var(--green)] transition-colors">
                 {% trans %}Challenges{% endtrans %}
@@ -336,6 +396,14 @@ color: white !important;
                 class="hover:text-[var(--green)] transition-colors">
                 {% trans %}Profile{% endtrans %}
             </a>
+            <a href="{{ url_for('views.settings') }}" class="hover:text-[var(--green)] transition-colors">
+                {% trans %}Settings{% endtrans %}
+            </a>
+            {% if is_admin() %}
+            <a href="/admin" class="hover:text-[var(--green)] transition-colors">
+                {% trans %}Admin Panel{% endtrans %}
+            </a>
+            {% endif %}
             <hr class="border-t border-slate-700" />
             <a href="{{ url_for('auth.logout') }}" class="hover:text-[var(--green)] transition-colors">
                 {% trans %}Logout{% endtrans %}
@@ -365,7 +433,7 @@ color: white !important;
         </footer>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        xintegrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
 
     {% include "components/notifications.html" %}
@@ -373,8 +441,6 @@ color: white !important;
     {% block scripts %}
     {{ Assets.js("assets/js/page.js") }}
     {% endblock %}
-
-
 
     {{ Plugins.scripts }}
 
