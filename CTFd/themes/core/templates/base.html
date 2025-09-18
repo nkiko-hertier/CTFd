@@ -221,17 +221,26 @@ color: white !important;
             <ul class="hidden md:flex gap-4">
                 <li><a href="{{ url_for('challenges.listing') }}" class="hover:text-[var(--green)] transition-colors">{% trans %}Challenges{% endtrans %}</a></li>
                 <li><a href="{{ url_for('scoreboard.listing') }}" class="hover:text-[var(--green)] transition-colors">{% trans %}Scoreboard{% endtrans %}</a></li>
+
+
                 {% if Session.id %}
                 <li><a href="{{ url_for('teams.private') if Configs.user_mode == 'teams' else url_for('users.private') }}"
                     class="hover:text-[var(--green)] transition-colors">{% trans %}Profile{% endtrans %}</a></li>
                 {% endif %}
             </ul>
 
-            <button @click="mobileMenuOpen = true" class="md:hidden text-2xl text-white">
-                <i class="fas fa-bars"></i>
-            </button>
-
             {% if Session.id %}
+            <!-- Notification Icon -->
+            <div class="flex items-center gap-1">
+           <div>
+            <a href="{{ url_for('views.notifications') }}">
+              
+              <span class="d-sm-inline d-md-none d-lg-inline">
+                  <i class="fas fa-bell pe-1"></i>
+                  <span x-data x-show="$store.unread_count > 0" x-text="$store.unread_count" class="badge rounded-pill bg-danger badge-notification" style="position: relative;top: -10px;left: -15px;"></span>
+              </span>
+            </a>
+            </div>
             <div class="relative flex items-center gap-2" @click.outside="avatarMenuOpen = false">
                 <button @click="avatarMenuOpen = !avatarMenuOpen"
                     class="bg-yellow-300 size-10 rounded-full overflow-hidden focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--green)]">
@@ -264,21 +273,30 @@ color: white !important;
                     </div>
                 </div>
             </div>
+            </div>
             {% else %}
-            <div class="hidden md:flex gap-7">
+
+            <!-- <div class="hidden md:flex gap-7">
                 <a href="{{ url_for('auth.login') }}" class="btn-primary font-semibold block w-fit p-3 px-5 rounded-md">
                     {% trans %}Login Account{% endtrans %}
                 </a>
-            </div>
+            </div> -->
             {% endif %}
+
+
+            <button @click="mobileMenuOpen = true" class="md:hidden text-2xl text-white">
+                <i class="fas fa-bars"></i>
+            </button>
         </div>
     </nav>
     <nav class="bg-[var(--bg2)] max-md:hidden border-b min-h-[40px] border-t border-[var(--border)] px-20"
          x-data="{ currentPath: window.location.pathname }">
         <div class="flex">
+            {% if Configs.user_mode == 'teams' %}
             <a :class="{'border-b border-blue-500 text-white': currentPath === '/teams', 'hover:text-white text-slate-300': currentPath !== '/teams'}" class="p-2" href="/teams">
-                <i class="bi bi-house-door-fill"></i> Home
+                <i class="bi bi-house-door-fill"></i> Teams
             </a>
+            {% endif %}
             <a :class="{'border-b border-blue-500 text-white': currentPath === '/challenges', 'hover:text-white text-slate-300': currentPath !== '/challenges'}" class="p-2" href="/challenges">
                 <i class="bi bi-award-fill"></i> Challenges
             </a>
@@ -286,7 +304,7 @@ color: white !important;
                 <i class="bi bi-person-fill"></i> Profile
             </a>
             {% if is_admin() %}
-            <a :class="{'border-b border-blue-500 text-white': currentPath === '/user', 'hover:text-white text-slate-300': currentPath !== '/user'}" class="p-2" href="/admin">
+            <a :class="{'border-b border-blue-500 text-white': currentPath === '/admin', 'hover:text-white text-slate-300': currentPath !== '/user'}" class="p-2" href="/admin">
                 <i class="bi bi-person-fill"></i> Admin Panel
             </a>
             {% endif %}
@@ -338,6 +356,8 @@ color: white !important;
         <div class="page-body px-10 md:px-20">
             {% block content %}
             {% endblock %}
+
+            {% include "components/snackbar.html" %}
         </div>
 
         <footer class="text-center py-5 text-sm text-slate-600">
@@ -348,9 +368,13 @@ color: white !important;
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
 
+    {% include "components/notifications.html" %}
+
     {% block scripts %}
     {{ Assets.js("assets/js/page.js") }}
     {% endblock %}
+
+
 
     {{ Plugins.scripts }}
 
